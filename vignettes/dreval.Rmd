@@ -1,0 +1,153 @@
+---
+title: "dreval"
+author:
+- name: Charlotte Soneson
+  affiliation:
+    - Friedrich Miescher Institute for Biomedical Research and 
+    SIB Swiss Institute of Bioinformatics, Basel, Switzerland.
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{dreval}
+  %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  chunk_output_type: console
+bibliography: dreval.bib
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+    collapse = TRUE,
+    eval = FALSE,
+    comment = "#>"
+)
+```
+
+```{r setup}
+library(dreval)
+```
+
+# Introduction
+
+The `dreval` package provides functionality to evaluate and compare several
+reduced dimension representations, in terms of how well they retain structure
+from the original, high-dimensional data set. Here, we illustrate its
+application to a single-cell RNA-seq data set of peripheral blood mononuclear
+cells (PBMCs), from the `TENxPBMCData` package.
+
+```{r}
+suppressPackageStartupMessages({
+    library(TENxPBMCData)
+    library(scater)
+    library(scran)
+    library(BiocSingular)
+})
+```
+
+# Data preparation
+
+We load the data set, which is stored in a `SingleCellExperiment` object,
+normalize and log-transform the provided counts, and apply three dimension
+reduction methods (PCA, t-SNE and UMAP).
+
+```{r}
+sce <- TENxPBMCData(dataset = "pbmc3k")
+colnames(sce) <- paste0("Cell", seq_len(ncol(sce)))
+rownames(sce) <- scater::uniquifyFeatureNames(
+    ID = rowData(sce)$ENSEMBL_ID,
+    names = rowData(sce)$Symbol_TENx
+)
+sce <- scran::computeSumFactors(sce, min.mean = 0.1)
+sce <- scater::normalize(sce)
+logcounts(sce) <- as.matrix(logcounts(sce))
+new.trend <- scran::makeTechTrend(x = sce)
+fit <- scran::trendVar(sce, use.spikes = FALSE, loess.args = list(span = 0.05))
+fit$trend <- new.trend
+dec <- scran::decomposeVar(fit = fit)
+top.dec <- dec[order(dec$bio, decreasing = TRUE), ] 
+keep.genes <- rownames(top.dec[top.dec$bio > 0.01, ])
+set.seed(1000)
+sce <- scran::denoisePCA(sce, technical = new.trend, 
+                         subset.row = keep.genes, BSPARAM = IrlbaParam())
+reducedDims(sce)$PCA_k2 <- reducedDims(sce)$PCA[, 1:2]
+set.seed(1000)
+sce <- scater::runTSNE(sce, use_dimred = "PCA", perplexity = 30)
+set.seed(1000)
+sce <- scater::runUMAP(sce, use_dimred = "PCA")
+```
+
+# Evaluation
+
+Next, we use the `dreval` function to calculate several metrics comparing each
+of the reduced dimension representations in the `SingleCellExperiment` object to
+the underlying data. The following metrics are calculated:
+
+- SpearmanCorrEuclDist - The Spearman correlation between the original,
+high-dimensional Euclidean distances and the Euclidean distances in the
+low-dimensional representation.
+- PearsonCorrEuclDist - The Pearson correlation between the original,
+high-dimensional Euclidean distances and the Euclidean distances in the
+low-dimensional representation.
+- EuclDistToEuclDist - The Euclidean distance between the vector of Euclidean
+distances in the original, high-dimensional data and those in the
+low-dimensional representation. If the `distNorm` argument is set to `TRUE`, the
+Euclidean distance vectors are normalized to have an L2 norm equal to 1 before
+the distance between them is calculated.
+- SammonStress - The Sammon stress. If the `distNorm` argument is set to TRUE,
+the Euclidean distance vectors are normalized to have an L2 norm equal to 1
+before the stress is calculated.
+- TrustworthinessEuclDist_kNN - The trustworthiness score [@Kaski2003], using NN
+nearest neighbors. The trustworthiness indicates to which degree we can trust
+that the points placed closest to a given sample in the low-dimensional
+representation are really close to the sample also in the original data set.
+- ContinuityEuclDist_kNN - The continuity score [@Kaski2003], using NN nearest
+neighbors. The continuity indicates to which degree we can trust that the points
+closest to a given sample in the original data set are placed close to the
+sample also in the low-dimensional representation.
+
+```{r}
+dreval(sce = sce, assay = "logcounts", dimReds = NULL, 
+       features = keep.genes, nSamples = NULL, kTM = c(25, 100), 
+       verbose = FALSE)
+```
+
+# Computational efficiency
+
+`dreval` relies heavily on the calculation of pairwise distances among samples,
+and thus is computationally demanding for large data sets. The `dreval` function
+allows for subsampling a smaller number of samples, as well as a selection of a
+subset of the variables, to speed up calculations and reduce the memory
+footprint. Here we investigate the stability of the calculated metrics as
+decreasing number of samples are selected.
+
+```{r}
+suppressPackageStartupMessages({
+    library(dplyr)
+    library(tidyr)
+    library(ggplot2)
+})
+
+set.seed(1)
+nS <- c(100, 250, 500, 1000, 1250, 1500, 2000, 2700)
+nR <- 3
+v <- lapply(nS, function(n) {
+    lapply(1:nR, function(i) {
+        message(n, " samples, replicate ", i)
+        dreval(sce = sce, assay = "logcounts", dimReds = NULL,
+               features = keep.genes, nSamples = n, kTM = c(25, 100),
+               verbose = FALSE) %>%
+            dplyr::mutate(nSamples = n, replicate = i)
+    })
+})
+vv <- do.call(dplyr::bind_rows, v)
+
+vv <- vv %>% tidyr::gather(key = "measure", value = "value", 
+                           -Method, -dimensionality, -nSamples, -replicate)
+
+
+ggplot(vv, aes(x = nSamples, y = value, color = Method)) + 
+    geom_point(size = 3) + facet_wrap(~ measure, scales = "free_y") + 
+    geom_smooth(se = FALSE) + theme_bw()
+```
+

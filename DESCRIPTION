@@ -1,0 +1,23 @@
+Package: dreval
+Type: Package
+Title: Evaluate Reduced Dimension Representations
+Version: 0.1.0
+Authors@R: c(person("Charlotte", "Soneson", role=c("aut", "cre"), 
+                    email="charlottesoneson@gmail.com", 
+                    comment = c(ORCID = '0000-0003-3833-2169')))
+Description: Evaluate and compare multiple reduced dimension 
+    representations, based on how well they retain structure from 
+    the original data set.
+License: MIT + file LICENSE
+Encoding: UTF-8
+Imports: 
+    SingleCellExperiment,
+    stats,
+    SummarizedExperiment,
+    dplyr
+RoxygenNote: 6.1.1
+Suggests: 
+    knitr,
+    rmarkdown,
+    testthat
+VignetteBuilder: knitr
