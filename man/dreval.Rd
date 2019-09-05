@@ -6,7 +6,7 @@
 \usage{
 dreval(sce, dimReds = NULL, assay = "logcounts", features = NULL,
   nSamples = NULL, distNorm = FALSE, highDimDistMethod = "euclidean",
-  kTM = c(10, 100), verbose = FALSE)
+  kTM = c(10, 100), labelColumn = NULL, verbose = FALSE)
 }
 \arguments{
 \item{sce}{A \code{SingleCellExperiment} object.}
@@ -35,6 +35,9 @@ low-dimensional representation will always be Euclidean.}
 
 \item{kTM}{An integer vector giving the number of neighbors to use for
 trustworthiness and continuity calculations.}
+
+\item{labelColumn}{A character scalar defining a column of
+\code{colData(sce)} to use as the basis for silhouette width calculations.}
 
 \item{verbose}{A logical scalar, whether to print out progress messages.}
 }
@@ -69,6 +72,12 @@ A \code{data.frame} with values for all evaluation metrics, across
   using NN nearest neighbors. The continuity indicates to which degree we can
   trust that the points closest to a given sample in the original data set
   are placed close to the sample also in the low-dimensional representation.
+  \item MeanJaccard_kNN - The mean Jaccard index (over all samples),
+  comparing the set of NN nearest neighbors in the original data and those in
+  the low-dimensional representation.
+  \item MeanSilhouette_X - If a \code{labelColumn} is supplied, the mean
+  silhouette index across all samples, with the grouping given by this column
+  and the distances obtained from the low-dimensional representation.
   }
 }
 \description{

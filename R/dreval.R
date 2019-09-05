@@ -22,6 +22,8 @@
 #'   low-dimensional representation will always be Euclidean.
 #' @param kTM An integer vector giving the number of neighbors to use for
 #'   trustworthiness and continuity calculations.
+#' @param labelColumn A character scalar defining a column of
+#'   \code{colData(sce)} to use as the basis for silhouette width calculations.
 #' @param verbose A logical scalar, whether to print out progress messages.
 #'
 #' @author Charlotte Soneson
@@ -61,6 +63,9 @@
 #'   \item MeanJaccard_kNN - The mean Jaccard index (over all samples),
 #'   comparing the set of NN nearest neighbors in the original data and those in
 #'   the low-dimensional representation.
+#'   \item MeanSilhouette_X - If a \code{labelColumn} is supplied, the mean
+#'   silhouette index across all samples, with the grouping given by this column
+#'   and the distances obtained from the low-dimensional representation.
 #'   }
 #'
 #' @references Kaski, S., Nikkilä, J., Oja, M., Venna, J., Törönen, P., and
@@ -68,7 +73,8 @@
 #'   of gene expression. BMC Bioinformatics 4:48.
 #'
 #' @importFrom SingleCellExperiment reducedDims reducedDimNames
-#' @importFrom SummarizedExperiment assays
+#' @importFrom SummarizedExperiment assays colData
+#' @importFrom cluster silhouette
 #' @importFrom stats cor
 #' @importFrom dplyr bind_rows
 #' @importFrom wordspace dist.matrix
@@ -76,7 +82,8 @@
 dreval <- function(
     sce, dimReds = NULL, assay = "logcounts",
     features = NULL, nSamples = NULL, distNorm = FALSE,
-    highDimDistMethod = "euclidean", kTM = c(10, 100), verbose = FALSE) {
+    highDimDistMethod = "euclidean", kTM = c(10, 100),
+    labelColumn = NULL, verbose = FALSE) {
 
     ## Initialize list to hold results
     results <- lapply(dimReds, function(m) list())
@@ -203,6 +210,17 @@ dreval <- function(
             unin <- colSums(sign((euclRankOriginal <= k) + (euclRankLowDim <= k)))
             jaccs <- intrs/unin
             results[[dr]][[paste0("MeanJaccard_k", k)]] <- mean(jaccs)
+        }
+
+        ## Silhouette index relative to known labels
+        if (!is.null(labelColumn) && labelColumn %in%
+            colnames(SummarizedExperiment::colData(sce)) &&
+            length(unique(SummarizedExperiment::colData(sce)[[labelColumn]])) >= 2) {
+            silh <- cluster::silhouette(
+                x = as.numeric(as.factor(SummarizedExperiment::colData(sce)[[labelColumn]])),
+                dist = euclDistLowDim
+            )
+            results[[dr]][[paste0("MeanSilhouette_", labelColumn)]] <- summary(silh)$avg.width
         }
 
     }

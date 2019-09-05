@@ -108,6 +108,9 @@ sample also in the low-dimensional representation.
 - MeanJaccard_kNN - The mean Jaccard index (over all samples), comparing the set
 of NN nearest neighbors in the original data and those in the low-dimensional
 representation.
+- MeanSilhouette_X - If a `labelColumn` is supplied, the mean silhouette index
+across all samples, with the grouping given by this column and the distances
+obtained from the low-dimensional representation.
 
 ```{r}
 dreval(sce = sce, assay = "logcounts", dimReds = NULL, 

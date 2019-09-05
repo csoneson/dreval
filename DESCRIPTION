@@ -15,10 +15,12 @@ Imports:
     stats,
     SummarizedExperiment,
     dplyr,
-    wordspace
+    wordspace,
+    cluster
 RoxygenNote: 6.1.1
 Suggests: 
     knitr,
     rmarkdown,
-    testthat
+    testthat (>= 2.1.0),
+    TENxPBMCData
 VignetteBuilder: knitr
