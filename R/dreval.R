@@ -73,6 +73,8 @@
 #'   \item MeanSilhouette_X - If a \code{labelColumn} is supplied, the mean
 #'   silhouette index across all samples, with the grouping given by this column
 #'   and the distances obtained from the low-dimensional representation.
+#'   \item coRankingQlocal - Q_local as calculated by the coRanking package.
+#'   \item coRankingQglobal - Q_global as calculated by the coRanking package.
 #'   }
 #'
 #' @references Kaski, S., Nikkilä, J., Oja, M., Venna, J., Törönen, P., and
@@ -85,6 +87,7 @@
 #' @importFrom stats cor
 #' @importFrom dplyr bind_rows
 #' @importFrom wordspace dist.matrix
+#' @importFrom coRanking coranking LCMC
 #'
 dreval <- function(
     sce, dimReds = NULL, assay = "logcounts",
@@ -230,6 +233,16 @@ dreval <- function(
             results[[dr]][[paste0("MeanSilhouette_", labelColumn)]] <- summary(silh)$avg.width
         }
 
+        ## Coranking (with the coRanking package)
+        qt <- coRanking::coranking(Xi = as.matrix(euclDistOriginal),
+                                   X = as.matrix(euclDistLowDim),
+                                   input = "dist")
+        lcmc <- coRanking::LCMC(qt)
+        Kmax <- which.max(lcmc)
+        qlocal <- mean(lcmc[seq(from = 1, to = Kmax, by = 1)])
+        qglobal <- mean(lcmc[seq(from = Kmax + 1, to = length(lcmc), by = 1)])
+        results[[dr]][[paste0("coRankingQlocal")]] <- qlocal
+        results[[dr]][[paste0("coRankingQglobal")]] <- qglobal
     }
 
     results <- do.call(dplyr::bind_rows, lapply(names(results), function(nm) {

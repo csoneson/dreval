@@ -16,7 +16,8 @@ Imports:
     SummarizedExperiment,
     dplyr,
     wordspace,
-    cluster
+    cluster,
+    coRanking
 RoxygenNote: 6.1.1
 Suggests: 
     knitr,

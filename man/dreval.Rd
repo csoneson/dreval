@@ -78,11 +78,20 @@ A \code{data.frame} with values for all evaluation metrics, across
   \item MeanSilhouette_X - If a \code{labelColumn} is supplied, the mean
   silhouette index across all samples, with the grouping given by this column
   and the distances obtained from the low-dimensional representation.
+  \item coRankingQlocal - Q_local as calculated by the coRanking package.
+  \item coRankingQglobal - Q_global as calculated by the coRanking package.
   }
 }
 \description{
 Calculate several goodness-of-fit metrics for one or multiple reduced
-dimension representations.
+dimension representations. The function takes a \code{SingleCellExperiment}
+object as input, and will use one of the included assays and some or all of
+the included reduced dimension representations for the evaluation. The
+"original" distances are calculated from the indicated assay, using the
+specified variables (or all, if no variables are specified) and a subset of
+the samples (or all, if nSamples is not specified). These distances are then
+compared to distances calculated from the specified reduced dimension
+representations, and several scores are returned.
 }
 \references{
 Kaski, S., Nikkilä, J., Oja, M., Venna, J., Törönen, P., and

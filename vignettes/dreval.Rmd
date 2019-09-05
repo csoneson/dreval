@@ -111,6 +111,8 @@ representation.
 - MeanSilhouette_X - If a `labelColumn` is supplied, the mean silhouette index
 across all samples, with the grouping given by this column and the distances
 obtained from the low-dimensional representation.
+- coRankingQlocal - Q_local as calculated by the coRanking package [@Chen2006; @Kraemer2018].
+- coRankingQglobal - Q_global as calculated by the coRanking package [@Chen2006; @Kraemer2018].
 
 ```{r}
 dreval(sce = sce, assay = "logcounts", dimReds = NULL, 
