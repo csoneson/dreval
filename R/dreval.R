@@ -1,7 +1,14 @@
 #' Evaluate dimension reduction methods
 #'
 #' Calculate several goodness-of-fit metrics for one or multiple reduced
-#' dimension representations.
+#' dimension representations. The function takes a \code{SingleCellExperiment}
+#' object as input, and will use one of the included assays and some or all of
+#' the included reduced dimension representations for the evaluation. The
+#' "original" distances are calculated from the indicated assay, using the
+#' specified variables (or all, if no variables are specified) and a subset of
+#' the samples (or all, if nSamples is not specified). These distances are then
+#' compared to distances calculated from the specified reduced dimension
+#' representations, and several scores are returned.
 #'
 #' @param sce A \code{SingleCellExperiment} object.
 #' @param dimReds A character vector giving the names of the reduced dimension
