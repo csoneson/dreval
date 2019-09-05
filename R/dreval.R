@@ -58,6 +58,9 @@
 #'   using NN nearest neighbors. The continuity indicates to which degree we can
 #'   trust that the points closest to a given sample in the original data set
 #'   are placed close to the sample also in the low-dimensional representation.
+#'   \item MeanJaccard_kNN - The mean Jaccard index (over all samples),
+#'   comparing the set of NN nearest neighbors in the original data and those in
+#'   the low-dimensional representation.
 #'   }
 #'
 #' @references Kaski, S., Nikkilä, J., Oja, M., Venna, J., Törönen, P., and
@@ -133,7 +136,7 @@ dreval <- function(
 
         ## Euclidean distances
         if (verbose) message("  Calculating Euclidean distances...")
-        euclDistLowDim <- wordspace::dist.matrix(dimRedMat, method = "euclidean",
+        euclDistLowDim <- wordspace::dist.matrix(as.matrix(dimRedMat), method = "euclidean",
                                                  as.dist = TRUE, byrow = TRUE,
                                                  convert = FALSE)
         # euclDistLowDim <- stats::dist(dimRedMat)
@@ -191,6 +194,15 @@ dreval <- function(
                 kTM = k
             )
             results[[dr]][[paste0("ContinuityEuclDist_k", k)]] <- ct
+        }
+
+        ## Jaccard index of nearest neighbors
+        for (k in kTM) {
+            if (verbose) message("  Calculating Jaccard index of nearest neighbors, k=", k)
+            intrs <- colSums((euclRankOriginal <= k) * (euclRankLowDim <= k))
+            unin <- colSums(sign((euclRankOriginal <= k) + (euclRankLowDim <= k)))
+            jaccs <- intrs/unin
+            results[[dr]][[paste0("MeanJaccard_k", k)]] <- mean(jaccs)
         }
 
     }

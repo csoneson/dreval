@@ -1,10 +1,6 @@
 ---
 title: "dreval"
-author:
-- name: Charlotte Soneson
-  affiliation:
-    - Friedrich Miescher Institute for Biomedical Research and 
-    SIB Swiss Institute of Bioinformatics, Basel, Switzerland.
+author: "Charlotte Soneson"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
@@ -109,6 +105,9 @@ representation are really close to the sample also in the original data set.
 neighbors. The continuity indicates to which degree we can trust that the points
 closest to a given sample in the original data set are placed close to the
 sample also in the low-dimensional representation.
+- MeanJaccard_kNN - The mean Jaccard index (over all samples), comparing the set
+of NN nearest neighbors in the original data and those in the low-dimensional
+representation.
 
 ```{r}
 dreval(sce = sce, assay = "logcounts", dimReds = NULL, 
@@ -155,3 +154,10 @@ ggplot(vv, aes(x = nSamples, y = value, color = Method)) +
     geom_smooth(se = FALSE) + theme_bw()
 ```
 
+# Session info
+
+```{r}
+sessionInfo()
+```
+
+# References
