@@ -5,8 +5,8 @@
 \title{Evaluate dimension reduction methods}
 \usage{
 dreval(sce, dimReds = NULL, assay = "logcounts", features = NULL,
-  nSamples = NULL, distNorm = FALSE, kTM = c(10, 100),
-  verbose = FALSE)
+  nSamples = NULL, distNorm = FALSE, highDimDistMethod = "euclidean",
+  kTM = c(10, 100), verbose = FALSE)
 }
 \arguments{
 \item{sce}{A \code{SingleCellExperiment} object.}
@@ -25,7 +25,13 @@ distance calculations from the chosen assay.}
 
 \item{distNorm}{A logical scalar, whether the distance vectors should be L2
 normalized before the Sammon stress and the Euclidean distance between them
-is calculated.}
+is calculated. If set to FALSE, they are instead divided by the square root
+of their length.}
+
+\item{highDimDistMethod}{A character scalar defining the distance measure to
+use in the original (high-dimensional) data. Must be one of "euclidean",
+"manhattan", "maximum", "canberra", "cosine". The distance in the
+low-dimensional representation will always be Euclidean.}
 
 \item{kTM}{An integer vector giving the number of neighbors to use for
 trustworthiness and continuity calculations.}

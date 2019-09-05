@@ -14,7 +14,12 @@
 #'   (randomly) from the \code{sce}.
 #' @param distNorm A logical scalar, whether the distance vectors should be L2
 #'   normalized before the Sammon stress and the Euclidean distance between them
-#'   is calculated.
+#'   is calculated. If set to FALSE, they are instead divided by the square root
+#'   of their length.
+#' @param highDimDistMethod A character scalar defining the distance measure to
+#'   use in the original (high-dimensional) data. Must be one of "euclidean",
+#'   "manhattan", "maximum", "canberra", "cosine". The distance in the
+#'   low-dimensional representation will always be Euclidean.
 #' @param kTM An integer vector giving the number of neighbors to use for
 #'   trustworthiness and continuity calculations.
 #' @param verbose A logical scalar, whether to print out progress messages.
@@ -68,7 +73,7 @@
 dreval <- function(
     sce, dimReds = NULL, assay = "logcounts",
     features = NULL, nSamples = NULL, distNorm = FALSE,
-    kTM = c(10, 100), verbose = FALSE) {
+    highDimDistMethod = "euclidean", kTM = c(10, 100), verbose = FALSE) {
 
     ## Initialize list to hold results
     results <- lapply(dimReds, function(m) list())
@@ -105,8 +110,9 @@ dreval <- function(
     ## Calculate Euclidean distances for the original data
     if (verbose) message("Calculating original Euclidean distances...")
     mat <- as.matrix(SummarizedExperiment::assays(sce)[[assay]])
-    euclDistOriginal <- wordspace::dist.matrix(t(mat), method = "euclidean",
-                                               as.dist = TRUE)
+    euclDistOriginal <- wordspace::dist.matrix(mat, method = highDimDistMethod,
+                                               as.dist = TRUE, byrow = FALSE,
+                                               convert = FALSE)
     # euclDistOriginal <- stats::dist(t(mat))
 
     ## Get the rank for each sample compared to each other sample In each
@@ -128,7 +134,8 @@ dreval <- function(
         ## Euclidean distances
         if (verbose) message("  Calculating Euclidean distances...")
         euclDistLowDim <- wordspace::dist.matrix(dimRedMat, method = "euclidean",
-                                                 as.dist = TRUE)
+                                                 as.dist = TRUE, byrow = TRUE,
+                                                 convert = FALSE)
         # euclDistLowDim <- stats::dist(dimRedMat)
 
         ## Correlation with original-space distances
