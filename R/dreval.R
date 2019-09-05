@@ -36,10 +36,14 @@
 #'   Euclidean distances in the original, high-dimensional data and those in the
 #'   low-dimensional representation. If \code{distNorm} is TRUE, the Euclidean
 #'   distance vectors are normalized to have an L2 norm equal to 1 before the
-#'   distance between them is calculated.
+#'   distance between them is calculated. If \code{distNorm} is FALSE, the
+#'   distance vectors are instead divided by the square root of their length, to
+#'   make the value independent of the number of samples.
 #'   \item SammonStress - The Sammon stress. If \code{distNorm} is TRUE, the
 #'   Euclidean distance vectors are normalized to have an L2 norm equal to 1
-#'   before the stress is calculated.
+#'   before the stress is calculated. If \code{distNorm} is FALSE, the distance
+#'   vectors are instead divided by the square root of their length, to make the
+#'   value independent of the number of samples.
 #'   \item TrustworthinessEuclDist_kNN - The trustworthiness score (Kaski et al.
 #'   2003), using NN nearest neighbors. The trustworthiness indicates to which
 #'   degree we can trust that the points placed closest to a given sample in the
@@ -57,8 +61,9 @@
 #'
 #' @importFrom SingleCellExperiment reducedDims reducedDimNames
 #' @importFrom SummarizedExperiment assays
-#' @importFrom stats cor dist
+#' @importFrom stats cor
 #' @importFrom dplyr bind_rows
+#' @importFrom wordspace dist.matrix
 #'
 dreval <- function(
     sce, dimReds = NULL, assay = "logcounts",
@@ -100,7 +105,9 @@ dreval <- function(
     ## Calculate Euclidean distances for the original data
     if (verbose) message("Calculating original Euclidean distances...")
     mat <- as.matrix(SummarizedExperiment::assays(sce)[[assay]])
-    euclDistOriginal <- stats::dist(t(mat))
+    euclDistOriginal <- wordspace::dist.matrix(t(mat), method = "euclidean",
+                                               as.dist = TRUE)
+    # euclDistOriginal <- stats::dist(t(mat))
 
     ## Get the rank for each sample compared to each other sample In each
     ## column, the row with the value 1 corresponds to the nearest neighbor,
@@ -120,7 +127,9 @@ dreval <- function(
 
         ## Euclidean distances
         if (verbose) message("  Calculating Euclidean distances...")
-        euclDistLowDim <- stats::dist(dimRedMat)
+        euclDistLowDim <- wordspace::dist.matrix(dimRedMat, method = "euclidean",
+                                                 as.dist = TRUE)
+        # euclDistLowDim <- stats::dist(dimRedMat)
 
         ## Correlation with original-space distances
         if (verbose) message("  Calculating Spearman correlations...")
@@ -140,8 +149,8 @@ dreval <- function(
             distNormOriginal <- sqrt(sum(euclDistOriginal^2))
             distNormLowDim <- sqrt(sum(euclDistLowDim^2))
         } else {
-            distNormOriginal <- 1
-            distNormLowDim <- 1
+            distNormOriginal <- sqrt(length(euclDistOriginal))
+            distNormLowDim <- sqrt(length(euclDistLowDim))
         }
         results[[dr]]$EuclDistToEuclDist <-
             sqrt(sum(((euclDistOriginal/distNormOriginal) -
@@ -153,7 +162,7 @@ dreval <- function(
             1/sum(euclDistOriginal/distNormOriginal) *
             sum(((euclDistOriginal/distNormOriginal -
                       euclDistLowDim/distNormLowDim) ^ 2)/
-                    euclDistOriginal/distNormOriginal)
+                    (euclDistOriginal/distNormOriginal))
 
         ## Trustworthiness and continuity
         if (verbose) message("  Calculating ranks from low-dim data...")

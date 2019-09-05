@@ -14,7 +14,8 @@ Imports:
     SingleCellExperiment,
     stats,
     SummarizedExperiment,
-    dplyr
+    dplyr,
+    wordspace
 RoxygenNote: 6.1.1
 Suggests: 
     knitr,

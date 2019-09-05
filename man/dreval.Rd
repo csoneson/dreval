@@ -46,10 +46,14 @@ A \code{data.frame} with values for all evaluation metrics, across
   Euclidean distances in the original, high-dimensional data and those in the
   low-dimensional representation. If \code{distNorm} is TRUE, the Euclidean
   distance vectors are normalized to have an L2 norm equal to 1 before the
-  distance between them is calculated.
+  distance between them is calculated. If \code{distNorm} is FALSE, the
+  distance vectors are instead divided by the square root of their length, to
+  make the value independent of the number of samples.
   \item SammonStress - The Sammon stress. If \code{distNorm} is TRUE, the
   Euclidean distance vectors are normalized to have an L2 norm equal to 1
-  before the stress is calculated.
+  before the stress is calculated. If \code{distNorm} is FALSE, the distance
+  vectors are instead divided by the square root of their length, to make the
+  value independent of the number of samples.
   \item TrustworthinessEuclDist_kNN - The trustworthiness score (Kaski et al.
   2003), using NN nearest neighbors. The trustworthiness indicates to which
   degree we can trust that the points placed closest to a given sample in the
