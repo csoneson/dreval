@@ -30,47 +30,11 @@ The `dreval` package provides functionality to evaluate and compare several
 reduced dimension representations, in terms of how well they retain structure
 from the original, high-dimensional data set. Here, we illustrate its
 application to a single-cell RNA-seq data set of peripheral blood mononuclear
-cells (PBMCs), from the `TENxPBMCData` package.
+cells (PBMCs), which was obtained from the `TENxPBMCData` package and processed
+as described in `scripts/prepare-pbmc3ksub.R`.
 
 ```{r}
-suppressPackageStartupMessages({
-    library(TENxPBMCData)
-    library(scater)
-    library(scran)
-    library(BiocSingular)
-})
-```
-
-# Data preparation
-
-We load the data set, which is stored in a `SingleCellExperiment` object,
-normalize and log-transform the provided counts, and apply three dimension
-reduction methods (PCA, t-SNE and UMAP).
-
-```{r}
-sce <- TENxPBMCData(dataset = "pbmc3k")
-colnames(sce) <- paste0("Cell", seq_len(ncol(sce)))
-rownames(sce) <- scater::uniquifyFeatureNames(
-    ID = rowData(sce)$ENSEMBL_ID,
-    names = rowData(sce)$Symbol_TENx
-)
-sce <- scran::computeSumFactors(sce, min.mean = 0.1)
-sce <- scater::normalize(sce)
-logcounts(sce) <- as.matrix(logcounts(sce))
-new.trend <- scran::makeTechTrend(x = sce)
-fit <- scran::trendVar(sce, use.spikes = FALSE, loess.args = list(span = 0.05))
-fit$trend <- new.trend
-dec <- scran::decomposeVar(fit = fit)
-top.dec <- dec[order(dec$bio, decreasing = TRUE), ] 
-keep.genes <- rownames(top.dec[top.dec$bio > 0.01, ])
-set.seed(1000)
-sce <- scran::denoisePCA(sce, technical = new.trend, 
-                         subset.row = keep.genes, BSPARAM = IrlbaParam())
-reducedDims(sce)$PCA_k2 <- reducedDims(sce)$PCA[, 1:2]
-set.seed(1000)
-sce <- scater::runTSNE(sce, use_dimred = "PCA", perplexity = 30)
-set.seed(1000)
-sce <- scater::runUMAP(sce, use_dimred = "PCA")
+data(pbmc3ksub)
 ```
 
 # Evaluation
@@ -115,9 +79,8 @@ obtained from the low-dimensional representation.
 - coRankingQglobal - Q_global as calculated by the coRanking package [@Chen2006; @Kraemer2018].
 
 ```{r}
-dreval(sce = sce, assay = "logcounts", dimReds = NULL, 
-       features = keep.genes, nSamples = NULL, kTM = c(25, 100), 
-       verbose = FALSE)
+dreval(sce = pbmc3ksub, assay = "logcounts", dimReds = NULL, 
+       nSamples = NULL, kTM = c(25, 100), verbose = FALSE)
 ```
 
 # Computational efficiency
@@ -142,9 +105,8 @@ nR <- 3
 v <- lapply(nS, function(n) {
     lapply(1:nR, function(i) {
         message(n, " samples, replicate ", i)
-        dreval(sce = sce, assay = "logcounts", dimReds = NULL,
-               features = keep.genes, nSamples = n, kTM = c(25, 100),
-               verbose = FALSE) %>%
+        dreval(sce = pbmc3ksub, assay = "logcounts", dimReds = NULL,
+               nSamples = n, kTM = c(25, 100), verbose = FALSE) %>%
             dplyr::mutate(nSamples = n, replicate = i)
     })
 })

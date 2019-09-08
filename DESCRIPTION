@@ -17,7 +17,8 @@ Imports:
     dplyr,
     wordspace,
     cluster,
-    coRanking
+    coRanking,
+    methods
 RoxygenNote: 6.1.1
 Suggests: 
     knitr,
