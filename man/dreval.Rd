@@ -52,44 +52,48 @@ A \code{data.frame} with values of all evaluation metrics, across
   \itemize{
   \item SpearmanCorrDist - The Spearman correlation between the original,
   high-dimensional distances and the Euclidean distances in the
-  low-dimensional representation.
+  low-dimensional representation. Higher values are better.
   \item PearsonCorrDist - The Pearson correlation between the original,
   high-dimensional distances and the Euclidean distances in the
-  low-dimensional representation.
+  low-dimensional representation. Higher values are better.
   \item KSstatDist - The Kolmogorov-Smirnov statistic comparing the
   distribution of distances in the original space and in the low-dimensional
-  representation.
+  representation. Lower values are better.
   \item EuclDistBetweenDists - The Euclidean distance between the vector of
   distances in the original, high-dimensional space and those in the
   low-dimensional representation. If \code{distNorm} is TRUE, the Euclidean
   distance vectors are normalized to have an L2 norm equal to 1 before the
   distance between them is calculated. If \code{distNorm} is FALSE, the
   distance vectors are instead divided by the square root of their length, to
-  minimize the influence of the number of samples.
+  minimize the influence of the number of samples. Lower values are better.
   \item SammonStress - The Sammon stress. If \code{distNorm} is TRUE, the
   Euclidean distance vectors are normalized to have an L2 norm equal to 1
   before the stress is calculated. If \code{distNorm} is FALSE, the distance
   vectors are instead divided by the square root of their length, to minimize
-  the influence of the number of samples.
+  the influence of the number of samples. Lower values are better.
   \item Trustworthiness_kNN - The trustworthiness score (Kaski et al. 2003),
   using NN nearest neighbors. The trustworthiness indicates to which degree
   we can trust that the points placed closest to a given sample in the
   low-dimensional representation are really close to the sample also in the
-  original space.
+  original space. Higher values are better.
   \item Continuity_kNN - The continuity score (Kaski et al. 2003), using NN
   nearest neighbors. The continuity indicates to which degree we can trust
   that the points closest to a given sample in the original space are placed
-  close to the sample also in the low-dimensional representation.
+  close to the sample also in the low-dimensional representation. Higher
+  values are better.
   \item MeanJaccard_kNN - The mean Jaccard index (over all samples),
   comparing the set of NN nearest neighbors in the original space and those
-  in the low-dimensional representation.
+  in the low-dimensional representation. Higher values are better.
   \item MeanSilhouette_X - If a \code{labelColumn} X is supplied, the mean
   silhouette index across all samples, with the grouping given by this column
-  and the distances obtained from the low-dimensional representation.
+  and the distances obtained from the low-dimensional representation. Higher
+  values are better.
   \item coRankingQlocal - Q_local as calculated by the coRanking package
-  (Kraemer and Reichstein 2018, Lee et al. 2009, Chen and Buja 2006).
+  (Kraemer and Reichstein 2018, Lee et al. 2009, Chen and Buja 2006). Higher
+  values are better.
   \item coRankingQglobal - Q_global as calculated by the coRanking package
-  (Kraemer and Reichstein 2018, Lee et al. 2009, Chen and Buja 2006).
+  (Kraemer and Reichstein 2018, Lee et al. 2009, Chen and Buja 2006). Higher
+  values are better.
   }
 }
 \description{
