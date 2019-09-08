@@ -45,8 +45,17 @@ the underlying data. For a list of the calculated metrics, see the help page for
 `dreval()`.
 
 ```{r}
-dreval(sce = pbmc3ksub, assay = "logcounts", dimReds = NULL, 
-       nSamples = NULL, kTM = c(25, 100), verbose = FALSE)
+dre <- dreval(sce = pbmc3ksub, assay = "logcounts", dimReds = NULL, 
+              nSamples = NULL, kTM = c(25, 100), verbose = FALSE, 
+              distNorm = "l2")
+```
+
+# Result visualization
+
+```{r}
+dre$scores
+cowplot::plot_grid(plotlist = dre$plots$disthex)
+dre$plots$distcdf
 ```
 
 # Computational efficiency

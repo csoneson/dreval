@@ -26,10 +26,12 @@
 #'   names of the \code{sce}.
 #' @param nSamples A numeric scalar, giving the number of columns to subsample
 #'   (randomly) from the \code{sce}.
-#' @param distNorm A logical scalar, indicating whether the distance vectors in
-#'   the original and low-dimensional spaces should be L2 normalized before they
-#'   are compared. If set to FALSE, they are instead divided by the square root
-#'   of their length, to avoid metrics scaling with the number of retained
+#' @param distNorm A character scalar, indicating how the distance vectors in
+#'   the original and low-dimensional spaces should be normalized before they
+#'   are compared. If set to "l2", the vectors are L2 normalized, if set to
+#'   "median", they are divided by the median value times the square root of
+#'   their length, and if set to any other value, they are divided by the square
+#'   root of their length, to avoid metrics scaling with the number of retained
 #'   samples.
 #' @param highDimDistMethod A character scalar defining the distance measure to
 #'   use in the original (high-dimensional) space Must be one of "euclidean",
@@ -118,10 +120,11 @@
 #' @importFrom wordspace dist.matrix
 #' @importFrom coRanking coranking LCMC
 #' @importFrom methods is
+#' @importFrom ggplot2 ggplot aes geom_hex theme_bw labs scale_fill_gradient
 #'
 dreval <- function(
     sce, dimReds = NULL, assay = "logcounts",
-    features = NULL, nSamples = NULL, distNorm = FALSE,
+    features = NULL, nSamples = NULL, distNorm = "none",
     highDimDistMethod = "euclidean", kTM = c(10, 100),
     labelColumn = NULL, verbose = FALSE) {
 
@@ -148,8 +151,8 @@ dreval <- function(
         stop("There is no assay named ", assay, " in sce")
     }
 
-    if (!is.logical(distNorm)) {
-        stop("distNorm must be a logical value")
+    if (!is.character(distNorm)) {
+        stop("distNorm must be a character string")
     }
 
     if (!(highDimDistMethod %in% c("euclidean", "manhattan", "maximum",
@@ -210,6 +213,8 @@ dreval <- function(
     results <- lapply(dimReds, function(m) list())
     names(results) <- dimReds
 
+    plots <- list(disthex = list())
+
     ## --------------------------------------------------------------------- ##
     ## Calculate distances and ranks for the high-dimensional data
     ## --------------------------------------------------------------------- ##
@@ -229,11 +234,15 @@ dreval <- function(
     )
 
     ## Define normalization constant for distances
-    if (distNorm) {
+    if (distNorm == "l2") {
         distNormOriginal <- sqrt(sum(distOriginal^2))
+    } else if (distNorm == "median") {
+        distNormOriginal <- median(distOriginal) * sqrt(length(distOriginal))
     } else {
         distNormOriginal <- sqrt(length(distOriginal))
     }
+
+    distdf <- data.frame(original = c(distOriginal/distNormOriginal))
 
     ## --------------------------------------------------------------------- ##
     ## For each dimRed, calculate scores
@@ -262,11 +271,15 @@ dreval <- function(
             as.matrix(distLowDim), 2, function(w) order(order(w))
         )
 
-        if (distNorm) {
+        if (distNorm == "l2") {
             distNormLowDim <- sqrt(sum(distLowDim^2))
+        } else if (distNorm == "median") {
+            distNormLowDim <- median(distLowDim) * sqrt(length(distLowDim))
         } else {
             distNormLowDim <- sqrt(length(distLowDim))
         }
+
+        distdf[[dr]] <- c(distLowDim/distNormLowDim)
 
         ## ----------------------------------------------------------------- ##
         ## Correlation between distance vectors
@@ -281,6 +294,17 @@ dreval <- function(
             distOriginal, distLowDim,
             method = "pearson"
         )
+
+        plots$disthex[[dr]] <-
+            ggplot2::ggplot(data.frame(original = c(distOriginal/distNormOriginal),
+                                       lowdim = c(distLowDim/distNormLowDim)),
+                            ggplot2::aes(x = original, y = lowdim)) +
+            ggplot2::geom_hex(bins = 100, aes(fill = stat(density))) +
+            ggplot2::scale_fill_gradient(name = "", low = "bisque2", high = "darkblue") +
+            ggplot2::theme_bw() +
+            ggplot2::labs(title = dr, x = "Scaled distance in original space",
+                          y = "Scaled distance in low-dimensional space") +
+            ggplot2::geom_abline(slope = 1, intercept = 0)
 
         ## ----------------------------------------------------------------- ##
         ## Kolmogorov-Smirnov statistic comparing distance distributions
@@ -370,11 +394,17 @@ dreval <- function(
         results[[dr]][[paste0("coRankingQglobal")]] <- qglobal
     }
 
+    plots$distcdf <-
+        ggplot2::ggplot(distdf %>% tidyr::gather(key = "dr", value = "distance"),
+                        ggplot2::aes(x = distance, color = dr)) +
+        ggplot2::stat_ecdf() + ggplot2::theme_bw()
+
     results <- do.call(dplyr::bind_rows, lapply(names(results), function(nm) {
         data.frame(
             Method = nm, as.data.frame(results[[nm]]),
             stringsAsFactors = FALSE
         )
     }))
-    results
+
+    list(scores = results, plots = plots)
 }

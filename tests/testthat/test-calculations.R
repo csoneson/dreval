@@ -6,7 +6,7 @@ test_that("scores are calculated correctly", {
     sce <- pbmc3ksub[1:100, 1:100]
     dres <- dreval(
         sce = sce, dimReds = "PCA", assay = "logcounts",
-        features = NULL, nSamples = NULL, distNorm = TRUE,
+        features = NULL, nSamples = NULL, distNorm = "l2",
         highDimDistMethod = "euclidean", kTM = 5,
         labelColumn = NULL, verbose = FALSE
     )

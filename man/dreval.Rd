@@ -5,8 +5,9 @@
 \title{Evaluate dimension reduction methods}
 \usage{
 dreval(sce, dimReds = NULL, assay = "logcounts", features = NULL,
-  nSamples = NULL, distNorm = FALSE, highDimDistMethod = "euclidean",
-  kTM = c(10, 100), labelColumn = NULL, verbose = FALSE)
+  nSamples = NULL, distNorm = "none",
+  highDimDistMethod = "euclidean", kTM = c(10, 100),
+  labelColumn = NULL, verbose = FALSE)
 }
 \arguments{
 \item{sce}{A \code{SingleCellExperiment} object.}
@@ -25,10 +26,12 @@ names of the \code{sce}.}
 \item{nSamples}{A numeric scalar, giving the number of columns to subsample
 (randomly) from the \code{sce}.}
 
-\item{distNorm}{A logical scalar, indicating whether the distance vectors in
-the original and low-dimensional spaces should be L2 normalized before they
-are compared. If set to FALSE, they are instead divided by the square root
-of their length, to avoid metrics scaling with the number of retained
+\item{distNorm}{A character scalar, indicating how the distance vectors in
+the original and low-dimensional spaces should be normalized before they
+are compared. If set to "l2", the vectors are L2 normalized, if set to
+"median", they are divided by the median value times the square root of
+their length, and if set to any other value, they are divided by the square
+root of their length, to avoid metrics scaling with the number of retained
 samples.}
 
 \item{highDimDistMethod}{A character scalar defining the distance measure to
