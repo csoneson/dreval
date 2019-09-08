@@ -253,7 +253,7 @@ dreval <- function(
         ## Get the rank for each sample compared to each other sample. In each
         ## column, the row with the value 1 corresponds to the nearest neighbor,
         ## the one with the value 2 to the second nearest neighbor, etc.
-        if (verbose) message("Getting ranks in low-dimensional space...")
+        if (verbose) message("  Getting ranks in low-dimensional space...")
         rankLowDim <- apply(
             as.matrix(distLowDim), 2, function(w) order(order(w))
         )
