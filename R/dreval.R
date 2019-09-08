@@ -178,6 +178,9 @@ dreval <- function(
     if (verbose) message("Subsampling columns...")
     if (!is.null(nSamples)) {
         nSamples <- min(nSamples, ncol(sce))
+        if (nSamples == 0) {
+            stop("nSamples must be >0")
+        }
         keep <- sample(seq_len(ncol(sce)), nSamples, replace = FALSE)
         sce <- sce[, keep]
     }

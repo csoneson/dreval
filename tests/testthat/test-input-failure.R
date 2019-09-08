@@ -1,3 +1,16 @@
+context("input arguments")
+
 test_that("dreval fails if the wrong arguments are provided", {
-  expect_equal(2*2, 4)
+    data(pbmc3ksub)
+    expect_error(dreval(pbmc3ksub, dimReds = "missing"))
+    expect_error(dreval(pbmc3ksub, assay = "missing"))
+    expect_error(dreval(pbmc3ksub, features = "missing"))
+    expect_error(dreval(pbmc3ksub, nSamples = 0))
+    expect_error(dreval(pbmc3ksub, distNorm = "yes"))
+    expect_error(dreval(pbmc3ksub, highDimDistMethod = "missing"))
+    expect_error(dreval(pbmc3ksub, kTM = "1"))
+    expect_error(dreval(pbmc3ksub, labelColumn = "missing"))
+    expect_error(dreval(pbmc3ksub, labelColumn = "Barcode"))
+    expect_error(dreval(pbmc3ksub, labelColumn = "Barcode_type"))
+    expect_error(dreval(pbmc3ksub, verbose = "TRUE"))
 })
