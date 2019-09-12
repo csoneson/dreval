@@ -4,13 +4,13 @@
 \alias{calcContinuityFromRank}
 \title{Calculate continuity based on sample rankings}
 \usage{
-calcContinuityFromRank(rankOriginal, rankLowDim, kTM)
+calcContinuityFromRank(rankReference, rankLowDim, kTM)
 }
 \arguments{
-\item{rankOriginal}{N x N matrix, each row/column corresponding to one
+\item{rankReference}{N x N matrix, each row/column corresponding to one
 sample. The value of entry (i, j) represents the position of sample i in
 the ranking of all samples with respect to their distance from sample j,
-based on the original (high-dimensional) observed values. The most similar
+based on the reference (high-dimensional) observed values. The most similar
 sample (i.e., sample j itself) has position 1.}
 
 \item{rankLowDim}{N x N matrix, each row/column corresponding to one sample.
@@ -28,9 +28,9 @@ The continuity value.
 The continuity was proposed by Kaski et al, as a local quality measure
 of a low-dimensional representation. The metric focuses on the preservation
 of local neighborhoods, and compares the neighborhoods of points in the
-low-dimensional representation to those in the original data. Hence, the
+low-dimensional representation to those in the reference data. Hence, the
 continuity measure indicates to which degree we can trust that the points
-closest to a given sample in the original data set are placed close to the
+closest to a given sample in the reference data set are placed close to the
 sample also in the low-dimensional representation. The \code{kTM} parameter
 defines the size of the neighborhoods to consider.
 }

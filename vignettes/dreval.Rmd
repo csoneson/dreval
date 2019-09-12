@@ -45,9 +45,9 @@ the underlying data. For a list of the calculated metrics, see the help page for
 `dreval()`.
 
 ```{r}
-dre <- dreval(sce = pbmc3ksub, assay = "logcounts", dimReds = NULL, 
-              nSamples = NULL, kTM = c(25, 100), verbose = FALSE, 
-              distNorm = "l2")
+dre <- dreval(sce = pbmc3ksub, refType = "assay", refAssay = "logcounts", 
+              dimReds = NULL, nSamples = 1000, kTM = c(25, 100), 
+              verbose = FALSE, distNorm = "l2")
 ```
 
 # Result visualization
@@ -55,8 +55,23 @@ dre <- dreval(sce = pbmc3ksub, assay = "logcounts", dimReds = NULL,
 ```{r}
 dre$scores
 cowplot::plot_grid(plotlist = dre$plots$disthex)
-dre$plots$distcdf
+plotRankSummary(dre$scores)
 ```
+
+In the example above, we used the original feature space ("logcounts" assay) as
+the reference space, to which all reduced dimension representations were
+compared. It is also possible to use one of the reduced dimension
+representations as the reference space, as we will illustrate here.
+
+```{r}
+dre <- dreval(sce = pbmc3ksub, refType = "dimred", refDimRed = "PCA", 
+              dimReds = NULL, nSamples = 1000, kTM = c(25, 100), 
+              verbose = FALSE, distNorm = "l2")
+dre$scores
+cowplot::plot_grid(plotlist = dre$plots$disthex)
+plotRankSummary(dre$scores)
+```
+
 
 # Computational efficiency
 

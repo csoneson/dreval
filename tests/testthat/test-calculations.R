@@ -5,13 +5,13 @@ test_that("scores are calculated correctly", {
     set.seed(1)
     sce <- pbmc3ksub[1:100, 1:100]
     dres <- dreval(
-        sce = sce, dimReds = "PCA", assay = "logcounts",
+        sce = sce, dimReds = "PCA", refType = "assay", refAssay = "logcounts",
         features = NULL, nSamples = NULL, distNorm = "l2",
         highDimDistMethod = "euclidean", kTM = 5,
         labelColumn = NULL, verbose = FALSE
     )
 
-    expect_equal(nrow(dres), 1)
+    expect_equal(nrow(dres$scores), 1)
 
     ## recalculate scores
     dists_orig <- wordspace::dist.matrix(
@@ -37,27 +37,27 @@ test_that("scores are calculated correctly", {
     k <- 5
 
     expect_equal(
-        dres$SpearmanCorrDist,
+        dres$scores$SpearmanCorrDist,
         cor(dists_orig, dists_lowdim, method = "spearman")
     )
     expect_equal(
-        dres$PearsonCorrDist,
+        dres$scores$PearsonCorrDist,
         cor(dists_orig, dists_lowdim, method = "pearson")
     )
     expect_equivalent(
-        dres$KSStatDist,
+        dres$scores$KSStatDist,
         ks.test(dists_orig, dists_lowdim)$statistic
     )
     expect_equal(
-        dres$EuclDistBetweenDists,
+        dres$scores$EuclDistBetweenDists,
         sqrt(sum((dists_orig - dists_lowdim) ^ 2))
     )
     expect_equal(
-        dres$SammonStress,
+        dres$scores$SammonStress,
         1/sum(dists_orig) * sum(((dists_orig - dists_lowdim) ^ 2)/dists_orig)
     )
     expect_equal(
-        dres$Trustworthiness_k5,
+        dres$scores$Trustworthiness_k5,
         1 - 2/(N * k * (2 * N - 3 * k - 1)) *
             sum(sapply(1:ncol(ranks_orig), function(i) {
                 (ranks_orig[, i] - k) * (ranks_lowdim[, i] <= k) *
@@ -65,7 +65,7 @@ test_that("scores are calculated correctly", {
             }))
     )
     expect_equal(
-        dres$Continuity_k5,
+        dres$scores$Continuity_k5,
         1 - 2/(N * k * (2 * N - 3 * k - 1)) *
             sum(sapply(1:ncol(ranks_lowdim), function(i) {
                 (ranks_lowdim[, i] - k) * (ranks_orig[, i] <= k) *
@@ -73,9 +73,9 @@ test_that("scores are calculated correctly", {
             }))
     )
     expect_equal(
-        dres$MeanJaccard_k5,
+        dres$scores$MeanJaccard_k5,
         mean(sapply(1:ncol(ranks_orig), function(i) {
-            length(intersect(which(ranks_orig[, i] <= k), which(ranks_lowdim[, i] <= k)))/
+            length(intersect(which(ranks_orig[, i] <= k), which(ranks_lowdim[, i] <= k))) /
                 length(union(which(ranks_orig[, i] <= k), which(ranks_lowdim[, i] <= k)))
         }))
     )
@@ -86,11 +86,11 @@ test_that("scores are calculated correctly", {
     lcmc <- coRanking::LCMC(qt)
     Kmax <- which.max(lcmc)
     expect_equal(
-        dres$coRankingQglobal,
+        dres$scores$coRankingQglobal,
         mean(lcmc[seq(from = Kmax + 1, to = length(lcmc), by = 1)])
     )
     expect_equal(
-        dres$coRankingQlocal,
+        dres$scores$coRankingQlocal,
         mean(lcmc[seq(from = 1, to = Kmax, by = 1)])
     )
 })

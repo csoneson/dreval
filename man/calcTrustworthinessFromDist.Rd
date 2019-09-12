@@ -4,11 +4,11 @@
 \alias{calcTrustworthinessFromDist}
 \title{Calculate trustworthiness based on distance matrices}
 \usage{
-calcTrustworthinessFromDist(distOriginal, distLowDim, kTM)
+calcTrustworthinessFromDist(distReference, distLowDim, kTM)
 }
 \arguments{
-\item{distOriginal}{N x N matrix or dist object, representing pairwise sample
-distances based on the original (high-dimensional) observed values.}
+\item{distReference}{N x N matrix or dist object, representing pairwise sample
+distances based on the reference (high-dimensional) observed values.}
 
 \item{kTM}{The number of nearest neighbors}
 
@@ -22,10 +22,10 @@ The trustworthiness value.
 The trustworthiness was proposed by Kaski et al, as a local quality measure
 of a low-dimensional representation. The metric focuses on the preservation
 of local neighborhoods, and compares the neighborhoods of points in the
-low-dimensional representation to those in the original data. Hence, the
+low-dimensional representation to those in the reference data. Hence, the
 trustworthiness measure indicates to which degree we can trust that the
 points placed closest to a given sample in the low-dimensional representation
-are really close to the sample also in the original data set. The \code{kTM}
+are really close to the sample also in the reference data set. The \code{kTM}
 parameter defines the size of the neighborhoods to consider.
 }
 \references{

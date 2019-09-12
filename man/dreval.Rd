@@ -4,7 +4,8 @@
 \alias{dreval}
 \title{Evaluate dimension reduction methods}
 \usage{
-dreval(sce, dimReds = NULL, assay = "logcounts", features = NULL,
+dreval(sce, dimReds = NULL, refType = "assay",
+  refAssay = "logcounts", refDimRed = NULL, features = NULL,
   nSamples = NULL, distNorm = "none",
   highDimDistMethod = "euclidean", kTM = c(10, 100),
   labelColumn = NULL, verbose = FALSE)
@@ -15,9 +16,17 @@ dreval(sce, dimReds = NULL, assay = "logcounts", features = NULL,
 \item{dimReds}{A character vector with the names of the reduced dimension
 representations from \code{sce} to include in the evaluation.}
 
-\item{assay}{A character scalar giving the name of the assay from the
+\item{refType}{A character scalar, either "assay" or "dimred", specifying
+whether to use an assay or a reduced dimension representation of \code{sce}
+as the "reference" data source.}
+
+\item{refAssay}{A character scalar giving the name of the assay from the
 \code{sce} to use as the basis for the distance calculations in the
-original space.}
+reference space, if \code{refType} if \code{"assay"}.}
+
+\item{refDimRed}{A character scalar specifying the reduced dimension
+representation to use as the "reference" data representation if
+\code{refType} is \code{"dimred"}.}
 
 \item{features}{A character vector giving the IDs of the features to use for
 distance calculations from the chosen assay. Will be matched to the row
@@ -27,7 +36,7 @@ names of the \code{sce}.}
 (randomly) from the \code{sce}.}
 
 \item{distNorm}{A character scalar, indicating how the distance vectors in
-the original and low-dimensional spaces should be normalized before they
+the reference and low-dimensional spaces should be normalized before they
 are compared. If set to "l2", the vectors are L2 normalized, if set to
 "median", they are divided by the median value times the square root of
 their length, and if set to any other value, they are divided by the square
@@ -35,7 +44,7 @@ root of their length, to avoid metrics scaling with the number of retained
 samples.}
 
 \item{highDimDistMethod}{A character scalar defining the distance measure to
-use in the original (high-dimensional) space Must be one of "euclidean",
+use in the reference (high-dimensional) space Must be one of "euclidean",
 "manhattan", "maximum", "canberra" or "cosine". The distance in the
 low-dimensional representation will always be Euclidean.}
 
@@ -53,17 +62,17 @@ messages.}
 A \code{data.frame} with values of all evaluation metrics, across
   the dimension reduction methods. The following metrics are included:
   \itemize{
-  \item SpearmanCorrDist - The Spearman correlation between the original,
+  \item SpearmanCorrDist - The Spearman correlation between the reference,
   high-dimensional distances and the Euclidean distances in the
   low-dimensional representation. Higher values are better.
-  \item PearsonCorrDist - The Pearson correlation between the original,
+  \item PearsonCorrDist - The Pearson correlation between the reference,
   high-dimensional distances and the Euclidean distances in the
   low-dimensional representation. Higher values are better.
   \item KSstatDist - The Kolmogorov-Smirnov statistic comparing the
-  distribution of distances in the original space and in the low-dimensional
+  distribution of distances in the reference space and in the low-dimensional
   representation. Lower values are better.
   \item EuclDistBetweenDists - The Euclidean distance between the vector of
-  distances in the original, high-dimensional space and those in the
+  distances in the reference, high-dimensional space and those in the
   low-dimensional representation. If \code{distNorm} is TRUE, the Euclidean
   distance vectors are normalized to have an L2 norm equal to 1 before the
   distance between them is calculated. If \code{distNorm} is FALSE, the
@@ -78,14 +87,14 @@ A \code{data.frame} with values of all evaluation metrics, across
   using NN nearest neighbors. The trustworthiness indicates to which degree
   we can trust that the points placed closest to a given sample in the
   low-dimensional representation are really close to the sample also in the
-  original space. Higher values are better.
+  reference space. Higher values are better.
   \item Continuity_kNN - The continuity score (Kaski et al. 2003), using NN
   nearest neighbors. The continuity indicates to which degree we can trust
-  that the points closest to a given sample in the original space are placed
+  that the points closest to a given sample in the reference space are placed
   close to the sample also in the low-dimensional representation. Higher
   values are better.
   \item MeanJaccard_kNN - The mean Jaccard index (over all samples),
-  comparing the set of NN nearest neighbors in the original space and those
+  comparing the set of NN nearest neighbors in the reference space and those
   in the low-dimensional representation. Higher values are better.
   \item MeanSilhouette_X - If a \code{labelColumn} X is supplied, the mean
   silhouette index across all samples, with the grouping given by this column
@@ -104,16 +113,16 @@ Calculate a collection of metrics comparing one or more reduced dimension
 representations to an underlying high-dimensional data set. The function
 takes a \code{SingleCellExperiment} object as input, and will use one of the
 included assays and some or all of the included reduced dimension
-representations for the evaluation. The "original" distances are calculated
+representations for the evaluation. The "reference" distances are calculated
 from the indicated assay, using the specified variables (or all, if no
 variables are specified) and a subset of the samples (or all, if nSamples is
 not specified). These distances are then compared to distances calculated
 from the specified reduced dimension representations, and several scores are
 returned. The execution time of the function depends strongly on both the
 number of retained variables (which affects the distance calculation in the
-original space) and the number of retained samples. Since subsampling of the
-columns (via \code{nSamples}) is random, setting the random seed is
-recommended to obtain reproducible results.
+original/reference space) and the number of retained samples. Since
+subsampling of the columns (via \code{nSamples}) is random, setting the
+random seed is recommended to obtain reproducible results.
 }
 \references{
 Kaski, S., Nikkilä, J., Oja, M., Venna, J., Törönen, P., and

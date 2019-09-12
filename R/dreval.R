@@ -4,37 +4,43 @@
 #' representations to an underlying high-dimensional data set. The function
 #' takes a \code{SingleCellExperiment} object as input, and will use one of the
 #' included assays and some or all of the included reduced dimension
-#' representations for the evaluation. The "original" distances are calculated
+#' representations for the evaluation. The "reference" distances are calculated
 #' from the indicated assay, using the specified variables (or all, if no
 #' variables are specified) and a subset of the samples (or all, if nSamples is
 #' not specified). These distances are then compared to distances calculated
 #' from the specified reduced dimension representations, and several scores are
 #' returned. The execution time of the function depends strongly on both the
 #' number of retained variables (which affects the distance calculation in the
-#' original space) and the number of retained samples. Since subsampling of the
-#' columns (via \code{nSamples}) is random, setting the random seed is
-#' recommended to obtain reproducible results.
+#' original/reference space) and the number of retained samples. Since
+#' subsampling of the columns (via \code{nSamples}) is random, setting the
+#' random seed is recommended to obtain reproducible results.
 #'
 #' @param sce A \code{SingleCellExperiment} object.
 #' @param dimReds A character vector with the names of the reduced dimension
 #'   representations from \code{sce} to include in the evaluation.
-#' @param assay A character scalar giving the name of the assay from the
+#' @param refType A character scalar, either "assay" or "dimred", specifying
+#'   whether to use an assay or a reduced dimension representation of \code{sce}
+#'   as the "reference" data source.
+#' @param refAssay A character scalar giving the name of the assay from the
 #'   \code{sce} to use as the basis for the distance calculations in the
-#'   original space.
+#'   reference space, if \code{refType} if \code{"assay"}.
+#' @param refDimRed A character scalar specifying the reduced dimension
+#'   representation to use as the "reference" data representation if
+#'   \code{refType} is \code{"dimred"}.
 #' @param features A character vector giving the IDs of the features to use for
 #'   distance calculations from the chosen assay. Will be matched to the row
 #'   names of the \code{sce}.
 #' @param nSamples A numeric scalar, giving the number of columns to subsample
 #'   (randomly) from the \code{sce}.
 #' @param distNorm A character scalar, indicating how the distance vectors in
-#'   the original and low-dimensional spaces should be normalized before they
+#'   the reference and low-dimensional spaces should be normalized before they
 #'   are compared. If set to "l2", the vectors are L2 normalized, if set to
 #'   "median", they are divided by the median value times the square root of
 #'   their length, and if set to any other value, they are divided by the square
 #'   root of their length, to avoid metrics scaling with the number of retained
 #'   samples.
 #' @param highDimDistMethod A character scalar defining the distance measure to
-#'   use in the original (high-dimensional) space Must be one of "euclidean",
+#'   use in the reference (high-dimensional) space Must be one of "euclidean",
 #'   "manhattan", "maximum", "canberra" or "cosine". The distance in the
 #'   low-dimensional representation will always be Euclidean.
 #' @param kTM An integer vector giving the number of neighbors to use for
@@ -52,17 +58,17 @@
 #' @return A \code{data.frame} with values of all evaluation metrics, across
 #'   the dimension reduction methods. The following metrics are included:
 #'   \itemize{
-#'   \item SpearmanCorrDist - The Spearman correlation between the original,
+#'   \item SpearmanCorrDist - The Spearman correlation between the reference,
 #'   high-dimensional distances and the Euclidean distances in the
 #'   low-dimensional representation. Higher values are better.
-#'   \item PearsonCorrDist - The Pearson correlation between the original,
+#'   \item PearsonCorrDist - The Pearson correlation between the reference,
 #'   high-dimensional distances and the Euclidean distances in the
 #'   low-dimensional representation. Higher values are better.
 #'   \item KSstatDist - The Kolmogorov-Smirnov statistic comparing the
-#'   distribution of distances in the original space and in the low-dimensional
+#'   distribution of distances in the reference space and in the low-dimensional
 #'   representation. Lower values are better.
 #'   \item EuclDistBetweenDists - The Euclidean distance between the vector of
-#'   distances in the original, high-dimensional space and those in the
+#'   distances in the reference, high-dimensional space and those in the
 #'   low-dimensional representation. If \code{distNorm} is TRUE, the Euclidean
 #'   distance vectors are normalized to have an L2 norm equal to 1 before the
 #'   distance between them is calculated. If \code{distNorm} is FALSE, the
@@ -77,14 +83,14 @@
 #'   using NN nearest neighbors. The trustworthiness indicates to which degree
 #'   we can trust that the points placed closest to a given sample in the
 #'   low-dimensional representation are really close to the sample also in the
-#'   original space. Higher values are better.
+#'   reference space. Higher values are better.
 #'   \item Continuity_kNN - The continuity score (Kaski et al. 2003), using NN
 #'   nearest neighbors. The continuity indicates to which degree we can trust
-#'   that the points closest to a given sample in the original space are placed
+#'   that the points closest to a given sample in the reference space are placed
 #'   close to the sample also in the low-dimensional representation. Higher
 #'   values are better.
 #'   \item MeanJaccard_kNN - The mean Jaccard index (over all samples),
-#'   comparing the set of NN nearest neighbors in the original space and those
+#'   comparing the set of NN nearest neighbors in the reference space and those
 #'   in the low-dimensional representation. Higher values are better.
 #'   \item MeanSilhouette_X - If a \code{labelColumn} X is supplied, the mean
 #'   silhouette index across all samples, with the grouping given by this column
@@ -115,7 +121,7 @@
 #' @importFrom SingleCellExperiment reducedDims reducedDimNames
 #' @importFrom SummarizedExperiment assays colData assayNames
 #' @importFrom cluster silhouette
-#' @importFrom stats cor ks.test
+#' @importFrom stats cor ks.test median
 #' @importFrom dplyr bind_rows
 #' @importFrom wordspace dist.matrix
 #' @importFrom coRanking coranking LCMC
@@ -123,7 +129,8 @@
 #' @importFrom ggplot2 ggplot aes geom_hex theme_bw labs scale_fill_gradient
 #'
 dreval <- function(
-    sce, dimReds = NULL, assay = "logcounts",
+    sce, dimReds = NULL, refType = "assay",
+    refAssay = "logcounts", refDimRed = NULL,
     features = NULL, nSamples = NULL, distNorm = "none",
     highDimDistMethod = "euclidean", kTM = c(10, 100),
     labelColumn = NULL, verbose = FALSE) {
@@ -143,12 +150,27 @@ dreval <- function(
             dimReds, SingleCellExperiment::reducedDimNames(sce)
         )
     }
+    ## If refType is dimred, don't compare the reference dimred to itself
+    if (refType == "dimred") {
+        dimReds <- setdiff(dimReds, refDimRed)
+    }
     if (length(dimReds) == 0) (
         stop("No valid reduced dimension representations found")
     )
 
-    if (!(assay %in% SummarizedExperiment::assayNames(sce))) {
-        stop("There is no assay named ", assay, " in sce")
+    if (!(refType %in% c("assay", "dimred"))) {
+        stop("'refType' must be either 'assay' or 'dimred'")
+    }
+
+    if (refType == "assay" &&
+        !(refAssay %in% SummarizedExperiment::assayNames(sce))) {
+        stop("There is no assay named ", refAssay, " in sce")
+    }
+
+    if (refType == "dimred" &&
+        !(refDimRed %in% SingleCellExperiment::reducedDimNames(sce))) {
+        stop("There is no reduced dimension representation named ",
+             refDimRed, " in sce")
     }
 
     if (!is.character(distNorm)) {
@@ -170,8 +192,8 @@ dreval <- function(
     }
 
     ## If features is not NULL, subset to provided features
-    if (verbose) message("Subsampling rows...")
-    if (!is.null(features)) {
+    if (refType == "assay" && !is.null(features)) {
+        if (verbose) message("Subsampling rows...")
         features <- intersect(features, rownames(sce))
         if (length(features) == 0) {
             stop("No features remaining after subsetting. ",
@@ -182,8 +204,8 @@ dreval <- function(
     }
 
     ## If nSamples is not NULL, subsample columns for increased speed
-    if (verbose) message("Subsampling columns...")
     if (!is.null(nSamples)) {
+        if (verbose) message("Subsampling columns...")
         nSamples <- min(nSamples, ncol(sce))
         if (nSamples == 0) {
             stop("nSamples must be >0")
@@ -219,30 +241,41 @@ dreval <- function(
     ## Calculate distances and ranks for the high-dimensional data
     ## --------------------------------------------------------------------- ##
     if (verbose) message("Calculating distances in high-dimensional space...")
-    mat <- as.matrix(SummarizedExperiment::assays(sce)[[assay]])
-    distOriginal <- wordspace::dist.matrix(
-        mat, method = highDimDistMethod,
-        as.dist = TRUE, byrow = FALSE, convert = FALSE
-    )
+    if (refType == "assay") {
+        mat <- as.matrix(SummarizedExperiment::assays(sce)[[refAssay]])
+        distReference <- wordspace::dist.matrix(
+            mat, method = highDimDistMethod,
+            as.dist = TRUE, byrow = FALSE, convert = FALSE
+        )
+    } else if (refType == "dimred") {
+        mat <- SingleCellExperiment::reducedDims(sce)[[refDimRed]]
+        distReference <- wordspace::dist.matrix(
+            mat, method = highDimDistMethod,
+            as.dist = TRUE, byrow = TRUE, convert = FALSE
+        )
+    } else {
+        stop("Invalid 'refType'")
+    }
 
     ## Get the rank for each sample compared to each other sample. In each
     ## column, the row with the value 1 corresponds to the nearest neighbor,
     ## the one with the value 2 to the second nearest neighbor, etc.
     if (verbose) message("Getting ranks in high-dimensional space...")
-    rankOriginal <- apply(
-        as.matrix(distOriginal), 2, function(w) order(order(w))
+    rankReference <- apply(
+        as.matrix(distReference), 2, function(w) order(order(w))
     )
 
     ## Define normalization constant for distances
     if (distNorm == "l2") {
-        distNormOriginal <- sqrt(sum(distOriginal^2))
+        distNormReference <- sqrt(sum(distReference^2))
     } else if (distNorm == "median") {
-        distNormOriginal <- median(distOriginal) * sqrt(length(distOriginal))
+        distNormReference <- stats::median(distReference) *
+            sqrt(length(distReference))
     } else {
-        distNormOriginal <- sqrt(length(distOriginal))
+        distNormReference <- sqrt(length(distReference))
     }
 
-    distdf <- data.frame(original = c(distOriginal/distNormOriginal))
+    distdf <- data.frame(reference = c(distReference/distNormReference))
 
     ## --------------------------------------------------------------------- ##
     ## For each dimRed, calculate scores
@@ -274,7 +307,8 @@ dreval <- function(
         if (distNorm == "l2") {
             distNormLowDim <- sqrt(sum(distLowDim^2))
         } else if (distNorm == "median") {
-            distNormLowDim <- median(distLowDim) * sqrt(length(distLowDim))
+            distNormLowDim <- stats::median(distLowDim) *
+                sqrt(length(distLowDim))
         } else {
             distNormLowDim <- sqrt(length(distLowDim))
         }
@@ -286,23 +320,23 @@ dreval <- function(
         ## ----------------------------------------------------------------- ##
         if (verbose) message("  Calculating Spearman correlations...")
         results[[dr]]$SpearmanCorrDist <- stats::cor(
-            distOriginal, distLowDim,
+            distReference, distLowDim,
             method = "spearman"
         )
         if (verbose) message("  Calculating Pearson correlations...")
         results[[dr]]$PearsonCorrDist <- stats::cor(
-            distOriginal, distLowDim,
+            distReference, distLowDim,
             method = "pearson"
         )
 
         plots$disthex[[dr]] <-
-            ggplot2::ggplot(data.frame(original = c(distOriginal/distNormOriginal),
+            ggplot2::ggplot(data.frame(reference = c(distReference/distNormReference),
                                        lowdim = c(distLowDim/distNormLowDim)),
-                            ggplot2::aes(x = original, y = lowdim)) +
+                            ggplot2::aes(x = reference, y = lowdim)) +
             ggplot2::geom_hex(bins = 100, aes(fill = stat(density))) +
             ggplot2::scale_fill_gradient(name = "", low = "bisque2", high = "darkblue") +
             ggplot2::theme_bw() +
-            ggplot2::labs(title = dr, x = "Scaled distance in original space",
+            ggplot2::labs(title = dr, x = "Scaled distance in reference space",
                           y = "Scaled distance in low-dimensional space") +
             ggplot2::geom_abline(slope = 1, intercept = 0)
 
@@ -311,16 +345,16 @@ dreval <- function(
         ## ----------------------------------------------------------------- ##
         if (verbose) message("  Calculating KS statistic")
         results[[dr]]$KSStatDist <- stats::ks.test(
-            distOriginal/distNormOriginal,
+            distReference/distNormReference,
             distLowDim/distNormLowDim
         )$statistic
 
         ## ----------------------------------------------------------------- ##
-        ## Euclidean distance to original-space (scaled) distances
+        ## Euclidean distance to reference-space (scaled) distances
         ## ----------------------------------------------------------------- ##
         if (verbose) message("  Calculating distances between distances...")
         results[[dr]]$EuclDistBetweenDists <-
-            sqrt(sum(((distOriginal/distNormOriginal) -
+            sqrt(sum(((distReference/distNormReference) -
                           (distLowDim/distNormLowDim))^2))
 
         ## ----------------------------------------------------------------- ##
@@ -328,10 +362,10 @@ dreval <- function(
         ## ----------------------------------------------------------------- ##
         if (verbose) message("  Calculating Sammon stress...")
         results[[dr]]$SammonStress <-
-            1/sum(distOriginal/distNormOriginal) *
-            sum(((distOriginal/distNormOriginal -
-                      distLowDim/distNormLowDim) ^ 2)/
-                    (distOriginal/distNormOriginal))
+            1/sum(distReference/distNormReference) *
+            sum(((distReference/distNormReference -
+                      distLowDim/distNormLowDim) ^ 2) /
+                    (distReference/distNormReference))
 
         ## ----------------------------------------------------------------- ##
         ## Trustworthiness and continuity
@@ -339,7 +373,7 @@ dreval <- function(
         for (k in kTM) {
             if (verbose) message("  Calculating trustworthiness, k=", k)
             tm <- calcTrustworthinessFromRank(
-                rankOriginal = rankOriginal,
+                rankReference = rankReference,
                 rankLowDim = rankLowDim,
                 kTM = k
             )
@@ -347,7 +381,7 @@ dreval <- function(
 
             if (verbose) message("  Calculating continuity, k=", k)
             ct <- calcContinuityFromRank(
-                rankOriginal = rankOriginal,
+                rankReference = rankReference,
                 rankLowDim = rankLowDim,
                 kTM = k
             )
@@ -360,8 +394,8 @@ dreval <- function(
         for (k in kTM) {
             if (verbose) message("  Calculating Jaccard index ",
                                  "of nearest neighbors, k=", k)
-            intrs <- colSums((rankOriginal <= k) * (rankLowDim <= k))
-            unin <- colSums(sign((rankOriginal <= k) + (rankLowDim <= k)))
+            intrs <- colSums((rankReference <= k) * (rankLowDim <= k))
+            unin <- colSums(sign((rankReference <= k) + (rankLowDim <= k)))
             jaccs <- intrs/unin
             results[[dr]][[paste0("MeanJaccard_k", k)]] <- mean(jaccs)
         }
@@ -383,7 +417,7 @@ dreval <- function(
         ## ----------------------------------------------------------------- ##
         ## Coranking (with the coRanking package)
         ## ----------------------------------------------------------------- ##
-        qt <- coRanking::coranking(Xi = as.matrix(distOriginal),
+        qt <- coRanking::coranking(Xi = as.matrix(distReference),
                                    X = as.matrix(distLowDim),
                                    input = "dist")
         lcmc <- coRanking::LCMC(qt)
