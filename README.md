@@ -5,7 +5,7 @@ representations of high-dimensional data. Given one or more reduced dimension
 representations, and a "reference" representation (which can be the original,
 high-dimensional representation or a baseline low-dimensional one), `dreval`
 will calculate a collection of metrics quantifying how well each of the
-evaluated representations recapitulate the structure of the observations in the
+evaluated representations recapitulates the structure of the observations in the
 reference representation.
 
 ### Installation
@@ -43,7 +43,7 @@ dre <- dreval(sce = pbmc3ksub, refType = "assay",
 ```
 
 For detailed information about the arguments to `dreval()` we refer to the
-function help page:
+help page of the function:
 
 ```
 ?dreval

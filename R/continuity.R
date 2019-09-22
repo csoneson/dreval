@@ -1,17 +1,19 @@
 #' Calculate continuity based on distance matrices
 #'
-#' The continuity was proposed by Kaski et al, as a local quality measure
-#' of a low-dimensional representation. The metric focuses on the preservation
-#' of local neighborhoods, and compares the neighborhoods of points in the
+#' The continuity was proposed by Venna and Kaski, as a local quality measure of
+#' a low-dimensional representation. The metric focuses on the preservation of
+#' local neighborhoods, and compares the neighborhoods of points in the
 #' low-dimensional representation to those in the reference data. Hence, the
 #' continuity measure indicates to which degree we can trust that the points
 #' closest to a given sample in the reference data set are placed close to the
 #' sample also in the low-dimensional representation. The \code{kTM} parameter
 #' defines the size of the neighborhoods to consider.
 #'
-#' @references Kaski, S., Nikkilä, J., Oja, M., Venna, J., Törönen, P., and
-#'   Castrén, E. (2003). Trustworthiness and metrics in visualizing similarity
-#'   of gene expression. BMC Bioinformatics 4:48.
+#' @references
+#'   Venna J., Kaski S. (2001). Neighborhood preservation in nonlinear
+#'   projection methods: An experimental study. In Dorffner G., Bischof H.,
+#'   Hornik K., editors, Proceedings of ICANN 2001, pp 485–491. Springer,
+#'   Berlin.
 #'
 #' @keywords internal
 #'
@@ -45,18 +47,20 @@ calcContinuityFromDist <- function(distReference, distLowDim, kTM) {
 
 #' Calculate continuity based on sample rankings
 #'
-#' The continuity was proposed by Kaski et al, as a local quality measure
-#' of a low-dimensional representation. The metric focuses on the preservation
-#' of local neighborhoods, and compares the neighborhoods of points in the
+#' The continuity was proposed by Venna and Kaski, as a local quality measure of
+#' a low-dimensional representation. The metric focuses on the preservation of
+#' local neighborhoods, and compares the neighborhoods of points in the
 #' low-dimensional representation to those in the reference data. Hence, the
 #' continuity measure indicates to which degree we can trust that the points
 #' closest to a given sample in the reference data set are placed close to the
 #' sample also in the low-dimensional representation. The \code{kTM} parameter
 #' defines the size of the neighborhoods to consider.
 #'
-#' @references Kaski, S., Nikkilä, J., Oja, M., Venna, J., Törönen, P., and
-#'   Castrén, E. (2003). Trustworthiness and metrics in visualizing similarity
-#'   of gene expression. BMC Bioinformatics 4:48.
+#' @references
+#'   Venna J., Kaski S. (2001). Neighborhood preservation in nonlinear
+#'   projection methods: An experimental study. In Dorffner G., Bischof H.,
+#'   Hornik K., editors, Proceedings of ICANN 2001, pp 485–491. Springer,
+#'   Berlin.
 #'
 #' @keywords internal
 #'

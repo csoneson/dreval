@@ -19,19 +19,20 @@ distances based on the low-dimensional representation.}
 The trustworthiness value.
 }
 \description{
-The trustworthiness was proposed by Kaski et al, as a local quality measure
-of a low-dimensional representation. The metric focuses on the preservation
-of local neighborhoods, and compares the neighborhoods of points in the
-low-dimensional representation to those in the reference data. Hence, the
-trustworthiness measure indicates to which degree we can trust that the
+The trustworthiness was proposed by Venna and Kaski, as a local quality
+measure of a low-dimensional representation. The metric focuses on the
+preservation of local neighborhoods, and compares the neighborhoods of points
+in the low-dimensional representation to those in the reference data. Hence,
+the trustworthiness measure indicates to which degree we can trust that the
 points placed closest to a given sample in the low-dimensional representation
 are really close to the sample also in the reference data set. The \code{kTM}
 parameter defines the size of the neighborhoods to consider.
 }
 \references{
-Kaski, S., Nikkilä, J., Oja, M., Venna, J., Törönen, P., and
-  Castrén, E. (2003). Trustworthiness and metrics in visualizing similarity
-  of gene expression. BMC Bioinformatics 4:48.
+Venna J., Kaski S. (2001). Neighborhood preservation in nonlinear
+  projection methods: An experimental study. In Dorffner G., Bischof H.,
+  Hornik K., editors, Proceedings of ICANN 2001, pp 485–491. Springer,
+  Berlin.
 }
 \author{
 Charlotte Soneson

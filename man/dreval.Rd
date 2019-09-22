@@ -83,12 +83,12 @@ A \code{data.frame} with values of all evaluation metrics, across
   before the stress is calculated. If \code{distNorm} is FALSE, the distance
   vectors are instead divided by the square root of their length, to minimize
   the influence of the number of samples. Lower values are better.
-  \item Trustworthiness_kNN - The trustworthiness score (Kaski et al. 2003),
+  \item Trustworthiness_kNN - The trustworthiness score (Venna & Kaski 2001),
   using NN nearest neighbors. The trustworthiness indicates to which degree
   we can trust that the points placed closest to a given sample in the
   low-dimensional representation are really close to the sample also in the
   reference space. Higher values are better.
-  \item Continuity_kNN - The continuity score (Kaski et al. 2003), using NN
+  \item Continuity_kNN - The continuity score (Venna & Kaski 2001), using NN
   nearest neighbors. The continuity indicates to which degree we can trust
   that the points closest to a given sample in the reference space are placed
   close to the sample also in the low-dimensional representation. Higher
@@ -101,11 +101,11 @@ A \code{data.frame} with values of all evaluation metrics, across
   and the distances obtained from the low-dimensional representation. Higher
   values are better.
   \item coRankingQlocal - Q_local as calculated by the coRanking package
-  (Kraemer and Reichstein 2018, Lee et al. 2009, Chen and Buja 2006). Higher
-  values are better.
+  (Kraemer and Reichstein 2018, Lee and Verleysen 2009, Chen and Buja 2009).
+  Higher values are better.
   \item coRankingQglobal - Q_global as calculated by the coRanking package
-  (Kraemer and Reichstein 2018, Lee et al. 2009, Chen and Buja 2006). Higher
-  values are better.
+  (Kraemer and Reichstein 2018, Lee and Verleysen 2009, Chen and Buja 2009).
+  Higher values are better.
   }
 }
 \description{
@@ -125,18 +125,21 @@ subsampling of the columns (via \code{nSamples}) is random, setting the
 random seed is recommended to obtain reproducible results.
 }
 \references{
-Kaski, S., Nikkilä, J., Oja, M., Venna, J., Törönen, P., and
-  Castrén, E. (2003). Trust- worthiness and metrics in visualizing similarity
-  of gene expression. BMC Bioinformatics 4:48.
+Venna J., Kaski S. (2001). Neighborhood preservation in nonlinear
+  projection methods: An experimental study. In Dorffner G., Bischof H.,
+  Hornik K., editors, Proceedings of ICANN 2001, pp 485–491. Springer,
+  Berlin.
 
-  Lee, J.A., Lee, J.A., Verleysen, M. (2009). Quality assessment of
-  dimensionality reduction: Rankbased criteria. Neurocomputing 72.
+  Lee J.A., Verleysen M. (2009). Quality assessment of
+  dimensionality reduction: Rank-based criteria. Neurocomputing 72
+  (7-9):1431-1443.
 
-  Chen, L., Buja, A. (2006). Local Multidimensional Scaling for Nonlinear
-  Dimension Reduction, Graph Layout and Proximity Analysis.
+  Chen L., Buja A. (2009). Local multidimensional scaling for nonlinear
+  dimension reduction, graph drawing, and proximity analysis. Journal of the
+  American Statistical Association 104:209-219.
 
-  Kraemer G, Reichstein M, D. MM (2018). dimRed and coRanking-Unifying
-  Dimensionality Reduction in R. The R Journal 10(1):342-358.
+  Kraemer G., Reichstein M., Mahecha M.D. (2018). dimRed and coRanking -
+  Unifying dimensionality reduction in R. The R Journal 10 (1):342-358.
 }
 \author{
 Charlotte Soneson
