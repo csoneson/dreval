@@ -15,7 +15,7 @@ bibliography: dreval.bib
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
     collapse = TRUE,
-    eval = FALSE,
+    eval = TRUE,
     comment = "#>"
 )
 ```
@@ -28,10 +28,9 @@ library(dreval)
 
 The `dreval` package provides functionality to evaluate and compare several
 reduced dimension representations, in terms of how well they retain structure
-from the original, high-dimensional data set. Here, we illustrate its
-application to a single-cell RNA-seq data set of peripheral blood mononuclear
-cells (PBMCs), which was obtained from the `TENxPBMCData` package and processed
-as described in `scripts/prepare-pbmc3ksub.R`.
+seen in a reference representation. Here, we illustrate its application to a
+single-cell RNA-seq data set of peripheral blood mononuclear cells (PBMCs),
+representing a subset of the `pbmc3k` data set from the `TENxPBMCData` package.
 
 ```{r}
 data(pbmc3ksub)
@@ -39,76 +38,92 @@ data(pbmc3ksub)
 
 # Evaluation
 
-Next, we use the `dreval` function to calculate several metrics comparing each
-of the reduced dimension representations in the `SingleCellExperiment` object to
-the underlying data. For a list of the calculated metrics, see the help page for
-`dreval()`.
+We use the `dreval()` function to calculate several metrics comparing each of
+the reduced dimension representations in the `SingleCellExperiment` object to
+the underlying normalized and log-transformed data contained in the `logcounts`
+slot. For a list of the calculated metrics, see the help page for `dreval()`.
 
 ```{r}
-dre <- dreval(sce = pbmc3ksub, refType = "assay", refAssay = "logcounts", 
-              dimReds = NULL, nSamples = 1000, kTM = c(25, 100), 
-              verbose = FALSE, distNorm = "l2")
+dre <- dreval(
+  sce = pbmc3ksub, refType = "assay", refAssay = "logcounts", 
+  dimReds = NULL, nSamples = 500, kTM = c(10, 75), 
+  verbose = FALSE, distNorm = "l2"
+)
 ```
 
 # Result visualization
 
-```{r}
+The `plots` entry of `dre` contains several diagnostic plot objects, while the
+`scores` entry contains the calculated scores for each of the evaluated reduced
+dimension representations. These can be summarized visually with the
+`plotRankSummary()` function.
+
+```{r, fig.width = 8, fig.height = 6}
 dre$scores
 cowplot::plot_grid(plotlist = dre$plots$disthex)
 plotRankSummary(dre$scores)
 ```
 
-In the example above, we used the original feature space ("logcounts" assay) as
-the reference space, to which all reduced dimension representations were
+# Using a reduced dimension representation as the reference space
+
+In the example above, we used the original feature space (the `logcounts` assay)
+as the reference space, to which all reduced dimension representations were
 compared. It is also possible to use one of the reduced dimension
 representations as the reference space, as we will illustrate here.
 
-```{r}
-dre <- dreval(sce = pbmc3ksub, refType = "dimred", refDimRed = "PCA", 
-              dimReds = NULL, nSamples = 1000, kTM = c(25, 100), 
-              verbose = FALSE, distNorm = "l2")
+```{r, fig.width = 8, fig.height = 6}
+dre <- dreval(
+  sce = pbmc3ksub, refType = "dimred", refDimRed = "PCA", 
+  dimReds = NULL, nSamples = 500, kTM = c(10, 75), 
+  verbose = FALSE, distNorm = "l2"
+)
 dre$scores
 cowplot::plot_grid(plotlist = dre$plots$disthex)
 plotRankSummary(dre$scores)
 ```
-
 
 # Computational efficiency
 
 `dreval` relies heavily on the calculation of pairwise distances among samples,
-and thus is computationally demanding for large data sets. The `dreval` function
-allows for subsampling a smaller number of samples, as well as a selection of a
-subset of the variables, to speed up calculations and reduce the memory
-footprint. Here we investigate the stability of the calculated metrics as
-decreasing number of samples are selected.
+and is consequently computationally demanding for large data sets. The
+`dreval()` function allows for subsampling a smaller number of samples, as well
+as a selection of a subset of the variables, to speed up calculations and reduce
+the memory footprint. Here we investigate the stability of the calculated
+metrics as decreasing numbers of samples are selected.
 
-```{r}
+```{r, fig.width = 10, fig.height = 8, eval = FALSE}
 suppressPackageStartupMessages({
-    library(dplyr)
-    library(tidyr)
-    library(ggplot2)
+  library(dplyr)
+  library(tidyr)
+  library(ggplot2)
 })
 
 set.seed(1)
-nS <- c(100, 250, 500, 1000, 1250, 1500, 2000, 2700)
-nR <- 3
+nS <- c(100, 400, 1000, 1500, 2700)
 v <- lapply(nS, function(n) {
-    lapply(1:nR, function(i) {
-        message(n, " samples, replicate ", i)
-        dreval(sce = pbmc3ksub, assay = "logcounts", dimReds = NULL,
-               nSamples = n, kTM = c(25, 100), verbose = FALSE) %>%
-            dplyr::mutate(nSamples = n, replicate = i)
-    })
+  if (n == 2700) nR <- 1
+  else nR <- 2
+  lapply(1:nR, function(i) {
+    message(n, " samples, replicate ", i)
+    dreval(sce = pbmc3ksub, refAssay = "logcounts", dimReds = NULL,
+           nSamples = n, kTM = 50, verbose = FALSE)$scores %>%
+      dplyr::mutate(nSamples = n, replicate = i)
+  })
 })
 vv <- do.call(dplyr::bind_rows, v)
 
-vv <- vv %>% tidyr::gather(key = "measure", value = "value", 
-                           -Method, -dimensionality, -nSamples, -replicate)
+vv <- vv %>%
+  tidyr::gather(
+    key = "measure", value = "value", 
+    -Method, -dimensionality, -nSamples, -replicate
+  )
 
 
-ggplot(vv, aes(x = nSamples, y = value, color = Method)) + 
+suppressWarnings(
+  ggplot(vv, aes(x = nSamples, y = value, color = Method)) + 
     geom_point(size = 3) + facet_wrap(~ measure, scales = "free_y") + 
     geom_smooth(se = FALSE) + theme_bw()
+)
 ```
 
 # Session info

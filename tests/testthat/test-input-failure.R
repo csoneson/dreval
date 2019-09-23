@@ -8,7 +8,7 @@ test_that("dreval fails if the wrong arguments are provided", {
     expect_error(dreval(pbmc3ksub, features = "missing"))
     expect_error(dreval(pbmc3ksub, nSamples = 0))
     expect_error(dreval(pbmc3ksub, distNorm = TRUE))
-    expect_error(dreval(pbmc3ksub, highDimDistMethod = "missing"))
+    expect_error(dreval(pbmc3ksub, refDistMethod = "missing"))
     expect_error(dreval(pbmc3ksub, kTM = "1"))
     expect_error(dreval(pbmc3ksub, labelColumn = "missing"))
     expect_error(dreval(pbmc3ksub, labelColumn = "Barcode"))

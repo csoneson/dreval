@@ -22,11 +22,13 @@ Imports:
     methods,
     ggplot2,
     grDevices,
-    tidyr
+    tidyr,
+    magrittr
 RoxygenNote: 6.1.1
 Suggests: 
     knitr,
     rmarkdown,
     testthat (>= 2.1.0),
-    TENxPBMCData
+    TENxPBMCData,
+    cowplot
 VignetteBuilder: knitr

@@ -7,7 +7,7 @@ test_that("scores are calculated correctly", {
     dres <- dreval(
         sce = sce, dimReds = "PCA", refType = "assay", refAssay = "logcounts",
         features = NULL, nSamples = NULL, distNorm = "l2",
-        highDimDistMethod = "euclidean", kTM = 5,
+        refDistMethod = "euclidean", kTM = 5,
         labelColumn = NULL, verbose = FALSE
     )
 

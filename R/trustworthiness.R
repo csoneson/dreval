@@ -21,8 +21,8 @@
 #'
 #' @return The trustworthiness value.
 #'
-#' @param distReference N x N matrix or dist object, representing pairwise sample
-#'   distances based on the reference (high-dimensional) observed values.
+#' @param distReference N x N matrix or dist object, representing pairwise
+#'   sample distances based on the reference (high-dimensional) observed values.
 #' @param rankLowDim N x N matrix or dist object, representing pairwise sample
 #'   distances based on the low-dimensional representation.
 #' @param kTM The number of nearest neighbors

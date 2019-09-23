@@ -2,13 +2,12 @@
 % Please edit documentation in R/dreval.R
 \name{dreval}
 \alias{dreval}
-\title{Evaluate dimension reduction methods}
+\title{Evaluate structure preservation in reduced dimension representations}
 \usage{
 dreval(sce, dimReds = NULL, refType = "assay",
   refAssay = "logcounts", refDimRed = NULL, features = NULL,
-  nSamples = NULL, distNorm = "none",
-  highDimDistMethod = "euclidean", kTM = c(10, 100),
-  labelColumn = NULL, verbose = FALSE)
+  nSamples = NULL, distNorm = "none", refDistMethod = "euclidean",
+  kTM = c(10, 100), labelColumn = NULL, verbose = FALSE)
 }
 \arguments{
 \item{sce}{A \code{SingleCellExperiment} object.}
@@ -18,22 +17,22 @@ representations from \code{sce} to include in the evaluation.}
 
 \item{refType}{A character scalar, either "assay" or "dimred", specifying
 whether to use an assay or a reduced dimension representation of \code{sce}
-as the "reference" data source.}
+as the reference data source.}
 
-\item{refAssay}{A character scalar giving the name of the assay from the
+\item{refAssay}{A character scalar giving the name of the assay from
 \code{sce} to use as the basis for the distance calculations in the
 reference space, if \code{refType} if \code{"assay"}.}
 
 \item{refDimRed}{A character scalar specifying the reduced dimension
-representation to use as the "reference" data representation if
+representation to use as the reference data representation if
 \code{refType} is \code{"dimred"}.}
 
 \item{features}{A character vector giving the IDs of the features to use for
 distance calculations from the chosen assay. Will be matched to the row
-names of the \code{sce}.}
+names of \code{sce}.}
 
 \item{nSamples}{A numeric scalar, giving the number of columns to subsample
-(randomly) from the \code{sce}.}
+(randomly) from \code{sce}.}
 
 \item{distNorm}{A character scalar, indicating how the distance vectors in
 the reference and low-dimensional spaces should be normalized before they
@@ -43,63 +42,82 @@ their length, and if set to any other value, they are divided by the square
 root of their length, to avoid metrics scaling with the number of retained
 samples.}
 
-\item{highDimDistMethod}{A character scalar defining the distance measure to
-use in the reference (high-dimensional) space Must be one of "euclidean",
-"manhattan", "maximum", "canberra" or "cosine". The distance in the
-low-dimensional representation will always be Euclidean.}
+\item{refDistMethod}{A character scalar defining the distance measure to use
+in the reference space. Must be one of "euclidean", "manhattan", "maximum",
+"canberra" or "cosine". The distance in the low-dimensional representation
+will always be Euclidean.}
 
 \item{kTM}{An integer vector giving the number of neighbors to use for
-trustworthiness and continuity calculations.}
+trustworthiness, continuity and Jaccard index calculations.}
 
 \item{labelColumn}{A character scalar defining a column of
 \code{colData(sce)} to use as the group assignments in the silhouette width
-calculations. If not provided, the silhouette width will not be calculated.}
+calculations. If not provided, the silhouette widths are not calculated.}
 
 \item{verbose}{A logical scalar, indicating whether to print out progress
 messages.}
 }
 \value{
-A \code{data.frame} with values of all evaluation metrics, across
-  the dimension reduction methods. The following metrics are included:
+A list with two elements:
+\itemize{
+\item scores - A \code{data.frame} with values of all evaluation metrics,
+across the dimension reduction methods.
+\item plots - A list of ggplot objects, representing diagnostic plots.
+}
+}
+\description{
+Calculates a collection of metrics comparing one or more reduced dimension
+representations to a reference representation. The function takes a
+\code{SingleCellExperiment} object as input. The reference representation can
+be either one of the included assays or one of the reduced dimension
+representations. If an assay is used, reference distances can be calculated
+based on all or a subset of the features (rows). These distances are then
+compared to distances calculated from the specified reduced dimension
+representations, and several scores are returned. The execution time of the
+function depends strongly on both the number of retained variables (which
+affects the distance calculation in the reference space) and the number of
+samples that are randomly selected to use as the basis for the comparison.
+Since subsampling of the columns (via the \code{nSamples} argument) is
+random, setting the random seed is recommended to obtain reproducible
+results.
+}
+\details{
+The following metrics are calculated:
   \itemize{
-  \item SpearmanCorrDist - The Spearman correlation between the reference,
-  high-dimensional distances and the Euclidean distances in the
-  low-dimensional representation. Higher values are better.
-  \item PearsonCorrDist - The Pearson correlation between the reference,
-  high-dimensional distances and the Euclidean distances in the
-  low-dimensional representation. Higher values are better.
+  \item SpearmanCorrDist - The Spearman correlation between the reference
+  distances and the Euclidean distances in the low-dimensional
+  representation. Ranges from -1 to 1, higher values are better.
+  \item PearsonCorrDist - The Pearson correlation between the reference
+  distances and the Euclidean distances in the low-dimensional
+  representation. Ranges from -1 to 1, higher values are better.
   \item KSstatDist - The Kolmogorov-Smirnov statistic comparing the
   distribution of distances in the reference space and in the low-dimensional
   representation. Lower values are better.
   \item EuclDistBetweenDists - The Euclidean distance between the vector of
-  distances in the reference, high-dimensional space and those in the
-  low-dimensional representation. If \code{distNorm} is TRUE, the Euclidean
-  distance vectors are normalized to have an L2 norm equal to 1 before the
-  distance between them is calculated. If \code{distNorm} is FALSE, the
-  distance vectors are instead divided by the square root of their length, to
-  minimize the influence of the number of samples. Lower values are better.
-  \item SammonStress - The Sammon stress. If \code{distNorm} is TRUE, the
-  Euclidean distance vectors are normalized to have an L2 norm equal to 1
-  before the stress is calculated. If \code{distNorm} is FALSE, the distance
-  vectors are instead divided by the square root of their length, to minimize
-  the influence of the number of samples. Lower values are better.
+  distances in the reference space and those in the low-dimensional
+  representation. Depending on the value of \code{distNorm}, distances are
+  scaled before they are compared. Lower values are better.
+  \item SammonStress - The Sammon stress. Depending on the value of
+  \code{distNorm}, distances are scaled before they are compared. Lower
+  values are better.
   \item Trustworthiness_kNN - The trustworthiness score (Venna & Kaski 2001),
   using NN nearest neighbors. The trustworthiness indicates to which degree
   we can trust that the points placed closest to a given sample in the
   low-dimensional representation are really close to the sample also in the
-  reference space. Higher values are better.
+  reference space. Ranges from 0 to 1, higher values are better.
   \item Continuity_kNN - The continuity score (Venna & Kaski 2001), using NN
   nearest neighbors. The continuity indicates to which degree we can trust
   that the points closest to a given sample in the reference space are placed
-  close to the sample also in the low-dimensional representation. Higher
-  values are better.
+  close to the sample also in the low-dimensional representation. Ranges from
+  0 to 1, higher values are better.
   \item MeanJaccard_kNN - The mean Jaccard index (over all samples),
   comparing the set of NN nearest neighbors in the reference space and those
-  in the low-dimensional representation. Higher values are better.
+  in the low-dimensional representation. Ranges from 0 to 1, higher values
+  are better.
   \item MeanSilhouette_X - If a \code{labelColumn} X is supplied, the mean
   silhouette index across all samples, with the grouping given by this column
-  and the distances obtained from the low-dimensional representation. Higher
-  values are better.
+  and the distances obtained from the low-dimensional representation. Ranges
+  from -1 to 1, higher values are better.
   \item coRankingQlocal - Q_local as calculated by the coRanking package
   (Kraemer and Reichstein 2018, Lee and Verleysen 2009, Chen and Buja 2009).
   Higher values are better.
@@ -108,21 +126,10 @@ A \code{data.frame} with values of all evaluation metrics, across
   Higher values are better.
   }
 }
-\description{
-Calculate a collection of metrics comparing one or more reduced dimension
-representations to an underlying high-dimensional data set. The function
-takes a \code{SingleCellExperiment} object as input, and will use one of the
-included assays and some or all of the included reduced dimension
-representations for the evaluation. The "reference" distances are calculated
-from the indicated assay, using the specified variables (or all, if no
-variables are specified) and a subset of the samples (or all, if nSamples is
-not specified). These distances are then compared to distances calculated
-from the specified reduced dimension representations, and several scores are
-returned. The execution time of the function depends strongly on both the
-number of retained variables (which affects the distance calculation in the
-original/reference space) and the number of retained samples. Since
-subsampling of the columns (via \code{nSamples}) is random, setting the
-random seed is recommended to obtain reproducible results.
+\examples{
+data(pbmc3ksub)
+dre <- dreval(sce = pbmc3ksub, nSamples = 150)
+
 }
 \references{
 Venna J., Kaski S. (2001). Neighborhood preservation in nonlinear

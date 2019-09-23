@@ -7,8 +7,8 @@
 calcTrustworthinessFromDist(distReference, distLowDim, kTM)
 }
 \arguments{
-\item{distReference}{N x N matrix or dist object, representing pairwise sample
-distances based on the reference (high-dimensional) observed values.}
+\item{distReference}{N x N matrix or dist object, representing pairwise
+sample distances based on the reference (high-dimensional) observed values.}
 
 \item{kTM}{The number of nearest neighbors}
 
