@@ -4,7 +4,7 @@
 \alias{plotRankSummary}
 \title{Plot summary of the dimension reduction method ranking across metrics}
 \usage{
-plotRankSummary(dreSummary, metrics = NULL)
+plotRankSummary(dreSummary, metrics = NULL, sortBars = "decreasing")
 }
 \arguments{
 \item{dreSummary}{A \code{data.frame} with the values of the evaluation
@@ -13,7 +13,12 @@ metrics, typically the \code{"scores"} element of the output of
 
 \item{metrics}{A character vector with the metrics to include in the summary.
 Must be a subset of the column names of \code{dreSummary}. If \code{NULL},
-all metrics will be used.}
+all metrics will be used. It can also be "global" or "local", in which case
+all the global or local metrics, respectively, will be used.}
+
+\item{sortBars}{A character scalar indicating whether/how to sort the bars in
+the output. Either "decreasing", "increasing" or "none" (in which case the
+input order will be used).}
 }
 \value{
 Nothing is returned, but a plot is generated.
