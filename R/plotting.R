@@ -15,6 +15,19 @@
 #' @param sortBars A character scalar indicating whether/how to sort the bars in
 #'   the output. Either "decreasing", "increasing" or "none" (in which case the
 #'   input order will be used).
+#' @param scoreType A character scalar indicating what type of values to show in
+#'   the plot. Either "rank" or "rescale". If set to "rank", the representations
+#'   will be ranked for each metric (with the best one assigned the highest
+#'   rank). If set to "rescale", the scores for each metric will first, if
+#'   necessary, be inverted so that a high (positive) value corresponds to
+#'   better performance, and then be linearly rescaled, mapping the lowest score
+#'   to 1 and the highest to P, where P is the number of evaluated
+#'   representations. If the original scores are approximately equally spaced
+#'   between the highest and lowest observed values, this gives similar results
+#'   as setting \code{scoreType} to "rank". However, if some of the scores are
+#'   very similar to each other, the "rescale" approach allows them to get a
+#'   similar rank score rather than forcing a uniform difference between
+#'   successive scores.
 #'
 #' @author Charlotte Soneson
 #'
@@ -28,9 +41,18 @@
 #' @importFrom ggplot2 ggplot aes geom_bar theme_bw scale_fill_manual
 #'
 plotRankSummary <- function(dreSummary, metrics = NULL,
-                            sortBars = "decreasing") {
-    myfun <- function(w) {
-        order(order(w))
+                            sortBars = "decreasing", scoreType = "rank") {
+    scorefun <- function(w, scoreType = "rank") {
+        if (scoreType == "rank") {
+            return(order(order(w)))
+        } else if (scoreType == "rescale") {
+            m <- min(w)
+            M <- max(w)
+            P <- length(w)
+            return(((P - 1) * w + M - m * P)/(M - m))
+        } else {
+            stop("Unknown 'scoreType'")
+        }
     }
 
     ## Define metrics to use
@@ -62,12 +84,13 @@ plotRankSummary <- function(dreSummary, metrics = NULL,
         c("darkred", "pink"))(length(local))
     names(localcols) <- local
 
+    ## Make sure that for all scores, high values represent good performance
     dreSummary <- dreSummary %>% dplyr::select(-dimensionality) %>%
         dplyr::mutate(KSStatDist = -KSStatDist) %>%
         dplyr::mutate(EuclDistBetweenDists = -EuclDistBetweenDists) %>%
         dplyr::mutate(SammonStress = -SammonStress) %>%
         dplyr::select(c("Method", global, local)) %>%
-        dplyr::mutate_at(dplyr::vars(-Method), myfun) %>%
+        dplyr::mutate_at(dplyr::vars(-Method), scorefun, scoreType = scoreType) %>%
         tidyr::gather(key = "metric", value = "score", -Method) %>%
         dplyr::mutate(metric = factor(metric, levels = c(global, local))) %>%
         dplyr::ungroup()

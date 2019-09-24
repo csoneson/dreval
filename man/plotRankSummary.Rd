@@ -4,7 +4,8 @@
 \alias{plotRankSummary}
 \title{Plot summary of the dimension reduction method ranking across metrics}
 \usage{
-plotRankSummary(dreSummary, metrics = NULL, sortBars = "decreasing")
+plotRankSummary(dreSummary, metrics = NULL, sortBars = "decreasing",
+  scoreType = "rank")
 }
 \arguments{
 \item{dreSummary}{A \code{data.frame} with the values of the evaluation
@@ -19,6 +20,20 @@ all the global or local metrics, respectively, will be used.}
 \item{sortBars}{A character scalar indicating whether/how to sort the bars in
 the output. Either "decreasing", "increasing" or "none" (in which case the
 input order will be used).}
+
+\item{scoreType}{A character scalar indicating what type of values to show in
+the plot. Either "rank" or "rescale". If set to "rank", the representations
+will be ranked for each metric (with the best one assigned the highest
+rank). If set to "rescale", the scores for each metric will first, if
+necessary, be inverted so that a high (positive) value corresponds to
+better performance, and then be linearly rescaled, mapping the lowest score
+to 1 and the highest to P, where P is the number of evaluated
+representations. If the original scores are approximately equally spaced
+between the highest and lowest observed values, this gives similar results
+as setting \code{scoreType} to "rank". However, if some of the scores are
+very similar to each other, the "rescale" approach allows them to get a
+similar rank score rather than forcing a uniform difference between
+successive scores.}
 }
 \value{
 Nothing is returned, but a plot is generated.
