@@ -13,7 +13,8 @@ dreval(sce, dimReds = NULL, refType = "assay",
 \item{sce}{A \code{SingleCellExperiment} object.}
 
 \item{dimReds}{A character vector with the names of the reduced dimension
-representations from \code{sce} to include in the evaluation.}
+representations from \code{sce} to include in the evaluation. If
+\code{NULL}, all reduced dimension representations are included.}
 
 \item{refType}{A character scalar, either "assay" or "dimred", specifying
 whether to use an assay or a reduced dimension representation of \code{sce}
@@ -37,8 +38,8 @@ names of \code{sce}.}
 \item{distNorm}{A character scalar, indicating how the distance vectors in
 the reference and low-dimensional spaces should be normalized before they
 are compared. If set to "l2", the vectors are L2 normalized, if set to
-"median", they are divided by the median value times the square root of
-their length, and if set to any other value, they are divided by the square
+"median" they are divided by the median value times the square root of
+their length, and if set to any other value they are divided by the square
 root of their length, to avoid metrics scaling with the number of retained
 samples.}
 
@@ -92,14 +93,14 @@ The following metrics are calculated:
   representation. Ranges from -1 to 1, higher values are better.
   \item KSstatDist - The Kolmogorov-Smirnov statistic comparing the
   distribution of distances in the reference space and in the low-dimensional
-  representation. Lower values are better.
+  representation. Ranges from 0 to 1, lower values are better.
   \item EuclDistBetweenDists - The Euclidean distance between the vector of
   distances in the reference space and those in the low-dimensional
   representation. Depending on the value of \code{distNorm}, distances are
   scaled before they are compared. Lower values are better.
-  \item SammonStress - The Sammon stress. Depending on the value of
-  \code{distNorm}, distances are scaled before they are compared. Lower
-  values are better.
+  \item SammonStress - The Sammon stress (Sammon 1969). Depending on the
+  value of \code{distNorm}, distances are scaled before they are compared.
+  Lower values are better.
   \item Trustworthiness_kNN - The trustworthiness score (Venna & Kaski 2001),
   using NN nearest neighbors. The trustworthiness indicates to which degree
   we can trust that the points placed closest to a given sample in the
@@ -115,9 +116,9 @@ The following metrics are calculated:
   in the low-dimensional representation. Ranges from 0 to 1, higher values
   are better.
   \item MeanSilhouette_X - If a \code{labelColumn} X is supplied, the mean
-  silhouette index across all samples, with the grouping given by this column
-  and the distances obtained from the low-dimensional representation. Ranges
-  from -1 to 1, higher values are better.
+  silhouette score (Rousseeuw 1987) across all samples, with the grouping
+  given by this column and the distances obtained from the low-dimensional
+  representation. Ranges from -1 to 1, higher values are better.
   \item coRankingQlocal - Q_local as calculated by the coRanking package
   (Kraemer and Reichstein 2018, Lee and Verleysen 2009, Chen and Buja 2009).
   Higher values are better.
@@ -147,6 +148,13 @@ Venna J., Kaski S. (2001). Neighborhood preservation in nonlinear
 
   Kraemer G., Reichstein M., Mahecha M.D. (2018). dimRed and coRanking -
   Unifying dimensionality reduction in R. The R Journal 10 (1):342-358.
+
+  Sammon J.W. Jr (1969). A nonlinear mapping for data structure analysis.
+  IEEE Transactions on Computers C18(5):401-409.
+
+  Rousseeuw, P.J. (1987). Silhouettes: A graphical aid to the interpretation
+  and validation of cluster analysis. Journal of Computational and Applied
+  Mathematics 20:53-65.
 }
 \author{
 Charlotte Soneson

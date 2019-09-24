@@ -26,22 +26,27 @@ library(dreval)
 
 # Introduction
 
-The `dreval` package provides functionality to evaluate and compare several
-reduced dimension representations, in terms of how well they retain structure
-seen in a reference representation. Here, we illustrate its application to a
-single-cell RNA-seq data set of peripheral blood mononuclear cells (PBMCs),
+The primary aim of the `dreval` package is to evaluate and compare one or more
+reduced dimension representations, in terms of how well they retain the
+structure from a reference representation. Here, we illustrate its application
+to a single-cell RNA-seq data set of peripheral blood mononuclear cells (PBMCs),
 representing a subset of the `pbmc3k` data set from the `TENxPBMCData` package.
+The set of genes has been subset to only highly variable ones, and several
+dimension reduction methods (PCA, tSNE and UMAP) have been applied.
 
 ```{r}
 data(pbmc3ksub)
+pbmc3ksub
 ```
 
 # Evaluation
 
-We use the `dreval()` function to calculate several metrics comparing each of
-the reduced dimension representations in the `SingleCellExperiment` object to
-the underlying normalized and log-transformed data contained in the `logcounts`
-slot. For a list of the calculated metrics, see the help page for `dreval()`.
+The `dreval()` function is the main function in the package, and calculates
+several metrics comparing each of the reduced dimension representations in the
+`SingleCellExperiment` object to the designed reference representation. Here, we
+use the underlying normalized and log-transformed data contained in the
+`logcounts` slot as the reference representation. For a list of the calculated
+metrics, see the help page for `dreval()`.
 
 ```{r}
 dre <- dreval(
@@ -53,15 +58,23 @@ dre <- dreval(
 
 # Result visualization
 
-The `plots` entry of `dre` contains several diagnostic plot objects, while the
-`scores` entry contains the calculated scores for each of the evaluated reduced
-dimension representations. These can be summarized visually with the
-`plotRankSummary()` function.
+The output of `dreval()` is a list with two elements. The `plots` entry contains
+several diagnostic plot objects, while the `scores` entry contains the
+calculated scores for each of the evaluated reduced dimension representations.
+These can be summarized visually with the `plotRankSummary()` function.
 
-```{r, fig.width = 8, fig.height = 6}
+```{r, fig.width = 8, fig.height = 10}
 dre$scores
-cowplot::plot_grid(plotlist = dre$plots$disthex)
-plotRankSummary(dre$scores)
+suppressPackageStartupMessages({
+  library(ggplot2)
+})
+cowplot::plot_grid(plotlist = lapply(dre$plots$disthex, function(w) w + 
+  theme(axis.title = element_text(size = 7))), ncol = 2)
+```
+
+```{r, fig.width = 6, fig.height = 5}
+plotRankSummary(dre$scores) + 
+  theme(axis.text.x = element_text(angle = 45, hjust = 1, vjust = 1))
 ```
 
 # Using a reduced dimension representation as the reference space
@@ -77,9 +90,17 @@ dre <- dreval(
   dimReds = NULL, nSamples = 500, kTM = c(10, 75), 
   verbose = FALSE, distNorm = "l2"
 )
+```
+
+```{r, fig.width = 8, fig.height = 10}
 dre$scores
-cowplot::plot_grid(plotlist = dre$plots$disthex)
-plotRankSummary(dre$scores)
+cowplot::plot_grid(plotlist = lapply(dre$plots$disthex, function(w) w + 
+  theme(axis.title = element_text(size = 7))), ncol = 2)
+```
+
+```{r, fig.width = 6, fig.height = 5}
+plotRankSummary(dre$scores) + 
+  theme(axis.text.x = element_text(angle = 45, hjust = 1, vjust = 1))
 ```
 
 # Computational efficiency
@@ -87,9 +108,9 @@ plotRankSummary(dre$scores)
 `dreval` relies heavily on the calculation of pairwise distances among samples,
 and is consequently computationally demanding for large data sets. The
 `dreval()` function allows for subsampling a smaller number of samples, as well
-as a selection of a subset of the variables, to speed up calculations and reduce
-the memory footprint. Here we investigate the stability of the calculated
-metrics as decreasing numbers of samples are selected.
+as selecting a subset of the variables, to speed up calculations and reduce the
+memory footprint. Here we illustrate that for the example data set, the
+calculated metrics are stable under subsampling of cells.
 
 ```{r, fig.width = 10, fig.height = 8, eval = FALSE}
 suppressPackageStartupMessages({
@@ -103,7 +124,7 @@ nS <- c(100, 400, 1000, 1500, 2700)
 v <- lapply(nS, function(n) {
   if (n == 2700) nR <- 1
   else nR <- 2
-  lapply(1:nR, function(i) {
+  lapply(seq_len(nR), function(i) {
     message(n, " samples, replicate ", i)
     dreval(sce = pbmc3ksub, refAssay = "logcounts", dimReds = NULL,
            nSamples = n, kTM = 50, verbose = FALSE)$scores %>%
@@ -117,7 +138,6 @@ vv <- vv %>%
     key = "measure", value = "value", 
     -Method, -dimensionality, -nSamples, -replicate
   )
-
 
 suppressWarnings(
   ggplot(vv, aes(x = nSamples, y = value, color = Method)) + 
