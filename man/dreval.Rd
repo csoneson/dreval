@@ -62,7 +62,11 @@ messages.}
 A list with two elements:
 \itemize{
 \item scores - A \code{data.frame} with values of all evaluation metrics,
-across the dimension reduction methods.
+across the dimension reduction methods. In addition to the metrics, it
+contains the dimensionality of the respective reduced dimension
+representations, and the value of K giving the highest value of LCMC (used
+for the calculations of Qlocal and Qglobal, see Kraemer et al 2018, Lee and
+Verleysen 2009, Chen and Buja 2009).
 \item plots - A list of ggplot objects, representing diagnostic plots.
 }
 }
@@ -121,14 +125,14 @@ The following metrics are calculated:
   representation. Ranges from -1 to 1, higher values are better.
   \item coRankingQlocal - Q_local, defined as the average LCMC over the
   values to the left of the maximum, following the dimRed/coRanking package
-  implementations (Kraemer and Reichstein 2018, Lee and Verleysen 2009, Chen
-  and Buja 2009). Measures the preservation of local distances, higher values
-  are better.
+  implementations (Kraemer et al 2018, Lee and Verleysen 2009, Chen and Buja
+  2009). Measures the preservation of local distances, higher values are
+  better.
   \item coRankingQglobal - Q_global, defined as the average LCMC over the
   values to the right of the maximum, following the dimRed/coRanking package
-  implementations (Kraemer and Reichstein 2018, Lee and Verleysen 2009, Chen
-  and Buja 2009). Measures the preservation of global distances, higher
-  values are better.
+  implementations (Kraemer et al 2018, Lee and Verleysen 2009, Chen and Buja
+  2009). Measures the preservation of global distances, higher values are
+  better.
   }
 }
 \examples{
