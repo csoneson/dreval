@@ -51,12 +51,16 @@
 #'   silhouette score (Rousseeuw 1987) across all samples, with the grouping
 #'   given by this column and the distances obtained from the low-dimensional
 #'   representation. Ranges from -1 to 1, higher values are better.
-#'   \item coRankingQlocal - Q_local as calculated by the coRanking package
-#'   (Kraemer and Reichstein 2018, Lee and Verleysen 2009, Chen and Buja 2009).
-#'   Higher values are better.
-#'   \item coRankingQglobal - Q_global as calculated by the coRanking package
-#'   (Kraemer and Reichstein 2018, Lee and Verleysen 2009, Chen and Buja 2009).
-#'   Higher values are better.
+#'   \item coRankingQlocal - Q_local, defined as the average LCMC over the
+#'   values to the left of the maximum, following the dimRed/coRanking package
+#'   implementations (Kraemer and Reichstein 2018, Lee and Verleysen 2009, Chen
+#'   and Buja 2009). Measures the preservation of local distances, higher values
+#'   are better.
+#'   \item coRankingQglobal - Q_global, defined as the average LCMC over the
+#'   values to the right of the maximum, following the dimRed/coRanking package
+#'   implementations (Kraemer and Reichstein 2018, Lee and Verleysen 2009, Chen
+#'   and Buja 2009). Measures the preservation of global distances, higher
+#'   values are better.
 #'   }
 #'
 #' @param sce A \code{SingleCellExperiment} object.
@@ -450,6 +454,8 @@ dreval <- function(
             input = "dist"
         )
         lcmc <- coRanking::LCMC(qt)
+        ## We follow the implementation in the dimRed package, where Qlocal and
+        ## Qglobal are calculated as averages of LCMC values (not Q_NX values)
         Kmax <- which.max(lcmc)
         qlocal <- mean(lcmc[seq(from = 1, to = Kmax, by = 1)])
         qglobal <- mean(lcmc[seq(from = Kmax + 1, to = length(lcmc), by = 1)])
