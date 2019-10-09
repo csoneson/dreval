@@ -30,5 +30,6 @@ Suggests:
     rmarkdown,
     testthat (>= 2.1.0),
     TENxPBMCData,
-    cowplot
+    cowplot,
+    hexbin
 VignetteBuilder: knitr
