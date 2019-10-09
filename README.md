@@ -1,4 +1,7 @@
 ## dreval
+[![Travis CI build status](https://travis-ci.com/csoneson/dreval.svg?branch=master)](https://travis-ci.com/csoneson/dreval)
+[![Codecov.io coverage status](https://codecov.io/github/csoneson/dreval/coverage.svg?branch=master)](https://codecov.io/github/csoneson/dreval)
+
 
 `dreval` is an R package aimed at evaluation and comparison of reduced dimension
 representations of high-dimensional data. Given one or more reduced dimension
