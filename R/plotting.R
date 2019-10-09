@@ -39,6 +39,7 @@
 #' @importFrom dplyr select mutate vars group_by ungroup arrange mutate_at desc
 #' @importFrom tidyr gather
 #' @importFrom ggplot2 ggplot aes geom_bar theme_bw scale_fill_manual
+#' @importFrom magrittr %>%
 #'
 plotRankSummary <- function(dreSummary, metrics = NULL,
                             sortBars = "decreasing", scoreType = "rank") {

@@ -150,6 +150,7 @@
 #' @importFrom ggplot2 ggplot aes geom_hex theme_bw labs scale_fill_gradient
 #'   geom_abline stat_ecdf
 #' @importFrom tidyr gather
+#' @importFrom magrittr %>%
 #'
 #' @examples
 #' data(pbmc3ksub)
