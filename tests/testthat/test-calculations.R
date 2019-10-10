@@ -11,6 +11,14 @@ test_that("scores are calculated correctly", {
         labelColumn = NULL, verbose = FALSE
     )
 
+    dressub <- dreval(
+        sce = sce, dimReds = "PCA", refType = "assay", refAssay = "logcounts",
+        features = rownames(sce)[1:100], nSamples = 100, distNorm = "l2",
+        refDistMethod = "euclidean", kTM = 5,
+        labelColumn = NULL, verbose = TRUE
+    )
+    expect_equal(dres$scores, dressub$scores)
+
     expect_equal(nrow(dres$scores), 1)
 
     ## recalculate scores

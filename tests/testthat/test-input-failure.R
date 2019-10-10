@@ -2,7 +2,9 @@ context("input arguments")
 
 test_that("dreval fails if the wrong arguments are provided", {
     data(pbmc3ksub)
+    expect_error(dreval(1))
     expect_error(dreval(pbmc3ksub, dimReds = "missing"))
+    expect_error(dreval(pbmc3ksub, refType = "missing"))
     expect_error(dreval(pbmc3ksub, refType = "assay", refAssay = "missing"))
     expect_error(dreval(pbmc3ksub, refType = "dimred", refDimRed = "missing"))
     expect_error(dreval(pbmc3ksub, features = "missing"))
