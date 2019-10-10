@@ -65,12 +65,20 @@ test_that("scores are calculated correctly", {
             }))
     )
     expect_equal(
+        dres$scores$Trustworthiness_k5,
+        calcTrustworthinessFromDist(dists_orig, dists_lowdim, kTM = k)
+    )
+    expect_equal(
         dres$scores$Continuity_k5,
         1 - 2/(N * k * (2 * N - 3 * k - 1)) *
             sum(sapply(1:ncol(ranks_lowdim), function(i) {
                 (ranks_lowdim[, i] - k) * (ranks_orig[, i] <= k) *
                     (ranks_lowdim[, i] > k)
             }))
+    )
+    expect_equal(
+        dres$scores$Continuity_k5,
+        calcContinuityFromDist(dists_orig, dists_lowdim, kTM = k)
     )
     expect_equal(
         dres$scores$MeanJaccard_k5,
