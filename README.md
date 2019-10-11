@@ -27,7 +27,7 @@ remotes::install_github("csoneson/dreval")
 The input to `dreval` is a
 [`SingleCellExperiment`](https://bioconductor.org/packages/SingleCellExperiment/)
 object, containing one or more assays and one or more reduced dimension
-representation. By default, the `logcount` assay will be used as the reference
+representation. By default, the `logcounts` assay will be used as the reference
 representation, against which each of the provided reduced dimension
 representations will be evaluated. However, any other assay or reduced dimension
 representation can be used as the reference data, by setting the arguments to

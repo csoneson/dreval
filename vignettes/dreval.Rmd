@@ -45,7 +45,7 @@ The `dreval()` function is the main function in the package, and calculates
 several metrics comparing each of the reduced dimension representations in the
 `SingleCellExperiment` object to the designed reference representation. Here, we
 use the underlying normalized and log-transformed data contained in the
-`logcounts` slot as the reference representation. For a list of the calculated
+`logcounts` assay as the reference representation. For a list of the calculated
 metrics, see the help page for `dreval()`.
 
 ```{r}
