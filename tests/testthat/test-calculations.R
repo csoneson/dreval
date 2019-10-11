@@ -11,6 +11,7 @@ test_that("scores are calculated correctly", {
         labelColumn = NULL, verbose = FALSE
     )
 
+    ## Test subsetting (here, to the same set of genes/cells, but cells are shuffled)
     dressub <- dreval(
         sce = sce, dimReds = "PCA", refType = "assay", refAssay = "logcounts",
         features = rownames(sce)[1:100], nSamples = 100, distNorm = "l2",
@@ -18,6 +19,18 @@ test_that("scores are calculated correctly", {
         labelColumn = NULL, verbose = TRUE
     )
     expect_equal(dres$scores, dressub$scores)
+
+    ## Test application to reduced dim
+    sce1 <- sce
+    SingleCellExperiment::reducedDim(sce1, "data") <- t(SingleCellExperiment::logcounts(sce1))
+    dresdr <- dreval(
+        sce = sce1, dimReds = "PCA", refType = "dimred",
+        refAssay = NULL, refDimRed = "data",
+        features = NULL, nSamples = NULL, distNorm = "l2",
+        refDistMethod = "euclidean", kTM = 5,
+        labelColumn = NULL, verbose = FALSE
+    )
+    expect_equal(dres$scores, dresdr$scores)
 
     expect_equal(nrow(dres$scores), 1)
 
