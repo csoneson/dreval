@@ -85,7 +85,7 @@
       <h1>dreval</h1>
                         <h4 class="author">Charlotte Soneson</h4>
             
-            <h4 class="date">2019-10-16</h4>
+            <h4 class="date">2019-10-23</h4>
       
       
       <div class="hidden name"><code>dreval.Rmd</code></div>
@@ -129,41 +129,41 @@
 <p>The output of <code><a href="../reference/dreval.html">dreval()</a></code> is a list with two elements. The <code>plots</code> entry contains several diagnostic plot objects, while the <code>scores</code> entry contains the calculated scores for each of the evaluated reduced dimension representations. These can be summarized visually with the <code><a href="../reference/plotRankSummary.html">plotRankSummary()</a></code> function.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">dre<span class="op">$</span>scores</a>
 <a class="sourceLine" id="cb4-2" data-line-number="2"><span class="co">#&gt;         Method dimensionality SpearmanCorrDist PearsonCorrDist KSStatDist</span></a>
-<a class="sourceLine" id="cb4-3" data-line-number="3"><span class="co">#&gt; 1          PCA             25        0.8203083       0.8174401  0.3307014</span></a>
-<a class="sourceLine" id="cb4-4" data-line-number="4"><span class="co">#&gt; 2       PCA_k2              2        0.6865502       0.6595581  0.4864369</span></a>
-<a class="sourceLine" id="cb4-5" data-line-number="5"><span class="co">#&gt; 3  TSNE_perp30              2        0.6686362       0.6269214  0.3839038</span></a>
-<a class="sourceLine" id="cb4-6" data-line-number="6"><span class="co">#&gt; 4   TSNE_perp5              2        0.4324861       0.3866159  0.3968818</span></a>
-<a class="sourceLine" id="cb4-7" data-line-number="7"><span class="co">#&gt; 5  TSNE_perp15              2        0.6080606       0.5753294  0.3880240</span></a>
-<a class="sourceLine" id="cb4-8" data-line-number="8"><span class="co">#&gt; 6 TSNE_perp100              2        0.6571894       0.6179770  0.3878637</span></a>
-<a class="sourceLine" id="cb4-9" data-line-number="9"><span class="co">#&gt; 7    UMAP_nn15              2        0.6139179       0.5824058  0.4346293</span></a>
-<a class="sourceLine" id="cb4-10" data-line-number="10"><span class="co">#&gt; 8    UMAP_nn30              2        0.6181354       0.5631985  0.4711503</span></a>
+<a class="sourceLine" id="cb4-3" data-line-number="3"><span class="co">#&gt; 1          PCA             25        0.8260473       0.8469544  0.3303808</span></a>
+<a class="sourceLine" id="cb4-4" data-line-number="4"><span class="co">#&gt; 2       PCA_k2              2        0.7051241       0.6751258  0.4900361</span></a>
+<a class="sourceLine" id="cb4-5" data-line-number="5"><span class="co">#&gt; 3  TSNE_perp30              2        0.6655021       0.5952061  0.3575150</span></a>
+<a class="sourceLine" id="cb4-6" data-line-number="6"><span class="co">#&gt; 4   TSNE_perp5              2        0.4311973       0.3828631  0.3798798</span></a>
+<a class="sourceLine" id="cb4-7" data-line-number="7"><span class="co">#&gt; 5  TSNE_perp15              2        0.6246751       0.5800879  0.3612345</span></a>
+<a class="sourceLine" id="cb4-8" data-line-number="8"><span class="co">#&gt; 6 TSNE_perp100              2        0.6479737       0.5647454  0.3765451</span></a>
+<a class="sourceLine" id="cb4-9" data-line-number="9"><span class="co">#&gt; 7    UMAP_nn15              2        0.6237603       0.5831662  0.4067174</span></a>
+<a class="sourceLine" id="cb4-10" data-line-number="10"><span class="co">#&gt; 8    UMAP_nn30              2        0.6434940       0.5655187  0.4304289</span></a>
 <a class="sourceLine" id="cb4-11" data-line-number="11"><span class="co">#&gt;   EuclDistBetweenDists SammonStress Trustworthiness_k10 Continuity_k10</span></a>
-<a class="sourceLine" id="cb4-12" data-line-number="12"><span class="co">#&gt; 1            0.2543784   0.06887252           0.9167191      0.9297899</span></a>
-<a class="sourceLine" id="cb4-13" data-line-number="13"><span class="co">#&gt; 2            0.4982019   0.26169347           0.8230584      0.8803509</span></a>
-<a class="sourceLine" id="cb4-14" data-line-number="14"><span class="co">#&gt; 3            0.3968297   0.16510730           0.8698460      0.8795595</span></a>
-<a class="sourceLine" id="cb4-15" data-line-number="15"><span class="co">#&gt; 4            0.4113518   0.17363222           0.8488161      0.8368677</span></a>
-<a class="sourceLine" id="cb4-16" data-line-number="16"><span class="co">#&gt; 5            0.3960557   0.16383653           0.8614072      0.8653416</span></a>
-<a class="sourceLine" id="cb4-17" data-line-number="17"><span class="co">#&gt; 6            0.4452541   0.21049915           0.8735129      0.8802601</span></a>
-<a class="sourceLine" id="cb4-18" data-line-number="18"><span class="co">#&gt; 7            0.5258362   0.29517533           0.8574341      0.8665981</span></a>
-<a class="sourceLine" id="cb4-19" data-line-number="19"><span class="co">#&gt; 8            0.5705119   0.34698961           0.8559983      0.8725783</span></a>
+<a class="sourceLine" id="cb4-12" data-line-number="12"><span class="co">#&gt; 1            0.2597501   0.07047643           0.9233973      0.9306658</span></a>
+<a class="sourceLine" id="cb4-13" data-line-number="13"><span class="co">#&gt; 2            0.4988826   0.26504136           0.8349313      0.8752537</span></a>
+<a class="sourceLine" id="cb4-14" data-line-number="14"><span class="co">#&gt; 3            0.3943253   0.16424981           0.8718696      0.8749759</span></a>
+<a class="sourceLine" id="cb4-15" data-line-number="15"><span class="co">#&gt; 4            0.4083805   0.17212410           0.8543455      0.8294427</span></a>
+<a class="sourceLine" id="cb4-16" data-line-number="16"><span class="co">#&gt; 5            0.3888233   0.15936987           0.8677115      0.8655946</span></a>
+<a class="sourceLine" id="cb4-17" data-line-number="17"><span class="co">#&gt; 6            0.4466137   0.21211274           0.8757247      0.8778097</span></a>
+<a class="sourceLine" id="cb4-18" data-line-number="18"><span class="co">#&gt; 7            0.5084933   0.27956455           0.8640173      0.8646885</span></a>
+<a class="sourceLine" id="cb4-19" data-line-number="19"><span class="co">#&gt; 8            0.5485454   0.32422900           0.8635212      0.8758935</span></a>
 <a class="sourceLine" id="cb4-20" data-line-number="20"><span class="co">#&gt;   Trustworthiness_k75 Continuity_k75 MeanJaccard_k10 MeanJaccard_k75</span></a>
-<a class="sourceLine" id="cb4-21" data-line-number="21"><span class="co">#&gt; 1           0.9238888      0.9312863       0.1818565       0.4266550</span></a>
-<a class="sourceLine" id="cb4-22" data-line-number="22"><span class="co">#&gt; 2           0.8640105      0.8961791       0.1150664       0.3261467</span></a>
-<a class="sourceLine" id="cb4-23" data-line-number="23"><span class="co">#&gt; 3           0.8701730      0.8862757       0.1403908       0.3489225</span></a>
-<a class="sourceLine" id="cb4-24" data-line-number="24"><span class="co">#&gt; 4           0.8153262      0.8113213       0.1355156       0.2967750</span></a>
-<a class="sourceLine" id="cb4-25" data-line-number="25"><span class="co">#&gt; 5           0.8629984      0.8714960       0.1351067       0.3457410</span></a>
-<a class="sourceLine" id="cb4-26" data-line-number="26"><span class="co">#&gt; 6           0.8735332      0.8902312       0.1448600       0.3612851</span></a>
-<a class="sourceLine" id="cb4-27" data-line-number="27"><span class="co">#&gt; 7           0.8662921      0.8831403       0.1348747       0.3459300</span></a>
-<a class="sourceLine" id="cb4-28" data-line-number="28"><span class="co">#&gt; 8           0.8691917      0.8866444       0.1348388       0.3513789</span></a>
+<a class="sourceLine" id="cb4-21" data-line-number="21"><span class="co">#&gt; 1           0.9306070      0.9477187       0.1861262       0.4407782</span></a>
+<a class="sourceLine" id="cb4-22" data-line-number="22"><span class="co">#&gt; 2           0.8700207      0.9071055       0.1143175       0.3237766</span></a>
+<a class="sourceLine" id="cb4-23" data-line-number="23"><span class="co">#&gt; 3           0.8752057      0.8994290       0.1310723       0.3444837</span></a>
+<a class="sourceLine" id="cb4-24" data-line-number="24"><span class="co">#&gt; 4           0.8297351      0.8287169       0.1261535       0.3022387</span></a>
+<a class="sourceLine" id="cb4-25" data-line-number="25"><span class="co">#&gt; 5           0.8721817      0.8891491       0.1310170       0.3424300</span></a>
+<a class="sourceLine" id="cb4-26" data-line-number="26"><span class="co">#&gt; 6           0.8813140      0.9071393       0.1313606       0.3587348</span></a>
+<a class="sourceLine" id="cb4-27" data-line-number="27"><span class="co">#&gt; 7           0.8735244      0.8988735       0.1218519       0.3398533</span></a>
+<a class="sourceLine" id="cb4-28" data-line-number="28"><span class="co">#&gt; 8           0.8782192      0.9068732       0.1202741       0.3444437</span></a>
 <a class="sourceLine" id="cb4-29" data-line-number="29"><span class="co">#&gt;   coRankingQlocal coRankingQglobal KmaxLCMC</span></a>
-<a class="sourceLine" id="cb4-30" data-line-number="30"><span class="co">#&gt; 1       0.3690752        0.2550465      114</span></a>
-<a class="sourceLine" id="cb4-31" data-line-number="31"><span class="co">#&gt; 2       0.2665541        0.2035742      118</span></a>
-<a class="sourceLine" id="cb4-32" data-line-number="32"><span class="co">#&gt; 3       0.2912185        0.1932149      118</span></a>
-<a class="sourceLine" id="cb4-33" data-line-number="33"><span class="co">#&gt; 4       0.2345594        0.1298586      104</span></a>
-<a class="sourceLine" id="cb4-34" data-line-number="34"><span class="co">#&gt; 5       0.2773501        0.1788913      110</span></a>
-<a class="sourceLine" id="cb4-35" data-line-number="35"><span class="co">#&gt; 6       0.2996576        0.1974114      118</span></a>
-<a class="sourceLine" id="cb4-36" data-line-number="36"><span class="co">#&gt; 7       0.2833454        0.1816901      118</span></a>
-<a class="sourceLine" id="cb4-37" data-line-number="37"><span class="co">#&gt; 8       0.2883992        0.1927512      118</span></a>
+<a class="sourceLine" id="cb4-30" data-line-number="30"><span class="co">#&gt; 1       0.4009919        0.2552868      126</span></a>
+<a class="sourceLine" id="cb4-31" data-line-number="31"><span class="co">#&gt; 2       0.2835572        0.2024831      130</span></a>
+<a class="sourceLine" id="cb4-32" data-line-number="32"><span class="co">#&gt; 3       0.3022310        0.1877868      131</span></a>
+<a class="sourceLine" id="cb4-33" data-line-number="33"><span class="co">#&gt; 4       0.2441603        0.1273128      113</span></a>
+<a class="sourceLine" id="cb4-34" data-line-number="34"><span class="co">#&gt; 5       0.2952028        0.1766185      129</span></a>
+<a class="sourceLine" id="cb4-35" data-line-number="35"><span class="co">#&gt; 6       0.3123542        0.1955840      130</span></a>
+<a class="sourceLine" id="cb4-36" data-line-number="36"><span class="co">#&gt; 7       0.2960721        0.1816390      130</span></a>
+<a class="sourceLine" id="cb4-37" data-line-number="37"><span class="co">#&gt; 8       0.3021631        0.1948801      130</span></a>
 <a class="sourceLine" id="cb4-38" data-line-number="38"><span class="kw"><a href="https://rdrr.io/r/base/message.html">suppressPackageStartupMessages</a></span>({</a>
 <a class="sourceLine" id="cb4-39" data-line-number="39">  <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(ggplot2)</a>
 <a class="sourceLine" id="cb4-40" data-line-number="40">})</a>
@@ -185,37 +185,37 @@
 <a class="sourceLine" id="cb6-5" data-line-number="5">)</a></code></pre></div>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">dre<span class="op">$</span>scores</a>
 <a class="sourceLine" id="cb7-2" data-line-number="2"><span class="co">#&gt;         Method dimensionality SpearmanCorrDist PearsonCorrDist KSStatDist</span></a>
-<a class="sourceLine" id="cb7-3" data-line-number="3"><span class="co">#&gt; 1       PCA_k2              2        0.9308360       0.9063712  0.2721363</span></a>
-<a class="sourceLine" id="cb7-4" data-line-number="4"><span class="co">#&gt; 2  TSNE_perp30              2        0.7710324       0.7268297  0.1324088</span></a>
-<a class="sourceLine" id="cb7-5" data-line-number="5"><span class="co">#&gt; 3   TSNE_perp5              2        0.5872280       0.5539675  0.1003447</span></a>
-<a class="sourceLine" id="cb7-6" data-line-number="6"><span class="co">#&gt; 4  TSNE_perp15              2        0.7319284       0.7063962  0.1174429</span></a>
-<a class="sourceLine" id="cb7-7" data-line-number="7"><span class="co">#&gt; 5 TSNE_perp100              2        0.7764102       0.7270097  0.2089699</span></a>
-<a class="sourceLine" id="cb7-8" data-line-number="8"><span class="co">#&gt; 6    UMAP_nn15              2        0.7893900       0.7660329  0.2992786</span></a>
-<a class="sourceLine" id="cb7-9" data-line-number="9"><span class="co">#&gt; 7    UMAP_nn30              2        0.8387034       0.7674779  0.3478236</span></a>
+<a class="sourceLine" id="cb7-3" data-line-number="3"><span class="co">#&gt; 1       PCA_k2              2        0.9224538       0.9046738 0.28787174</span></a>
+<a class="sourceLine" id="cb7-4" data-line-number="4"><span class="co">#&gt; 2  TSNE_perp30              2        0.7898413       0.7405270 0.13130261</span></a>
+<a class="sourceLine" id="cb7-5" data-line-number="5"><span class="co">#&gt; 3   TSNE_perp5              2        0.5796522       0.5403351 0.09802806</span></a>
+<a class="sourceLine" id="cb7-6" data-line-number="6"><span class="co">#&gt; 4  TSNE_perp15              2        0.7496374       0.7180191 0.11212826</span></a>
+<a class="sourceLine" id="cb7-7" data-line-number="7"><span class="co">#&gt; 5 TSNE_perp100              2        0.8028502       0.7450298 0.21976754</span></a>
+<a class="sourceLine" id="cb7-8" data-line-number="8"><span class="co">#&gt; 6    UMAP_nn15              2        0.8072523       0.7783287 0.33158317</span></a>
+<a class="sourceLine" id="cb7-9" data-line-number="9"><span class="co">#&gt; 7    UMAP_nn30              2        0.8484285       0.7738620 0.38783166</span></a>
 <a class="sourceLine" id="cb7-10" data-line-number="10"><span class="co">#&gt;   EuclDistBetweenDists SammonStress Trustworthiness_k10 Continuity_k10</span></a>
-<a class="sourceLine" id="cb7-11" data-line-number="11"><span class="co">#&gt; 1            0.2821671    0.1101246           0.9226555      0.9508970</span></a>
-<a class="sourceLine" id="cb7-12" data-line-number="12"><span class="co">#&gt; 2            0.3091627    0.1045486           0.9685432      0.9690105</span></a>
-<a class="sourceLine" id="cb7-13" data-line-number="13"><span class="co">#&gt; 3            0.3765529    0.1504504           0.9487418      0.9470287</span></a>
-<a class="sourceLine" id="cb7-14" data-line-number="14"><span class="co">#&gt; 4            0.3146540    0.1098178           0.9668140      0.9654881</span></a>
-<a class="sourceLine" id="cb7-15" data-line-number="15"><span class="co">#&gt; 5            0.3438882    0.1326802           0.9700277      0.9733870</span></a>
-<a class="sourceLine" id="cb7-16" data-line-number="16"><span class="co">#&gt; 6            0.3791127    0.1827432           0.9599368      0.9683022</span></a>
-<a class="sourceLine" id="cb7-17" data-line-number="17"><span class="co">#&gt; 7            0.4091289    0.2139265           0.9615496      0.9708553</span></a>
+<a class="sourceLine" id="cb7-11" data-line-number="11"><span class="co">#&gt; 1            0.2970685    0.1214983           0.9042613      0.9423327</span></a>
+<a class="sourceLine" id="cb7-12" data-line-number="12"><span class="co">#&gt; 2            0.3071870    0.1032590           0.9620153      0.9639571</span></a>
+<a class="sourceLine" id="cb7-13" data-line-number="13"><span class="co">#&gt; 3            0.3852317    0.1570094           0.9454196      0.9397383</span></a>
+<a class="sourceLine" id="cb7-14" data-line-number="14"><span class="co">#&gt; 4            0.3130173    0.1089775           0.9580991      0.9588144</span></a>
+<a class="sourceLine" id="cb7-15" data-line-number="15"><span class="co">#&gt; 5            0.3433117    0.1316900           0.9652599      0.9678262</span></a>
+<a class="sourceLine" id="cb7-16" data-line-number="16"><span class="co">#&gt; 6            0.3864177    0.1902967           0.9541659      0.9613858</span></a>
+<a class="sourceLine" id="cb7-17" data-line-number="17"><span class="co">#&gt; 7            0.4268532    0.2319253           0.9556681      0.9647356</span></a>
 <a class="sourceLine" id="cb7-18" data-line-number="18"><span class="co">#&gt;   Trustworthiness_k75 Continuity_k75 MeanJaccard_k10 MeanJaccard_k75</span></a>
-<a class="sourceLine" id="cb7-19" data-line-number="19"><span class="co">#&gt; 1           0.9453327      0.9611656       0.1851856       0.4941309</span></a>
-<a class="sourceLine" id="cb7-20" data-line-number="20"><span class="co">#&gt; 2           0.9493553      0.9544101       0.3522176       0.5583257</span></a>
-<a class="sourceLine" id="cb7-21" data-line-number="21"><span class="co">#&gt; 3           0.8914538      0.9107873       0.2908827       0.4692729</span></a>
-<a class="sourceLine" id="cb7-22" data-line-number="22"><span class="co">#&gt; 4           0.9437782      0.9510428       0.3295069       0.5467518</span></a>
-<a class="sourceLine" id="cb7-23" data-line-number="23"><span class="co">#&gt; 5           0.9572038      0.9620504       0.3582666       0.5902869</span></a>
-<a class="sourceLine" id="cb7-24" data-line-number="24"><span class="co">#&gt; 6           0.9547202      0.9601160       0.3138678       0.5567064</span></a>
-<a class="sourceLine" id="cb7-25" data-line-number="25"><span class="co">#&gt; 7           0.9539227      0.9613266       0.3185187       0.5647269</span></a>
+<a class="sourceLine" id="cb7-19" data-line-number="19"><span class="co">#&gt; 1           0.9301136      0.9512766       0.1731994       0.4659732</span></a>
+<a class="sourceLine" id="cb7-20" data-line-number="20"><span class="co">#&gt; 2           0.9355520      0.9424073       0.3426118       0.5298721</span></a>
+<a class="sourceLine" id="cb7-21" data-line-number="21"><span class="co">#&gt; 3           0.8686756      0.8912275       0.2833301       0.4356987</span></a>
+<a class="sourceLine" id="cb7-22" data-line-number="22"><span class="co">#&gt; 4           0.9267776      0.9374946       0.3160018       0.5158498</span></a>
+<a class="sourceLine" id="cb7-23" data-line-number="23"><span class="co">#&gt; 5           0.9429111      0.9516351       0.3512577       0.5563886</span></a>
+<a class="sourceLine" id="cb7-24" data-line-number="24"><span class="co">#&gt; 6           0.9399620      0.9463179       0.3059397       0.5323466</span></a>
+<a class="sourceLine" id="cb7-25" data-line-number="25"><span class="co">#&gt; 7           0.9372316      0.9468979       0.3130055       0.5346569</span></a>
 <a class="sourceLine" id="cb7-26" data-line-number="26"><span class="co">#&gt;   coRankingQlocal coRankingQglobal KmaxLCMC</span></a>
-<a class="sourceLine" id="cb7-27" data-line-number="27"><span class="co">#&gt; 1       0.4455889        0.2735293      136</span></a>
-<a class="sourceLine" id="cb7-28" data-line-number="28"><span class="co">#&gt; 2       0.5128683        0.2677942       58</span></a>
-<a class="sourceLine" id="cb7-29" data-line-number="29"><span class="co">#&gt; 3       0.4345420        0.1986412       58</span></a>
-<a class="sourceLine" id="cb7-30" data-line-number="30"><span class="co">#&gt; 4       0.4963158        0.2558445       58</span></a>
-<a class="sourceLine" id="cb7-31" data-line-number="31"><span class="co">#&gt; 5       0.5315451        0.2859318       57</span></a>
-<a class="sourceLine" id="cb7-32" data-line-number="32"><span class="co">#&gt; 6       0.4880583        0.2722164       59</span></a>
-<a class="sourceLine" id="cb7-33" data-line-number="33"><span class="co">#&gt; 7       0.4914379        0.2924924       58</span></a>
+<a class="sourceLine" id="cb7-27" data-line-number="27"><span class="co">#&gt; 1       0.4092192        0.2712332      125</span></a>
+<a class="sourceLine" id="cb7-28" data-line-number="28"><span class="co">#&gt; 2       0.4886736        0.2680298       50</span></a>
+<a class="sourceLine" id="cb7-29" data-line-number="29"><span class="co">#&gt; 3       0.4126245        0.1944332       51</span></a>
+<a class="sourceLine" id="cb7-30" data-line-number="30"><span class="co">#&gt; 4       0.4695421        0.2536567       53</span></a>
+<a class="sourceLine" id="cb7-31" data-line-number="31"><span class="co">#&gt; 5       0.5053598        0.2853604       50</span></a>
+<a class="sourceLine" id="cb7-32" data-line-number="32"><span class="co">#&gt; 6       0.4636640        0.2647222       52</span></a>
+<a class="sourceLine" id="cb7-33" data-line-number="33"><span class="co">#&gt; 7       0.4695711        0.2853499       50</span></a>
 <a class="sourceLine" id="cb7-34" data-line-number="34">cowplot<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/cowplot/man/plot_grid.html">plot_grid</a></span>(<span class="dt">plotlist =</span> <span class="kw"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span>(dre<span class="op">$</span>plots<span class="op">$</span>disthex, <span class="cf">function</span>(w) w <span class="op">+</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb7-35" data-line-number="35"><span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span>(<span class="dt">axis.title =</span> <span class="kw"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span>(<span class="dt">size =</span> <span class="dv">7</span>))), <span class="dt">ncol =</span> <span class="dv">2</span>)</a></code></pre></div>
 <p><img src="dreval_files/figure-html/unnamed-chunk-7-1.png" width="768"></p>
@@ -286,41 +286,41 @@
 <a class="sourceLine" id="cb10-22" data-line-number="22"><span class="co">#&gt; [1] ggplot2_3.2.1 dreval_0.1.2 </span></a>
 <a class="sourceLine" id="cb10-23" data-line-number="23"><span class="co">#&gt; </span></a>
 <a class="sourceLine" id="cb10-24" data-line-number="24"><span class="co">#&gt; loaded via a namespace (and not attached):</span></a>
-<a class="sourceLine" id="cb10-25" data-line-number="25"><span class="co">#&gt;  [1] Rcpp_1.0.2                  lattice_0.20-38            </span></a>
-<a class="sourceLine" id="cb10-26" data-line-number="26"><span class="co">#&gt;  [3] tidyr_1.0.0                 assertthat_0.2.1           </span></a>
-<a class="sourceLine" id="cb10-27" data-line-number="27"><span class="co">#&gt;  [5] zeallot_0.1.0               rprojroot_1.3-2            </span></a>
-<a class="sourceLine" id="cb10-28" data-line-number="28"><span class="co">#&gt;  [7] digest_0.6.21               SingleCellExperiment_1.7.11</span></a>
-<a class="sourceLine" id="cb10-29" data-line-number="29"><span class="co">#&gt;  [9] wordspace_0.2-5             R6_2.4.0                   </span></a>
-<a class="sourceLine" id="cb10-30" data-line-number="30"><span class="co">#&gt; [11] GenomeInfoDb_1.21.2         backports_1.1.5            </span></a>
-<a class="sourceLine" id="cb10-31" data-line-number="31"><span class="co">#&gt; [13] sparsesvd_0.2               stats4_3.6.1               </span></a>
-<a class="sourceLine" id="cb10-32" data-line-number="32"><span class="co">#&gt; [15] evaluate_0.14               pillar_1.4.2               </span></a>
-<a class="sourceLine" id="cb10-33" data-line-number="33"><span class="co">#&gt; [17] coRanking_0.1.4             zlibbioc_1.31.0            </span></a>
-<a class="sourceLine" id="cb10-34" data-line-number="34"><span class="co">#&gt; [19] rlang_0.4.0                 lazyeval_0.2.2             </span></a>
-<a class="sourceLine" id="cb10-35" data-line-number="35"><span class="co">#&gt; [21] hexbin_1.27.3               S4Vectors_0.23.25          </span></a>
-<a class="sourceLine" id="cb10-36" data-line-number="36"><span class="co">#&gt; [23] Matrix_1.2-17               rmarkdown_1.16             </span></a>
-<a class="sourceLine" id="cb10-37" data-line-number="37"><span class="co">#&gt; [25] pkgdown_1.4.1               labeling_0.3               </span></a>
-<a class="sourceLine" id="cb10-38" data-line-number="38"><span class="co">#&gt; [27] desc_1.2.0                  BiocParallel_1.19.3        </span></a>
-<a class="sourceLine" id="cb10-39" data-line-number="39"><span class="co">#&gt; [29] stringr_1.4.0               RCurl_1.95-4.12            </span></a>
-<a class="sourceLine" id="cb10-40" data-line-number="40"><span class="co">#&gt; [31] munsell_0.5.0               DelayedArray_0.11.8        </span></a>
-<a class="sourceLine" id="cb10-41" data-line-number="41"><span class="co">#&gt; [33] compiler_3.6.1              xfun_0.10                  </span></a>
-<a class="sourceLine" id="cb10-42" data-line-number="42"><span class="co">#&gt; [35] pkgconfig_2.0.3             BiocGenerics_0.31.6        </span></a>
-<a class="sourceLine" id="cb10-43" data-line-number="43"><span class="co">#&gt; [37] htmltools_0.4.0             tidyselect_0.2.5           </span></a>
-<a class="sourceLine" id="cb10-44" data-line-number="44"><span class="co">#&gt; [39] SummarizedExperiment_1.15.9 tibble_2.1.3               </span></a>
-<a class="sourceLine" id="cb10-45" data-line-number="45"><span class="co">#&gt; [41] GenomeInfoDbData_1.2.1      IRanges_2.19.17            </span></a>
-<a class="sourceLine" id="cb10-46" data-line-number="46"><span class="co">#&gt; [43] matrixStats_0.55.0          crayon_1.3.4               </span></a>
-<a class="sourceLine" id="cb10-47" data-line-number="47"><span class="co">#&gt; [45] dplyr_0.8.3                 withr_2.1.2                </span></a>
-<a class="sourceLine" id="cb10-48" data-line-number="48"><span class="co">#&gt; [47] MASS_7.3-51.4               bitops_1.0-6               </span></a>
-<a class="sourceLine" id="cb10-49" data-line-number="49"><span class="co">#&gt; [49] grid_3.6.1                  gtable_0.3.0               </span></a>
-<a class="sourceLine" id="cb10-50" data-line-number="50"><span class="co">#&gt; [51] lifecycle_0.1.0             magrittr_1.5               </span></a>
-<a class="sourceLine" id="cb10-51" data-line-number="51"><span class="co">#&gt; [53] scales_1.0.0                stringi_1.4.3              </span></a>
-<a class="sourceLine" id="cb10-52" data-line-number="52"><span class="co">#&gt; [55] XVector_0.25.0              fs_1.3.1                   </span></a>
-<a class="sourceLine" id="cb10-53" data-line-number="53"><span class="co">#&gt; [57] ellipsis_0.3.0              vctrs_0.2.0                </span></a>
-<a class="sourceLine" id="cb10-54" data-line-number="54"><span class="co">#&gt; [59] cowplot_1.0.0               tools_3.6.1                </span></a>
-<a class="sourceLine" id="cb10-55" data-line-number="55"><span class="co">#&gt; [61] iotools_0.2-5               Biobase_2.45.1             </span></a>
-<a class="sourceLine" id="cb10-56" data-line-number="56"><span class="co">#&gt; [63] glue_1.3.1                  purrr_0.3.2                </span></a>
-<a class="sourceLine" id="cb10-57" data-line-number="57"><span class="co">#&gt; [65] parallel_3.6.1              yaml_2.2.0                 </span></a>
-<a class="sourceLine" id="cb10-58" data-line-number="58"><span class="co">#&gt; [67] colorspace_1.4-1            cluster_2.1.0              </span></a>
-<a class="sourceLine" id="cb10-59" data-line-number="59"><span class="co">#&gt; [69] GenomicRanges_1.37.17       memoise_1.1.0              </span></a>
+<a class="sourceLine" id="cb10-25" data-line-number="25"><span class="co">#&gt;  [1] Rcpp_1.0.2                   lattice_0.20-38             </span></a>
+<a class="sourceLine" id="cb10-26" data-line-number="26"><span class="co">#&gt;  [3] tidyr_1.0.0                  assertthat_0.2.1            </span></a>
+<a class="sourceLine" id="cb10-27" data-line-number="27"><span class="co">#&gt;  [5] zeallot_0.1.0                rprojroot_1.3-2             </span></a>
+<a class="sourceLine" id="cb10-28" data-line-number="28"><span class="co">#&gt;  [7] digest_0.6.22                SingleCellExperiment_1.7.11 </span></a>
+<a class="sourceLine" id="cb10-29" data-line-number="29"><span class="co">#&gt;  [9] wordspace_0.2-5              R6_2.4.0                    </span></a>
+<a class="sourceLine" id="cb10-30" data-line-number="30"><span class="co">#&gt; [11] GenomeInfoDb_1.21.2          backports_1.1.5             </span></a>
+<a class="sourceLine" id="cb10-31" data-line-number="31"><span class="co">#&gt; [13] sparsesvd_0.2                stats4_3.6.1                </span></a>
+<a class="sourceLine" id="cb10-32" data-line-number="32"><span class="co">#&gt; [15] evaluate_0.14                pillar_1.4.2                </span></a>
+<a class="sourceLine" id="cb10-33" data-line-number="33"><span class="co">#&gt; [17] coRanking_0.1.4              zlibbioc_1.31.0             </span></a>
+<a class="sourceLine" id="cb10-34" data-line-number="34"><span class="co">#&gt; [19] rlang_0.4.0                  lazyeval_0.2.2              </span></a>
+<a class="sourceLine" id="cb10-35" data-line-number="35"><span class="co">#&gt; [21] hexbin_1.27.3                S4Vectors_0.23.25           </span></a>
+<a class="sourceLine" id="cb10-36" data-line-number="36"><span class="co">#&gt; [23] Matrix_1.2-17                rmarkdown_1.16              </span></a>
+<a class="sourceLine" id="cb10-37" data-line-number="37"><span class="co">#&gt; [25] pkgdown_1.4.1                labeling_0.3                </span></a>
+<a class="sourceLine" id="cb10-38" data-line-number="38"><span class="co">#&gt; [27] desc_1.2.0                   BiocParallel_1.19.5         </span></a>
+<a class="sourceLine" id="cb10-39" data-line-number="39"><span class="co">#&gt; [29] stringr_1.4.0                RCurl_1.95-4.12             </span></a>
+<a class="sourceLine" id="cb10-40" data-line-number="40"><span class="co">#&gt; [31] munsell_0.5.0                DelayedArray_0.11.8         </span></a>
+<a class="sourceLine" id="cb10-41" data-line-number="41"><span class="co">#&gt; [33] compiler_3.6.1               xfun_0.10                   </span></a>
+<a class="sourceLine" id="cb10-42" data-line-number="42"><span class="co">#&gt; [35] pkgconfig_2.0.3              BiocGenerics_0.31.6         </span></a>
+<a class="sourceLine" id="cb10-43" data-line-number="43"><span class="co">#&gt; [37] htmltools_0.4.0              tidyselect_0.2.5            </span></a>
+<a class="sourceLine" id="cb10-44" data-line-number="44"><span class="co">#&gt; [39] SummarizedExperiment_1.15.10 tibble_2.1.3                </span></a>
+<a class="sourceLine" id="cb10-45" data-line-number="45"><span class="co">#&gt; [41] GenomeInfoDbData_1.2.1       IRanges_2.19.18             </span></a>
+<a class="sourceLine" id="cb10-46" data-line-number="46"><span class="co">#&gt; [43] matrixStats_0.55.0           crayon_1.3.4                </span></a>
+<a class="sourceLine" id="cb10-47" data-line-number="47"><span class="co">#&gt; [45] dplyr_0.8.3                  withr_2.1.2                 </span></a>
+<a class="sourceLine" id="cb10-48" data-line-number="48"><span class="co">#&gt; [47] MASS_7.3-51.4                bitops_1.0-6                </span></a>
+<a class="sourceLine" id="cb10-49" data-line-number="49"><span class="co">#&gt; [49] grid_3.6.1                   gtable_0.3.0                </span></a>
+<a class="sourceLine" id="cb10-50" data-line-number="50"><span class="co">#&gt; [51] lifecycle_0.1.0              magrittr_1.5                </span></a>
+<a class="sourceLine" id="cb10-51" data-line-number="51"><span class="co">#&gt; [53] scales_1.0.0                 stringi_1.4.3               </span></a>
+<a class="sourceLine" id="cb10-52" data-line-number="52"><span class="co">#&gt; [55] XVector_0.25.0               fs_1.3.1                    </span></a>
+<a class="sourceLine" id="cb10-53" data-line-number="53"><span class="co">#&gt; [57] ellipsis_0.3.0               vctrs_0.2.0                 </span></a>
+<a class="sourceLine" id="cb10-54" data-line-number="54"><span class="co">#&gt; [59] cowplot_1.0.0                tools_3.6.1                 </span></a>
+<a class="sourceLine" id="cb10-55" data-line-number="55"><span class="co">#&gt; [61] iotools_0.2-5                Biobase_2.45.1              </span></a>
+<a class="sourceLine" id="cb10-56" data-line-number="56"><span class="co">#&gt; [63] glue_1.3.1                   purrr_0.3.3                 </span></a>
+<a class="sourceLine" id="cb10-57" data-line-number="57"><span class="co">#&gt; [65] parallel_3.6.1               yaml_2.2.0                  </span></a>
+<a class="sourceLine" id="cb10-58" data-line-number="58"><span class="co">#&gt; [67] colorspace_1.4-1             cluster_2.1.0               </span></a>
+<a class="sourceLine" id="cb10-59" data-line-number="59"><span class="co">#&gt; [69] GenomicRanges_1.37.17        memoise_1.1.0               </span></a>
 <a class="sourceLine" id="cb10-60" data-line-number="60"><span class="co">#&gt; [71] knitr_1.25</span></a></code></pre></div>
 </div>
 <div id="references" class="section level1">
