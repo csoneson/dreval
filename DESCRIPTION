@@ -33,3 +33,4 @@ Suggests:
     cowplot,
     hexbin
 VignetteBuilder: knitr
+URL: https://github.com/csoneson/dreval
