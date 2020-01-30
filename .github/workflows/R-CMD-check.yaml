@@ -35,7 +35,7 @@ jobs:
       - uses: r-lib/actions/setup-pandoc@master
 
       - name: Query dependencies
-        run: Rscript -e "install.packages(c('remotes', 'BiocManager'))" -e "saveRDS(remotes::dev_package_deps(dependencies = TRUE, repos = c(getOption('repos'), BiocManager::repositories())), 'depends.Rds', version = 2)"
+        run: Rscript -e "install.packages(c('remotes', 'BiocManager'))" -e "BiocManager::install('GenomeInfoDbData')" -e "saveRDS(remotes::dev_package_deps(dependencies = TRUE, repos = c(getOption('repos'), BiocManager::repositories())), 'depends.Rds', version = 2)"
 
       - name: Cache R packages
         if: runner.os != 'Windows'
