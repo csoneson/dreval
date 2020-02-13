@@ -111,7 +111,8 @@ test_that("scores are calculated correctly", {
 
     qt <- coRanking::coranking(Xi = as.matrix(dists_orig),
                                X = as.matrix(dists_lowdim),
-                               input = "dist")
+                               input_Xi = "dist",
+                               input_X = "dist")
     lcmc <- coRanking::LCMC(qt)
     Kmax <- which.max(lcmc)
     expect_equal(
