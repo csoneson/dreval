@@ -3,3 +3,4 @@
 ^LICENSE\.md$
 .travis.yml
 _pkgdown.yml
+^\.github/workflows/R-CMD-check\.yaml$

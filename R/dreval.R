@@ -456,7 +456,8 @@ dreval <- function(
         qt <- coRanking::coranking(
             Xi = as.matrix(distReference),
             X = as.matrix(distLowDim),
-            input = "dist"
+            input_Xi = "dist",
+            input_X = "dist",
         )
         lcmc <- coRanking::LCMC(qt)
         ## We follow the implementation in the dimRed package, where Qlocal and
