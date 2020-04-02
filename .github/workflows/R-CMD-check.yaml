@@ -38,6 +38,8 @@ jobs:
       - name: Query dependencies
         run: |
           install.packages(c('remotes', 'BiocManager', 'rlang', 'dbplyr'), Ncpu = 2L)
+          BiocManager::install(c('GenomeInfoDbData', 'TENxPBMCData'), Ncpu = 2L)
+          install.packages("Rcpp", repos="https://rcppcore.github.io/drat", Ncpu = 2L)
           saveRDS(remotes::dev_package_deps(dependencies = TRUE, repos = c(getOption('repos'), BiocManager::repositories())), 'depends.Rds', version = 2)
         shell: Rscript {0}
 
