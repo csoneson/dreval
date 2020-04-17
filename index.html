@@ -87,7 +87,7 @@
 <h2 class="hasAnchor">
 <a href="#dreval" class="anchor"></a>dreval</h2>
 
-<p><code>dreval</code> is an R package aimed at evaluation and comparison of reduced dimension representations of high-dimensional data. Given one or more reduced dimension representations, and a âreferenceâ representation (which can be the original, high-dimensional representation or a baseline low-dimensional one), <code>dreval</code> will calculate a collection of metrics quantifying how well each of the evaluated representations recapitulates the structure of the observations in the reference representation.</p>
+<p><code>dreval</code> is an R package aimed at evaluation and comparison of reduced dimension representations of high-dimensional data. Given one or more reduced dimension representations, and a “reference” representation (which can be the original, high-dimensional representation or a baseline low-dimensional one), <code>dreval</code> will calculate a collection of metrics quantifying how well each of the evaluated representations recapitulates the structure of the observations in the reference representation.</p>
 <div id="installation" class="section level3">
 <h3 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h3>
@@ -113,7 +113,7 @@ dre &lt;- dreval(sce = pbmc3ksub, refType = "assay",
 <h3 class="hasAnchor">
 <a href="#related-material" class="anchor"></a>Related material</h3>
 <ul>
-<li>A python framework for reduced dimension representation evaluation was proposed by <a href="https://www.biorxiv.org/content/10.1101/684340v1.abstract">Heiser and Lau (2019)</a>. Code is available on <a href="https://github.com/KenLauLab/DR-structure-preservation">GitHub</a>. This study proposed to use the Mantel correlation between distance matrices, the Earth Moverâs Distance between distance distributions, and the percentage of total binary elements of the KNN matrix that are conserved as evaluation metrics.</li>
+<li>A python framework for reduced dimension representation evaluation was proposed by <a href="https://www.biorxiv.org/content/10.1101/684340v1.abstract">Heiser and Lau (2019)</a>. Code is available on <a href="https://github.com/KenLauLab/DR-structure-preservation">GitHub</a>. This study proposed to use the Mantel correlation between distance matrices, the Earth Mover’s Distance between distance distributions, and the percentage of total binary elements of the KNN matrix that are conserved as evaluation metrics.</li>
 <li>The <a href="https://cran.r-project.org/web/packages/dimRed/index.html">dimRed</a> R package implements a collection of quality scores for reduced dimension representations, including Q_local, Q_global (based on the co-ranking matrix) and various correlation measures.</li>
 <li>The <a href="https://github.com/jlmelville/quadra">quadra</a> R package implements quality scores for reduced dimension representations based on preservation of neighborhoods and agreement with known labels.</li>
 </ul>
@@ -161,7 +161,7 @@ dre &lt;- dreval(sce = pbmc3ksub, refType = "assay",
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.0.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
 </div>
 
       </footer>
