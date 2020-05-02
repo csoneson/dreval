@@ -25,6 +25,7 @@ jobs:
         - { os: ubuntu-16.04, r: 'release', bioc: '3.11', cran: "https://demo.rstudiopm.com/all/__linux__/xenial/latest"}
         - { os: ubuntu-latest, r: 'release', image: 'bioconductor/bioconductor_docker:devel'}
         - { os: ubuntu-latest, r: 'release', image: 'bioconductor/bioconductor_docker:RELEASE_3_11'}
+        - { os: ubuntu-latest, r: 'release', image: 'bioconductor/bioconductor_docker:RELEASE_3_10'}
 
     env:
       R_REMOTES_NO_ERRORS_FROM_WARNINGS: true
@@ -65,6 +66,7 @@ jobs:
           Rscript -e "remotes::install_github('r-hub/sysreqs')"
           sysreqs=$(Rscript -e "cat(sysreqs::sysreq_commands('DESCRIPTION'))")
           sudo -s eval "$sysreqs"
+          sudo apt-get update && sudo apt-get -y install libcurl4-openssl-dev
 
       - name: Install dependencies
         run: |
