@@ -85,7 +85,7 @@
       <h1 data-toc-skip>dreval</h1>
                         <h4 class="author">Charlotte Soneson</h4>
             
-            <h4 class="date">2020-05-02</h4>
+            <h4 class="date">2020-05-03</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/csoneson/dreval/blob/master/vignettes/dreval.Rmd"><code>vignettes/dreval.Rmd</code></a></small>
       <div class="hidden name"><code>dreval.Rmd</code></div>
@@ -128,41 +128,41 @@
 <p>The output of <code><a href="../reference/dreval.html">dreval()</a></code> is a list with two elements. The <code>plots</code> entry contains several diagnostic plot objects, while the <code>scores</code> entry contains the calculated scores for each of the evaluated reduced dimension representations. These can be summarized visually with the <code><a href="../reference/plotRankSummary.html">plotRankSummary()</a></code> function.</p>
 <div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="no">dre</span>$<span class="no">scores</span>
 <span class="co">#&gt;         Method dimensionality SpearmanCorrDist PearsonCorrDist KSStatDist</span>
-<span class="co">#&gt; 1          PCA             25        0.7938992       0.8334057  0.3233908</span>
-<span class="co">#&gt; 2       PCA_k2              2        0.6583722       0.6402189  0.4747896</span>
-<span class="co">#&gt; 3  TSNE_perp30              2        0.6441674       0.5673689  0.3700281</span>
-<span class="co">#&gt; 4   TSNE_perp5              2        0.4172898       0.3664551  0.3804890</span>
-<span class="co">#&gt; 5  TSNE_perp15              2        0.5959302       0.5466281  0.3726413</span>
-<span class="co">#&gt; 6 TSNE_perp100              2        0.6111480       0.5226052  0.3871583</span>
-<span class="co">#&gt; 7    UMAP_nn15              2        0.5796174       0.5376205  0.4246413</span>
-<span class="co">#&gt; 8    UMAP_nn30              2        0.5835717       0.5100494  0.4581002</span>
+<span class="co">#&gt; 1          PCA             25        0.8009843       0.7901186  0.3325050</span>
+<span class="co">#&gt; 2       PCA_k2              2        0.6589727       0.6438471  0.4976914</span>
+<span class="co">#&gt; 3  TSNE_perp30              2        0.6711937       0.6597010  0.3857475</span>
+<span class="co">#&gt; 4   TSNE_perp5              2        0.4603019       0.4358376  0.3983166</span>
+<span class="co">#&gt; 5  TSNE_perp15              2        0.6140495       0.6036857  0.3864529</span>
+<span class="co">#&gt; 6 TSNE_perp100              2        0.6794110       0.6705123  0.4028457</span>
+<span class="co">#&gt; 7    UMAP_nn15              2        0.5937819       0.5935466  0.4343567</span>
+<span class="co">#&gt; 8    UMAP_nn30              2        0.6415942       0.6198924  0.4621483</span>
 <span class="co">#&gt;   EuclDistBetweenDists SammonStress Trustworthiness_k10 Continuity_k10</span>
-<span class="co">#&gt; 1            0.2567728   0.06832406           0.9232017      0.9338039</span>
-<span class="co">#&gt; 2            0.4903772   0.25509519           0.8315381      0.8812231</span>
-<span class="co">#&gt; 3            0.3973008   0.16582365           0.8633375      0.8831942</span>
-<span class="co">#&gt; 4            0.4092444   0.17227261           0.8446171      0.8442208</span>
-<span class="co">#&gt; 5            0.3940494   0.16288977           0.8604314      0.8743253</span>
-<span class="co">#&gt; 6            0.4532729   0.21701512           0.8677622      0.8807434</span>
-<span class="co">#&gt; 7            0.5221043   0.29294544           0.8529833      0.8670828</span>
-<span class="co">#&gt; 8            0.5666855   0.34380207           0.8513759      0.8727430</span>
+<span class="co">#&gt; 1            0.2498292   0.06624381           0.9222526      0.9355335</span>
+<span class="co">#&gt; 2            0.5097338   0.27161266           0.8223662      0.8770935</span>
+<span class="co">#&gt; 3            0.3962443   0.16474838           0.8674522      0.8854844</span>
+<span class="co">#&gt; 4            0.4057882   0.16950289           0.8480813      0.8290506</span>
+<span class="co">#&gt; 5            0.3938354   0.16211315           0.8614114      0.8824091</span>
+<span class="co">#&gt; 6            0.4501563   0.21484307           0.8713746      0.8905944</span>
+<span class="co">#&gt; 7            0.5314189   0.30070202           0.8576982      0.8814250</span>
+<span class="co">#&gt; 8            0.5732627   0.34909194           0.8549135      0.8806679</span>
 <span class="co">#&gt;   Trustworthiness_k75 Continuity_k75 MeanJaccard_k10 MeanJaccard_k75</span>
-<span class="co">#&gt; 1           0.9281794      0.9384415       0.1966651       0.4426060</span>
-<span class="co">#&gt; 2           0.8579102      0.9006361       0.1192197       0.3376973</span>
-<span class="co">#&gt; 3           0.8598730      0.8863104       0.1447879       0.3468547</span>
-<span class="co">#&gt; 4           0.8059906      0.8214423       0.1315015       0.2950778</span>
-<span class="co">#&gt; 5           0.8569718      0.8737328       0.1449177       0.3430432</span>
-<span class="co">#&gt; 6           0.8646142      0.8909120       0.1472261       0.3583783</span>
-<span class="co">#&gt; 7           0.8557482      0.8825719       0.1334321       0.3422251</span>
-<span class="co">#&gt; 8           0.8627954      0.8896590       0.1344310       0.3492999</span>
+<span class="co">#&gt; 1           0.9319269      0.9416879       0.1858996       0.4457597</span>
+<span class="co">#&gt; 2           0.8556497      0.8974148       0.1125620       0.3150903</span>
+<span class="co">#&gt; 3           0.8703895      0.8908931       0.1364718       0.3497115</span>
+<span class="co">#&gt; 4           0.8177825      0.8272982       0.1341798       0.2952583</span>
+<span class="co">#&gt; 5           0.8656399      0.8804823       0.1356625       0.3481975</span>
+<span class="co">#&gt; 6           0.8716554      0.9000042       0.1398554       0.3644118</span>
+<span class="co">#&gt; 7           0.8642700      0.8919731       0.1308774       0.3450722</span>
+<span class="co">#&gt; 8           0.8663112      0.8954095       0.1316319       0.3492176</span>
 <span class="co">#&gt;   coRankingQlocal coRankingQglobal KmaxLCMC</span>
-<span class="co">#&gt; 1       0.3916885        0.2480631      116</span>
-<span class="co">#&gt; 2       0.2824360        0.1907406      121</span>
-<span class="co">#&gt; 3       0.3018265        0.1849660      124</span>
-<span class="co">#&gt; 4       0.2419709        0.1226204      107</span>
-<span class="co">#&gt; 5       0.2906972        0.1742212      116</span>
-<span class="co">#&gt; 6       0.3116794        0.1851652      123</span>
-<span class="co">#&gt; 7       0.2955458        0.1682817      125</span>
-<span class="co">#&gt; 8       0.2975872        0.1799242      121</span>
+<span class="co">#&gt; 1       0.3995221        0.2478568      126</span>
+<span class="co">#&gt; 2       0.2818604        0.1866193      138</span>
+<span class="co">#&gt; 3       0.3069081        0.1841431      136</span>
+<span class="co">#&gt; 4       0.2414052        0.1350517      116</span>
+<span class="co">#&gt; 5       0.2922345        0.1757147      123</span>
+<span class="co">#&gt; 6       0.3183078        0.1953948      135</span>
+<span class="co">#&gt; 7       0.3022213        0.1657069      137</span>
+<span class="co">#&gt; 8       0.3067295        0.1868546      137</span>
 <span class="fu"><a href="https://rdrr.io/r/base/message.html">suppressPackageStartupMessages</a></span>({
   <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">ggplot2</span>)
 })
@@ -184,37 +184,37 @@
 )</pre></body></html></div>
 <div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="no">dre</span>$<span class="no">scores</span>
 <span class="co">#&gt;         Method dimensionality SpearmanCorrDist PearsonCorrDist KSStatDist</span>
-<span class="co">#&gt; 1       PCA_k2              2        0.9247708       0.9026345 0.28431263</span>
-<span class="co">#&gt; 2  TSNE_perp30              2        0.7650826       0.7172825 0.13117435</span>
-<span class="co">#&gt; 3   TSNE_perp5              2        0.5798532       0.5425961 0.09880561</span>
-<span class="co">#&gt; 4  TSNE_perp15              2        0.7288354       0.7003355 0.11538277</span>
-<span class="co">#&gt; 5 TSNE_perp100              2        0.7682419       0.7134632 0.20812024</span>
-<span class="co">#&gt; 6    UMAP_nn15              2        0.8121499       0.7737875 0.31381964</span>
-<span class="co">#&gt; 7    UMAP_nn30              2        0.8386976       0.7557249 0.36727054</span>
+<span class="co">#&gt; 1       PCA_k2              2        0.9240197       0.9058523  0.2845130</span>
+<span class="co">#&gt; 2  TSNE_perp30              2        0.7682414       0.7347917  0.1323287</span>
+<span class="co">#&gt; 3   TSNE_perp5              2        0.5620854       0.5366559  0.1031102</span>
+<span class="co">#&gt; 4  TSNE_perp15              2        0.7211996       0.7018404  0.1166573</span>
+<span class="co">#&gt; 5 TSNE_perp100              2        0.7951253       0.7548835  0.2092906</span>
+<span class="co">#&gt; 6    UMAP_nn15              2        0.8064834       0.7951207  0.3082244</span>
+<span class="co">#&gt; 7    UMAP_nn30              2        0.8644146       0.8011081  0.3567615</span>
 <span class="co">#&gt;   EuclDistBetweenDists SammonStress Trustworthiness_k10 Continuity_k10</span>
-<span class="co">#&gt; 1            0.2970818    0.1190892           0.9137387      0.9458089</span>
-<span class="co">#&gt; 2            0.3161904    0.1069266           0.9636045      0.9630601</span>
-<span class="co">#&gt; 3            0.3828597    0.1527211           0.9503934      0.9420359</span>
-<span class="co">#&gt; 4            0.3206501    0.1113541           0.9593874      0.9592821</span>
-<span class="co">#&gt; 5            0.3505544    0.1350986           0.9665106      0.9688830</span>
-<span class="co">#&gt; 6            0.3780614    0.1821690           0.9554204      0.9607748</span>
-<span class="co">#&gt; 7            0.4244287    0.2268964           0.9560442      0.9643583</span>
+<span class="co">#&gt; 1            0.2955691    0.1188489           0.9142976      0.9482031</span>
+<span class="co">#&gt; 2            0.3059107    0.1039921           0.9639146      0.9639455</span>
+<span class="co">#&gt; 3            0.3822749    0.1584185           0.9434097      0.9446126</span>
+<span class="co">#&gt; 4            0.3176169    0.1129415           0.9593655      0.9612693</span>
+<span class="co">#&gt; 5            0.3312939    0.1259670           0.9662985      0.9687583</span>
+<span class="co">#&gt; 6            0.3659800    0.1752086           0.9551628      0.9634729</span>
+<span class="co">#&gt; 7            0.3959208    0.2061050           0.9559434      0.9655678</span>
 <span class="co">#&gt;   Trustworthiness_k75 Continuity_k75 MeanJaccard_k10 MeanJaccard_k75</span>
-<span class="co">#&gt; 1           0.9414093      0.9569043       0.1839963       0.5034722</span>
-<span class="co">#&gt; 2           0.9411986      0.9532337       0.3391092       0.5681806</span>
-<span class="co">#&gt; 3           0.8819867      0.9102630       0.2789776       0.4718908</span>
-<span class="co">#&gt; 4           0.9325470      0.9470704       0.3155840       0.5601939</span>
-<span class="co">#&gt; 5           0.9526208      0.9621192       0.3482280       0.5975274</span>
-<span class="co">#&gt; 6           0.9455278      0.9537747       0.3059865       0.5766825</span>
-<span class="co">#&gt; 7           0.9495630      0.9578660       0.3053923       0.5806232</span>
+<span class="co">#&gt; 1           0.9440413      0.9579240       0.1740674       0.5025100</span>
+<span class="co">#&gt; 2           0.9484683      0.9558525       0.3302138       0.5835068</span>
+<span class="co">#&gt; 3           0.8865719      0.9163126       0.2745978       0.4810130</span>
+<span class="co">#&gt; 4           0.9442909      0.9533107       0.3150029       0.5756931</span>
+<span class="co">#&gt; 5           0.9565743      0.9635948       0.3399383       0.6130214</span>
+<span class="co">#&gt; 6           0.9546157      0.9597814       0.2988566       0.5875920</span>
+<span class="co">#&gt; 7           0.9573725      0.9617322       0.2949610       0.5946618</span>
 <span class="co">#&gt;   coRankingQlocal coRankingQglobal KmaxLCMC</span>
-<span class="co">#&gt; 1       0.4225998        0.2763024      113</span>
-<span class="co">#&gt; 2       0.5025832        0.2560738       63</span>
-<span class="co">#&gt; 3       0.4254292        0.1936075       61</span>
-<span class="co">#&gt; 4       0.4874360        0.2406854       66</span>
-<span class="co">#&gt; 5       0.5270876        0.2692921       67</span>
-<span class="co">#&gt; 6       0.4853830        0.2598645       69</span>
-<span class="co">#&gt; 7       0.4880310        0.2749478       67</span>
+<span class="co">#&gt; 1       0.4347289        0.2690805      128</span>
+<span class="co">#&gt; 2       0.5044955        0.2609844       64</span>
+<span class="co">#&gt; 3       0.4264521        0.1921977       60</span>
+<span class="co">#&gt; 4       0.4907998        0.2471626       66</span>
+<span class="co">#&gt; 5       0.5209461        0.2827694       64</span>
+<span class="co">#&gt; 6       0.4890490        0.2666512       68</span>
+<span class="co">#&gt; 7       0.4885735        0.2895093       65</span>
 <span class="kw pkg">cowplot</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/cowplot/man/plot_grid.html">plot_grid</a></span>(<span class="kw">plotlist</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span>(<span class="no">dre</span>$<span class="no">plots</span>$<span class="no">disthex</span>, <span class="kw">function</span>(<span class="no">w</span>) <span class="no">w</span> +
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span>(<span class="kw">axis.title</span> <span class="kw">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span>(<span class="kw">size</span> <span class="kw">=</span> <span class="fl">7</span>))), <span class="kw">ncol</span> <span class="kw">=</span> <span class="fl">2</span>)</pre></body></html></div>
 <p><img src="dreval_files/figure-html/unnamed-chunk-7-1.png" width="768"></p>
