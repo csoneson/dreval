@@ -13,7 +13,7 @@ jobs:
     runs-on: ${{ matrix.config.os }}
     container: ${{ matrix.config.image }}
 
-    name: ${{ matrix.config.os }} (${{ matrix.config.r }} - ${{ matrix.config.image }})
+    name: ${{ matrix.config.os }} (${{ matrix.config.r }} - ${{ matrix.config.bioc }} - ${{ matrix.config.image }})
 
     strategy:
       fail-fast: false
@@ -43,14 +43,15 @@ jobs:
       - uses: r-lib/actions/setup-pandoc@master
         if: matrix.config.image == null
 
-      - name: Install remotes and BiocManager
+      - name: Install remotes
         run: |
-          install.packages(c('remotes', 'BiocManager'), Ncpu = 2L)
+          install.packages('remotes')
         shell: Rscript {0}
 
       - name: Set BiocManager version
         if: matrix.config.image == null
         run: |
+          install.packages('BiocManager')
           BiocManager::install(version = "${{ matrix.config.bioc }}", ask = FALSE)
         shell: Rscript {0}
 
