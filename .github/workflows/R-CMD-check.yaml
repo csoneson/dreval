@@ -43,10 +43,19 @@ jobs:
       - uses: r-lib/actions/setup-pandoc@master
         if: matrix.config.image == null
 
-      - name: Query dependencies
+      - name: Install remotes and BiocManager
         run: |
           install.packages(c('remotes', 'BiocManager'), Ncpu = 2L)
+        shell: Rscript {0}
+
+      - name: Set BiocManager version
+        if: matrix.config.image == null
+        run: |
           BiocManager::install(version = "${{ matrix.config.bioc }}", ask = FALSE)
+        shell: Rscript {0}
+
+      - name: Query dependencies
+        run: |
           saveRDS(remotes::dev_package_deps(dependencies = TRUE, repos = c(getOption('repos'), BiocManager::repositories())), 'depends.Rds', version = 2)
         shell: Rscript {0}
 
