@@ -4,10 +4,20 @@
 \alias{dreval}
 \title{Evaluate structure preservation in reduced dimension representations}
 \usage{
-dreval(sce, dimReds = NULL, refType = "assay",
-  refAssay = "logcounts", refDimRed = NULL, features = NULL,
-  nSamples = NULL, distNorm = "none", refDistMethod = "euclidean",
-  kTM = c(10, 100), labelColumn = NULL, verbose = FALSE)
+dreval(
+  sce,
+  dimReds = NULL,
+  refType = "assay",
+  refAssay = "logcounts",
+  refDimRed = NULL,
+  features = NULL,
+  nSamples = NULL,
+  distNorm = "none",
+  refDistMethod = "euclidean",
+  kTM = c(10, 100),
+  labelColumn = NULL,
+  verbose = FALSE
+)
 }
 \arguments{
 \item{sce}{A \code{SingleCellExperiment} object.}

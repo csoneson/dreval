@@ -28,6 +28,9 @@
 #'   very similar to each other, the "rescale" approach allows them to get a
 #'   similar rank score rather than forcing a uniform difference between
 #'   successive scores.
+#' @param tiesMethod A character scalar indicating how ties are handled if
+#'   \code{scoreType} is "rank". Should be one of the values accepted by
+#'   \code{base::rank} ("average", "first", "last", "random", "max", "min").
 #'
 #' @author Charlotte Soneson
 #'
@@ -42,10 +45,11 @@
 #' @importFrom magrittr %>%
 #'
 plotRankSummary <- function(dreSummary, metrics = NULL,
-                            sortBars = "decreasing", scoreType = "rank") {
-    scorefun <- function(w, scoreType = "rank") {
+                            sortBars = "decreasing", scoreType = "rank",
+                            tiesMethod = "average") {
+    scorefun <- function(w, scoreType) {
         if (scoreType == "rank") {
-            return(order(order(w)))
+            return(base::rank(w, ties.method = tiesMethod))
         } else if (scoreType == "rescale") {
             m <- min(w)
             M <- max(w)

@@ -3,8 +3,4 @@
 \docType{package}
 \name{dreval-pkg}
 \alias{dreval-pkg}
-\alias{dreval-pkg-package}
 \title{dreval}
-\description{
-dreval
-}

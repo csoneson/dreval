@@ -4,8 +4,13 @@
 \alias{plotRankSummary}
 \title{Plot summary of the dimension reduction method ranking across metrics}
 \usage{
-plotRankSummary(dreSummary, metrics = NULL, sortBars = "decreasing",
-  scoreType = "rank")
+plotRankSummary(
+  dreSummary,
+  metrics = NULL,
+  sortBars = "decreasing",
+  scoreType = "rank",
+  tiesMethod = "average"
+)
 }
 \arguments{
 \item{dreSummary}{A \code{data.frame} with the values of the evaluation
@@ -34,6 +39,10 @@ as setting \code{scoreType} to "rank". However, if some of the scores are
 very similar to each other, the "rescale" approach allows them to get a
 similar rank score rather than forcing a uniform difference between
 successive scores.}
+
+\item{tiesMethod}{A character scalar indicating how ties are handled if
+\code{scoreType} is "rank". Should be one of the values accepted by
+\code{base::rank} ("average", "first", "last", "random", "max", "min").}
 }
 \value{
 Nothing is returned, but a plot is generated.
