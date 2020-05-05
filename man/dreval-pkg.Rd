@@ -4,3 +4,8 @@
 \name{dreval-pkg}
 \alias{dreval-pkg}
 \title{dreval}
+\description{
+dreval evaluates and compares multiple reduced dimension
+representations, based on how well they retain structure from
+the original data set.
+}
