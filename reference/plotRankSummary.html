@@ -75,7 +75,7 @@ respectively." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">dreval</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.4</span>
       </span>
     </div>
 
@@ -138,8 +138,13 @@ local and global structure preservations are colored in red and blue,
 respectively.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>plotRankSummary</span>(<span class='no'>dreSummary</span>, <span class='kw'>metrics</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>sortBars</span> <span class='kw'>=</span> <span class='st'>"decreasing"</span>,
-  <span class='kw'>scoreType</span> <span class='kw'>=</span> <span class='st'>"rank"</span>)</pre>
+    <pre class="usage"><span class='fu'>plotRankSummary</span>(
+  <span class='no'>dreSummary</span>,
+  <span class='kw'>metrics</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>sortBars</span> <span class='kw'>=</span> <span class='st'>"decreasing"</span>,
+  <span class='kw'>scoreType</span> <span class='kw'>=</span> <span class='st'>"rank"</span>,
+  <span class='kw'>tiesMethod</span> <span class='kw'>=</span> <span class='st'>"average"</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -178,6 +183,12 @@ as setting <code>scoreType</code> to "rank". However, if some of the scores are
 very similar to each other, the "rescale" approach allows them to get a
 similar rank score rather than forcing a uniform difference between
 successive scores.</p></td>
+    </tr>
+    <tr>
+      <th>tiesMethod</th>
+      <td><p>A character scalar indicating how ties are handled if
+<code>scoreType</code> is "rank". Should be one of the values accepted by
+<code><a href='https://rdrr.io/r/base/rank.html'>base::rank</a></code> ("average", "first", "last", "random", "max", "min").</p></td>
     </tr>
     </table>
 

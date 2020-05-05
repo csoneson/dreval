@@ -85,7 +85,7 @@ results." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">dreval</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.4</span>
       </span>
     </div>
 
@@ -158,10 +158,20 @@ random, setting the random seed is recommended to obtain reproducible
 results.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>dreval</span>(<span class='no'>sce</span>, <span class='kw'>dimReds</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>refType</span> <span class='kw'>=</span> <span class='st'>"assay"</span>,
-  <span class='kw'>refAssay</span> <span class='kw'>=</span> <span class='st'>"logcounts"</span>, <span class='kw'>refDimRed</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>features</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>nSamples</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>distNorm</span> <span class='kw'>=</span> <span class='st'>"none"</span>, <span class='kw'>refDistMethod</span> <span class='kw'>=</span> <span class='st'>"euclidean"</span>,
-  <span class='kw'>kTM</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>10</span>, <span class='fl'>100</span>), <span class='kw'>labelColumn</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>dreval</span>(
+  <span class='no'>sce</span>,
+  <span class='kw'>dimReds</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>refType</span> <span class='kw'>=</span> <span class='st'>"assay"</span>,
+  <span class='kw'>refAssay</span> <span class='kw'>=</span> <span class='st'>"logcounts"</span>,
+  <span class='kw'>refDimRed</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>features</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>nSamples</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>distNorm</span> <span class='kw'>=</span> <span class='st'>"none"</span>,
+  <span class='kw'>refDistMethod</span> <span class='kw'>=</span> <span class='st'>"euclidean"</span>,
+  <span class='kw'>kTM</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>10</span>, <span class='fl'>100</span>),
+  <span class='kw'>labelColumn</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
