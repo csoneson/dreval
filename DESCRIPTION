@@ -10,7 +10,6 @@ Description: Evaluate and compare multiple reduced dimension
     the original data set.
 License: MIT + file LICENSE
 Encoding: UTF-8
-Depends: R (>= 3.6)
 Imports: 
     SingleCellExperiment,
     stats,
@@ -34,3 +33,5 @@ Suggests:
     hexbin
 VignetteBuilder: knitr
 URL: https://github.com/csoneson/dreval
+BugReports: https://github.com/csoneson/dreval/issues
+biocViews: DimensionReduction, PrincipalComponent, Visualization

@@ -53,6 +53,12 @@ performance, and plot a summary of the overall ranking. Metrics evaluating
 local and global structure preservations are colored in red and blue,
 respectively.
 }
+\examples{
+data(pbmc3ksub)
+dre <- dreval(sce = pbmc3ksub, nSamples = 150)
+plotRankSummary(dre$scores)
+
+}
 \author{
 Charlotte Soneson
 }

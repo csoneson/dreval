@@ -44,6 +44,11 @@
 #' @importFrom ggplot2 ggplot aes geom_bar theme_bw scale_fill_manual
 #' @importFrom magrittr %>%
 #'
+#' @examples
+#' data(pbmc3ksub)
+#' dre <- dreval(sce = pbmc3ksub, nSamples = 150)
+#' plotRankSummary(dre$scores)
+#'
 plotRankSummary <- function(dreSummary, metrics = NULL,
                             sortBars = "decreasing", scoreType = "rank",
                             tiesMethod = "average") {
@@ -95,7 +100,8 @@ plotRankSummary <- function(dreSummary, metrics = NULL,
         dplyr::mutate(EuclDistBetweenDists = -EuclDistBetweenDists) %>%
         dplyr::mutate(SammonStress = -SammonStress) %>%
         dplyr::select(c("Method", global, local)) %>%
-        dplyr::mutate_at(dplyr::vars(-Method), scorefun, scoreType = scoreType) %>%
+        dplyr::mutate_at(dplyr::vars(-Method), scorefun,
+                         scoreType = scoreType) %>%
         tidyr::gather(key = "metric", value = "score", -Method) %>%
         dplyr::mutate(metric = factor(metric, levels = c(global, local))) %>%
         dplyr::ungroup()
