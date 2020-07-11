@@ -142,11 +142,11 @@ respectively.</p>
     </div>
 
     <pre class="usage"><span class='fu'>plotRankSummary</span>(
-  <span class='no'>dreSummary</span>,
-  <span class='kw'>metrics</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>sortBars</span> <span class='kw'>=</span> <span class='st'>"decreasing"</span>,
-  <span class='kw'>scoreType</span> <span class='kw'>=</span> <span class='st'>"rank"</span>,
-  <span class='kw'>tiesMethod</span> <span class='kw'>=</span> <span class='st'>"average"</span>
+  <span class='kw'>dreSummary</span>,
+  metrics = <span class='kw'>NULL</span>,
+  sortBars = <span class='st'>"decreasing"</span>,
+  scoreType = <span class='st'>"rank"</span>,
+  tiesMethod = <span class='st'>"average"</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -156,7 +156,7 @@ respectively.</p>
       <th>dreSummary</th>
       <td><p>A <code>data.frame</code> with the values of the evaluation
 metrics, typically the <code>"scores"</code> element of the output of
-<code><a href='dreval.html'>dreval()</a></code>.</p></td>
+<code>dreval()</code>.</p></td>
     </tr>
     <tr>
       <th>metrics</th>
@@ -198,12 +198,14 @@ successive scores.</p></td>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>Nothing is returned, but a plot is generated.</p>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Charlotte Soneson</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>pbmc3ksub</span>)
-<span class='no'>dre</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='dreval.html'>dreval</a></span>(<span class='kw'>sce</span> <span class='kw'>=</span> <span class='no'>pbmc3ksub</span>, <span class='kw'>nSamples</span> <span class='kw'>=</span> <span class='fl'>150</span>)
-<span class='fu'>plotRankSummary</span>(<span class='no'>dre</span>$<span class='no'>scores</span>)</div><div class='img'><img src='plotRankSummary-1.png' alt='' width='700' height='433' /></div><div class='input'>
-</div></pre>
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='kw'>pbmc3ksub</span>)
+<span class='kw'>dre</span> <span class='op'>&lt;-</span> <span class='fu'>dreval</span>(sce = <span class='kw'>pbmc3ksub</span>, nSamples = <span class='fl'>150</span>)
+<span class='fu'>plotRankSummary</span>(<span class='kw'>dre</span><span class='op'>$</span><span class='kw'>scores</span>)</div><div class='img'><img src='plotRankSummary-1.png' alt='' width='700' height='433' /></div><div class='input'></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

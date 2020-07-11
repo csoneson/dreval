@@ -162,18 +162,18 @@ results.</p>
     </div>
 
     <pre class="usage"><span class='fu'>dreval</span>(
-  <span class='no'>sce</span>,
-  <span class='kw'>dimReds</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>refType</span> <span class='kw'>=</span> <span class='st'>"assay"</span>,
-  <span class='kw'>refAssay</span> <span class='kw'>=</span> <span class='st'>"logcounts"</span>,
-  <span class='kw'>refDimRed</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>features</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>nSamples</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>distNorm</span> <span class='kw'>=</span> <span class='st'>"none"</span>,
-  <span class='kw'>refDistMethod</span> <span class='kw'>=</span> <span class='st'>"euclidean"</span>,
-  <span class='kw'>kTM</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>10</span>, <span class='fl'>100</span>),
-  <span class='kw'>labelColumn</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+  <span class='kw'>sce</span>,
+  dimReds = <span class='kw'>NULL</span>,
+  refType = <span class='st'>"assay"</span>,
+  refAssay = <span class='st'>"logcounts"</span>,
+  refDimRed = <span class='kw'>NULL</span>,
+  features = <span class='kw'>NULL</span>,
+  nSamples = <span class='kw'>NULL</span>,
+  distNorm = <span class='st'>"none"</span>,
+  refDistMethod = <span class='st'>"euclidean"</span>,
+  kTM = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>10</span>, <span class='fl'>100</span>),
+  labelColumn = <span class='kw'>NULL</span>,
+  verbose = <span class='fl'>FALSE</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -333,10 +333,14 @@ Verleysen 2009, Chen and Buja 2009).</p></li>
 <p>Rousseeuw, P.J. (1987). Silhouettes: A graphical aid to the interpretation
   and validation of cluster analysis. Journal of Computational and Applied
   Mathematics 20:53-65.</p>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Charlotte Soneson</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>pbmc3ksub</span>)
-<span class='no'>dre</span> <span class='kw'>&lt;-</span> <span class='fu'>dreval</span>(<span class='kw'>sce</span> <span class='kw'>=</span> <span class='no'>pbmc3ksub</span>, <span class='kw'>nSamples</span> <span class='kw'>=</span> <span class='fl'>150</span>)</div></pre>
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='kw'>pbmc3ksub</span>)
+<span class='kw'>dre</span> <span class='op'>&lt;-</span> <span class='fu'>dreval</span>(sce = <span class='kw'>pbmc3ksub</span>, nSamples = <span class='fl'>150</span>)
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
