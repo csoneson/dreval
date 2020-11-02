@@ -1,5 +1,4 @@
 ## dreval
-[![Travis CI build status](https://travis-ci.com/csoneson/dreval.svg?branch=master)](https://travis-ci.com/csoneson/dreval)
 [![Codecov.io coverage status](https://codecov.io/github/csoneson/dreval/coverage.svg?branch=master)](https://codecov.io/github/csoneson/dreval)
 [![R build status](https://github.com/csoneson/dreval/workflows/R-CMD-check/badge.svg)](https://github.com/csoneson/dreval)
 
