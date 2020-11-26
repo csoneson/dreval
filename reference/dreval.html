@@ -161,20 +161,20 @@ random, setting the random seed is recommended to obtain reproducible
 results.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>dreval</span>(
-  <span class='kw'>sce</span>,
-  dimReds = <span class='kw'>NULL</span>,
-  refType = <span class='st'>"assay"</span>,
-  refAssay = <span class='st'>"logcounts"</span>,
-  refDimRed = <span class='kw'>NULL</span>,
-  features = <span class='kw'>NULL</span>,
-  nSamples = <span class='kw'>NULL</span>,
-  distNorm = <span class='st'>"none"</span>,
-  refDistMethod = <span class='st'>"euclidean"</span>,
-  kTM = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>10</span>, <span class='fl'>100</span>),
-  labelColumn = <span class='kw'>NULL</span>,
-  verbose = <span class='fl'>FALSE</span>
-)</pre>
+    <pre class="usage"><span class='fu'>dreval</span><span class='op'>(</span>
+  <span class='va'>sce</span>,
+  dimReds <span class='op'>=</span> <span class='cn'>NULL</span>,
+  refType <span class='op'>=</span> <span class='st'>"assay"</span>,
+  refAssay <span class='op'>=</span> <span class='st'>"logcounts"</span>,
+  refDimRed <span class='op'>=</span> <span class='cn'>NULL</span>,
+  features <span class='op'>=</span> <span class='cn'>NULL</span>,
+  nSamples <span class='op'>=</span> <span class='cn'>NULL</span>,
+  distNorm <span class='op'>=</span> <span class='st'>"none"</span>,
+  refDistMethod <span class='op'>=</span> <span class='st'>"euclidean"</span>,
+  kTM <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>10</span>, <span class='fl'>100</span><span class='op'>)</span>,
+  labelColumn <span class='op'>=</span> <span class='cn'>NULL</span>,
+  verbose <span class='op'>=</span> <span class='cn'>FALSE</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -338,8 +338,9 @@ Verleysen 2009, Chen and Buja 2009).</p></li>
     <p>Charlotte Soneson</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='kw'>pbmc3ksub</span>)
-<span class='kw'>dre</span> <span class='op'>&lt;-</span> <span class='fu'>dreval</span>(sce = <span class='kw'>pbmc3ksub</span>, nSamples = <span class='fl'>150</span>)
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>pbmc3ksub</span><span class='op'>)</span>
+<span class='va'>dre</span> <span class='op'>&lt;-</span> <span class='fu'>dreval</span><span class='op'>(</span>sce <span class='op'>=</span> <span class='va'>pbmc3ksub</span>, nSamples <span class='op'>=</span> <span class='fl'>150</span><span class='op'>)</span>
+
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -356,7 +357,7 @@ Verleysen 2009, Chen and Buja 2009).</p></li>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.9000.</p>
 </div>
 
       </footer>
