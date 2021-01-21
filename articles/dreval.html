@@ -39,7 +39,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -68,7 +68,7 @@
 <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="https://github.com/csoneson/dreval">
-    <span class="fa fa-github fa-lg"></span>
+    <span class="fas fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -88,7 +88,7 @@
       <h1 data-toc-skip>dreval</h1>
                         <h4 class="author">Charlotte Soneson</h4>
             
-            <h4 class="date">2020-11-26</h4>
+            <h4 class="date">2021-01-21</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/csoneson/dreval/blob/master/vignettes/dreval.Rmd"><code>vignettes/dreval.Rmd</code></a></small>
       <div class="hidden name"><code>dreval.Rmd</code></div>
@@ -115,6 +115,7 @@
 <span class="co">#&gt; colnames(2700): Cell1 Cell2 ... Cell2699 Cell2700</span>
 <span class="co">#&gt; colData names(11): Sample Barcode ... Individual Date_published</span>
 <span class="co">#&gt; reducedDimNames(8): PCA PCA_k2 ... UMAP_nn15 UMAP_nn30</span>
+<span class="co">#&gt; mainExpName: NULL</span>
 <span class="co">#&gt; altExpNames(0):</span></code></pre></div>
 </div>
 <div id="evaluation" class="section level1">
@@ -135,43 +136,43 @@
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">dre</span><span class="op">$</span><span class="va">scores</span>
 <span class="co">#&gt;             Method dimensionality SpearmanCorrDist PearsonCorrDist KSStatDist</span>
-<span class="co">#&gt; D...1          PCA             25        0.8039594       0.8288180  0.3234068</span>
-<span class="co">#&gt; D...2       PCA_k2              2        0.6868839       0.6665601  0.4808417</span>
-<span class="co">#&gt; D...3  TSNE_perp30              2        0.6714425       0.6104608  0.3698918</span>
-<span class="co">#&gt; D...4   TSNE_perp5              2        0.4573126       0.4077948  0.3883687</span>
-<span class="co">#&gt; D...5  TSNE_perp15              2        0.6254961       0.5872970  0.3742766</span>
-<span class="co">#&gt; D...6 TSNE_perp100              2        0.6521467       0.5837894  0.3866854</span>
-<span class="co">#&gt; D...7    UMAP_nn15              2        0.6267171       0.5931970  0.4221403</span>
-<span class="co">#&gt; D...8    UMAP_nn30              2        0.6340085       0.5691013  0.4476152</span>
+<span class="co">#&gt; D...1          PCA             25        0.8042759       0.8317169  0.3308778</span>
+<span class="co">#&gt; D...2       PCA_k2              2        0.6732543       0.6647264  0.4943327</span>
+<span class="co">#&gt; D...3  TSNE_perp30              2        0.6559645       0.5933469  0.3745731</span>
+<span class="co">#&gt; D...4   TSNE_perp5              2        0.4199233       0.3748157  0.3944930</span>
+<span class="co">#&gt; D...5  TSNE_perp15              2        0.6069734       0.5716103  0.3797996</span>
+<span class="co">#&gt; D...6 TSNE_perp100              2        0.6475804       0.5698790  0.3937315</span>
+<span class="co">#&gt; D...7    UMAP_nn15              2        0.6085406       0.5736799  0.4284890</span>
+<span class="co">#&gt; D...8    UMAP_nn30              2        0.6267615       0.5569598  0.4564409</span>
 <span class="co">#&gt;       EuclDistBetweenDists SammonStress Trustworthiness_k10 Continuity_k10</span>
-<span class="co">#&gt; D...1            0.2562884   0.06825316           0.9235228      0.9255723</span>
-<span class="co">#&gt; D...2            0.4927978   0.25661704           0.8357527      0.8789077</span>
-<span class="co">#&gt; D...3            0.3916759   0.16132046           0.8760066      0.8769759</span>
-<span class="co">#&gt; D...4            0.4057182   0.16909977           0.8581738      0.8392883</span>
-<span class="co">#&gt; D...5            0.3884573   0.15826414           0.8724062      0.8697445</span>
-<span class="co">#&gt; D...6            0.4478723   0.21287547           0.8765680      0.8849077</span>
-<span class="co">#&gt; D...7            0.5158458   0.28601036           0.8660570      0.8698774</span>
-<span class="co">#&gt; D...8            0.5599653   0.33607513           0.8647199      0.8800681</span>
+<span class="co">#&gt; D...1            0.2615130   0.07065472           0.9196021      0.9195187</span>
+<span class="co">#&gt; D...2            0.4971641   0.26025308           0.8268982      0.8805552</span>
+<span class="co">#&gt; D...3            0.3976346   0.16576423           0.8648487      0.8819340</span>
+<span class="co">#&gt; D...4            0.4114378   0.17388409           0.8444826      0.8506774</span>
+<span class="co">#&gt; D...5            0.3936238   0.16210162           0.8625507      0.8774295</span>
+<span class="co">#&gt; D...6            0.4511137   0.21499835           0.8703162      0.8909965</span>
+<span class="co">#&gt; D...7            0.5202244   0.29019415           0.8570085      0.8743575</span>
+<span class="co">#&gt; D...8            0.5642152   0.34038571           0.8548194      0.8869247</span>
 <span class="co">#&gt;       Trustworthiness_k75 Continuity_k75 MeanJaccard_k10 MeanJaccard_k75</span>
-<span class="co">#&gt; D...1           0.9296314      0.9411686       0.1823488       0.4447376</span>
-<span class="co">#&gt; D...2           0.8704684      0.9036998       0.1106232       0.3365253</span>
-<span class="co">#&gt; D...3           0.8738882      0.8943693       0.1392047       0.3480932</span>
-<span class="co">#&gt; D...4           0.8214373      0.8311200       0.1326410       0.3009723</span>
-<span class="co">#&gt; D...5           0.8676786      0.8821502       0.1378227       0.3443223</span>
-<span class="co">#&gt; D...6           0.8816673      0.9064467       0.1402153       0.3623077</span>
-<span class="co">#&gt; D...7           0.8735429      0.8979573       0.1316698       0.3446844</span>
-<span class="co">#&gt; D...8           0.8787297      0.9053118       0.1278453       0.3493131</span>
+<span class="co">#&gt; D...1           0.9172753      0.9342554       0.2044272       0.4277449</span>
+<span class="co">#&gt; D...2           0.8586255      0.8987908       0.1149495       0.3358924</span>
+<span class="co">#&gt; D...3           0.8650977      0.8917198       0.1500725       0.3400492</span>
+<span class="co">#&gt; D...4           0.8105881      0.8264216       0.1324794       0.2891466</span>
+<span class="co">#&gt; D...5           0.8619671      0.8809264       0.1478580       0.3391765</span>
+<span class="co">#&gt; D...6           0.8694939      0.8995678       0.1514887       0.3549758</span>
+<span class="co">#&gt; D...7           0.8622160      0.8843984       0.1358379       0.3401931</span>
+<span class="co">#&gt; D...8           0.8684523      0.8963993       0.1391756       0.3482346</span>
 <span class="co">#&gt;       coRankingQlocal coRankingQglobal KmaxLCMC</span>
-<span class="co">#&gt; D...1       0.3975566        0.2470236      125</span>
-<span class="co">#&gt; D...2       0.2937763        0.1907995      134</span>
-<span class="co">#&gt; D...3       0.3013611        0.1905005      124</span>
-<span class="co">#&gt; D...4       0.2420492        0.1364607      103</span>
-<span class="co">#&gt; D...5       0.2956490        0.1752206      124</span>
-<span class="co">#&gt; D...6       0.3136094        0.1966189      125</span>
-<span class="co">#&gt; D...7       0.3011724        0.1806369      129</span>
-<span class="co">#&gt; D...8       0.3097651        0.1909174      132</span>
+<span class="co">#&gt; D...1       0.3804071        0.2539360      109</span>
+<span class="co">#&gt; D...2       0.2777853        0.1962105      121</span>
+<span class="co">#&gt; D...3       0.2948141        0.1901727      118</span>
+<span class="co">#&gt; D...4       0.2382627        0.1269712      105</span>
+<span class="co">#&gt; D...5       0.2842232        0.1797640      109</span>
+<span class="co">#&gt; D...6       0.3037023        0.1993700      116</span>
+<span class="co">#&gt; D...7       0.2869946        0.1805179      118</span>
+<span class="co">#&gt; D...8       0.2924747        0.1965903      117</span>
 <span class="fu"><a href="https://rdrr.io/r/base/message.html">suppressPackageStartupMessages</a></span><span class="op">(</span><span class="op">{</span>
-  <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span>
+  <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span>
 <span class="op">}</span><span class="op">)</span>
 <span class="fu">cowplot</span><span class="fu">::</span><span class="fu"><a href="https://wilkelab.org/cowplot/reference/plot_grid.html">plot_grid</a></span><span class="op">(</span>plotlist <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="va">dre</span><span class="op">$</span><span class="va">plots</span><span class="op">$</span><span class="va">disthex</span>, <span class="kw">function</span><span class="op">(</span><span class="va">w</span><span class="op">)</span> <span class="va">w</span> <span class="op">+</span> 
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>axis.title <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">7</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></code></pre></div>
@@ -194,37 +195,37 @@
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">dre</span><span class="op">$</span><span class="va">scores</span>
 <span class="co">#&gt;             Method dimensionality SpearmanCorrDist PearsonCorrDist KSStatDist</span>
-<span class="co">#&gt; D...1       PCA_k2              2        0.9216613       0.9079754 0.28713427</span>
-<span class="co">#&gt; D...2  TSNE_perp30              2        0.7896879       0.7608646 0.13884569</span>
-<span class="co">#&gt; D...3   TSNE_perp5              2        0.5992269       0.5741616 0.09989579</span>
-<span class="co">#&gt; D...4  TSNE_perp15              2        0.7452145       0.7253746 0.12072144</span>
-<span class="co">#&gt; D...5 TSNE_perp100              2        0.7953369       0.7729001 0.22622846</span>
-<span class="co">#&gt; D...6    UMAP_nn15              2        0.7900036       0.7796324 0.32515431</span>
-<span class="co">#&gt; D...7    UMAP_nn30              2        0.8380453       0.7890816 0.37980762</span>
+<span class="co">#&gt; D...1       PCA_k2              2        0.9367807       0.9301682 0.27420441</span>
+<span class="co">#&gt; D...2  TSNE_perp30              2        0.7865459       0.7764537 0.12905812</span>
+<span class="co">#&gt; D...3   TSNE_perp5              2        0.6031371       0.5951440 0.09446092</span>
+<span class="co">#&gt; D...4  TSNE_perp15              2        0.7430282       0.7415585 0.11578357</span>
+<span class="co">#&gt; D...5 TSNE_perp100              2        0.7900318       0.7943173 0.20996393</span>
+<span class="co">#&gt; D...6    UMAP_nn15              2        0.8056299       0.8110125 0.31223246</span>
+<span class="co">#&gt; D...7    UMAP_nn30              2        0.8468486       0.8138933 0.35921443</span>
 <span class="co">#&gt;       EuclDistBetweenDists SammonStress Trustworthiness_k10 Continuity_k10</span>
-<span class="co">#&gt; D...1            0.2978871    0.1202353           0.9088978      0.9436780</span>
-<span class="co">#&gt; D...2            0.2959054    0.0989023           0.9640883      0.9643121</span>
-<span class="co">#&gt; D...3            0.3690502    0.1470053           0.9457920      0.9444698</span>
-<span class="co">#&gt; D...4            0.3070370    0.1058147           0.9576578      0.9576892</span>
-<span class="co">#&gt; D...5            0.3287712    0.1277340           0.9664879      0.9688161</span>
-<span class="co">#&gt; D...6            0.3854195    0.1895735           0.9559249      0.9619979</span>
-<span class="co">#&gt; D...7            0.4197961    0.2273575           0.9536830      0.9654365</span>
+<span class="co">#&gt; D...1            0.2771689   0.10947160           0.9170320      0.9483154</span>
+<span class="co">#&gt; D...2            0.2857701   0.09460196           0.9660206      0.9661011</span>
+<span class="co">#&gt; D...3            0.3596120   0.14170400           0.9504772      0.9476561</span>
+<span class="co">#&gt; D...4            0.2983369   0.10188728           0.9610720      0.9611513</span>
+<span class="co">#&gt; D...5            0.3122585   0.11984121           0.9688211      0.9702275</span>
+<span class="co">#&gt; D...6            0.3638978   0.17515071           0.9608702      0.9648153</span>
+<span class="co">#&gt; D...7            0.3973248   0.21025557           0.9607410      0.9666749</span>
 <span class="co">#&gt;       Trustworthiness_k75 Continuity_k75 MeanJaccard_k10 MeanJaccard_k75</span>
-<span class="co">#&gt; D...1           0.9336324      0.9520386       0.1789727       0.4747248</span>
-<span class="co">#&gt; D...2           0.9385151      0.9490815       0.3409938       0.5424694</span>
-<span class="co">#&gt; D...3           0.8858727      0.9082988       0.2833684       0.4638708</span>
-<span class="co">#&gt; D...4           0.9303383      0.9419687       0.3188602       0.5305118</span>
-<span class="co">#&gt; D...5           0.9487144      0.9583374       0.3482541       0.5778775</span>
-<span class="co">#&gt; D...6           0.9429408      0.9525063       0.3014657       0.5444851</span>
-<span class="co">#&gt; D...7           0.9437340      0.9554762       0.2949134       0.5490666</span>
+<span class="co">#&gt; D...1           0.9455914      0.9585972       0.1835645       0.4905655</span>
+<span class="co">#&gt; D...2           0.9526465      0.9541901       0.3288548       0.5748905</span>
+<span class="co">#&gt; D...3           0.8917741      0.9149898       0.2816985       0.4850110</span>
+<span class="co">#&gt; D...4           0.9434614      0.9479626       0.3121484       0.5584635</span>
+<span class="co">#&gt; D...5           0.9592421      0.9610578       0.3400926       0.5937184</span>
+<span class="co">#&gt; D...6           0.9537778      0.9586616       0.3056203       0.5750782</span>
+<span class="co">#&gt; D...7           0.9544984      0.9595118       0.2944973       0.5799182</span>
 <span class="co">#&gt;       coRankingQlocal coRankingQglobal KmaxLCMC</span>
-<span class="co">#&gt; D...1       0.4183501        0.2726125      124</span>
-<span class="co">#&gt; D...2       0.4964835        0.2699103       52</span>
-<span class="co">#&gt; D...3       0.4288789        0.2060274       54</span>
-<span class="co">#&gt; D...4       0.4764225        0.2551286       53</span>
-<span class="co">#&gt; D...5       0.5174982        0.2867527       53</span>
-<span class="co">#&gt; D...6       0.4733726        0.2644692       55</span>
-<span class="co">#&gt; D...7       0.4759373        0.2850775       55</span>
+<span class="co">#&gt; D...1       0.4369996        0.2794613      133</span>
+<span class="co">#&gt; D...2       0.5033451        0.2695844       58</span>
+<span class="co">#&gt; D...3       0.4246269        0.2055429       52</span>
+<span class="co">#&gt; D...4       0.4870761        0.2539477       59</span>
+<span class="co">#&gt; D...5       0.5224393        0.2863049       58</span>
+<span class="co">#&gt; D...6       0.4835523        0.2732865       60</span>
+<span class="co">#&gt; D...7       0.4829530        0.2924763       58</span>
 <span class="fu">cowplot</span><span class="fu">::</span><span class="fu"><a href="https://wilkelab.org/cowplot/reference/plot_grid.html">plot_grid</a></span><span class="op">(</span>plotlist <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="va">dre</span><span class="op">$</span><span class="va">plots</span><span class="op">$</span><span class="va">disthex</span>, <span class="kw">function</span><span class="op">(</span><span class="va">w</span><span class="op">)</span> <span class="va">w</span> <span class="op">+</span> 
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>axis.title <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">7</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></code></pre></div>
 <p><img src="dreval_files/figure-html/unnamed-chunk-7-1.png" width="768"></p>
@@ -241,7 +242,7 @@
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/message.html">suppressPackageStartupMessages</a></span><span class="op">(</span><span class="op">{</span>
   <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span>
   <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyr.tidyverse.org">tidyr</a></span><span class="op">)</span>
-  <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span>
+  <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span>
 <span class="op">}</span><span class="op">)</span>
 
 <span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>
@@ -275,7 +276,7 @@
 <a href="#session-info" class="anchor"></a>Session info</h1>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/sessionInfo.html">sessionInfo</a></span><span class="op">(</span><span class="op">)</span>
-<span class="co">#&gt; R Under development (unstable) (2020-11-25 r79505)</span>
+<span class="co">#&gt; R Under development (unstable) (2021-01-20 r79850)</span>
 <span class="co">#&gt; Platform: x86_64-apple-darwin17.0 (64-bit)</span>
 <span class="co">#&gt; Running under: macOS Catalina 10.15.7</span>
 <span class="co">#&gt; </span>
@@ -290,46 +291,46 @@
 <span class="co">#&gt; [1] stats     graphics  grDevices utils     datasets  methods   base     </span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; other attached packages:</span>
-<span class="co">#&gt; [1] ggplot2_3.3.2 dreval_0.1.4 </span>
+<span class="co">#&gt; [1] ggplot2_3.3.3 dreval_0.1.4 </span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; loaded via a namespace (and not attached):</span>
-<span class="co">#&gt;  [1] Rcpp_1.0.5                  lattice_0.20-41            </span>
+<span class="co">#&gt;  [1] Rcpp_1.0.6                  lattice_0.20-41            </span>
 <span class="co">#&gt;  [3] tidyr_1.1.2                 assertthat_0.2.1           </span>
 <span class="co">#&gt;  [5] rprojroot_2.0.2             digest_0.6.27              </span>
-<span class="co">#&gt;  [7] SingleCellExperiment_1.13.2 wordspace_0.2-6            </span>
-<span class="co">#&gt;  [9] R6_2.5.0                    GenomeInfoDb_1.27.1        </span>
+<span class="co">#&gt;  [7] SingleCellExperiment_1.13.4 wordspace_0.2-6            </span>
+<span class="co">#&gt;  [9] R6_2.5.0                    GenomeInfoDb_1.27.3        </span>
 <span class="co">#&gt; [11] sparsesvd_0.2               stats4_4.1.0               </span>
 <span class="co">#&gt; [13] evaluate_0.14               pillar_1.4.7               </span>
 <span class="co">#&gt; [15] coRanking_0.2.1             zlibbioc_1.37.0            </span>
-<span class="co">#&gt; [17] rlang_0.4.9                 hexbin_1.28.1              </span>
-<span class="co">#&gt; [19] S4Vectors_0.29.3            Matrix_1.2-18              </span>
-<span class="co">#&gt; [21] rmarkdown_2.5               pkgdown_1.6.1.9000         </span>
+<span class="co">#&gt; [17] rlang_0.4.10                hexbin_1.28.2              </span>
+<span class="co">#&gt; [19] S4Vectors_0.29.6            Matrix_1.3-2               </span>
+<span class="co">#&gt; [21] rmarkdown_2.6               pkgdown_1.6.1.9000         </span>
 <span class="co">#&gt; [23] labeling_0.4.2              textshaping_0.2.1          </span>
 <span class="co">#&gt; [25] desc_1.2.0                  stringr_1.4.0              </span>
 <span class="co">#&gt; [27] RCurl_1.98-1.2              munsell_0.5.0              </span>
-<span class="co">#&gt; [29] DelayedArray_0.17.4         compiler_4.1.0             </span>
-<span class="co">#&gt; [31] xfun_0.19                   pkgconfig_2.0.3            </span>
+<span class="co">#&gt; [29] DelayedArray_0.17.7         compiler_4.1.0             </span>
+<span class="co">#&gt; [31] xfun_0.20                   pkgconfig_2.0.3            </span>
 <span class="co">#&gt; [33] systemfonts_0.3.2           BiocGenerics_0.37.0        </span>
-<span class="co">#&gt; [35] htmltools_0.5.0             tidyselect_1.1.0           </span>
-<span class="co">#&gt; [37] SummarizedExperiment_1.21.0 tibble_3.0.4               </span>
-<span class="co">#&gt; [39] GenomeInfoDbData_1.2.4      IRanges_2.25.2             </span>
-<span class="co">#&gt; [41] matrixStats_0.57.0          withr_2.3.0                </span>
-<span class="co">#&gt; [43] crayon_1.3.4                dplyr_1.0.2                </span>
+<span class="co">#&gt; [35] htmltools_0.5.1             tidyselect_1.1.0           </span>
+<span class="co">#&gt; [37] SummarizedExperiment_1.21.1 tibble_3.0.5               </span>
+<span class="co">#&gt; [39] GenomeInfoDbData_1.2.4      IRanges_2.25.6             </span>
+<span class="co">#&gt; [41] matrixStats_0.57.0          withr_2.4.0                </span>
+<span class="co">#&gt; [43] crayon_1.3.4                dplyr_1.0.3                </span>
 <span class="co">#&gt; [45] MASS_7.3-53                 bitops_1.0-6               </span>
 <span class="co">#&gt; [47] grid_4.1.0                  gtable_0.3.0               </span>
-<span class="co">#&gt; [49] lifecycle_0.2.0             magrittr_2.0.1             </span>
-<span class="co">#&gt; [51] scales_1.1.1                stringi_1.5.3              </span>
-<span class="co">#&gt; [53] farver_2.0.3                XVector_0.31.0             </span>
-<span class="co">#&gt; [55] fs_1.5.0                    ellipsis_0.3.1             </span>
-<span class="co">#&gt; [57] ragg_0.4.0                  generics_0.1.0             </span>
-<span class="co">#&gt; [59] vctrs_0.3.5                 cowplot_1.1.0              </span>
-<span class="co">#&gt; [61] tools_4.1.0                 iotools_0.3-1              </span>
-<span class="co">#&gt; [63] Biobase_2.51.0              glue_1.4.2                 </span>
-<span class="co">#&gt; [65] purrr_0.3.4                 MatrixGenerics_1.3.0       </span>
-<span class="co">#&gt; [67] parallel_4.1.0              yaml_2.2.1                 </span>
-<span class="co">#&gt; [69] colorspace_2.0-0            cluster_2.1.0              </span>
-<span class="co">#&gt; [71] GenomicRanges_1.43.0        memoise_1.1.0              </span>
-<span class="co">#&gt; [73] knitr_1.30</span></code></pre></div>
+<span class="co">#&gt; [49] lifecycle_0.2.0             DBI_1.1.1                  </span>
+<span class="co">#&gt; [51] magrittr_2.0.1              scales_1.1.1               </span>
+<span class="co">#&gt; [53] stringi_1.5.3               farver_2.0.3               </span>
+<span class="co">#&gt; [55] XVector_0.31.1              fs_1.5.0                   </span>
+<span class="co">#&gt; [57] ellipsis_0.3.1              ragg_0.4.1                 </span>
+<span class="co">#&gt; [59] generics_0.1.0              vctrs_0.3.6                </span>
+<span class="co">#&gt; [61] cowplot_1.1.1               iotools_0.3-1              </span>
+<span class="co">#&gt; [63] tools_4.1.0                 Biobase_2.51.0             </span>
+<span class="co">#&gt; [65] glue_1.4.2                  purrr_0.3.4                </span>
+<span class="co">#&gt; [67] MatrixGenerics_1.3.0        parallel_4.1.0             </span>
+<span class="co">#&gt; [69] yaml_2.2.1                  colorspace_2.0-0           </span>
+<span class="co">#&gt; [71] cluster_2.1.0               GenomicRanges_1.43.3       </span>
+<span class="co">#&gt; [73] memoise_1.1.0               knitr_1.30</span></code></pre></div>
 </div>
 <div id="references" class="section level1">
 <h1 class="hasAnchor">
