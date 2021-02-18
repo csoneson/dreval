@@ -97,15 +97,15 @@
 <h3 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h3>
 <p>To install <code>dreval</code>, you need the <code>remotes</code> (or <code>devtools</code>) R package, which can be installed from CRAN. The following commands installs first <code>remotes</code>, then <code>dreval</code>.</p>
-<pre><code><a href="https://rdrr.io/r/utils/install.packages.html">install.packages("remotes")
+<pre><code><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages("remotes")
 remotes::install_github("csoneson/dreval")</a></code></pre>
 </div>
 <div id="application" class="section level3">
 <h3 class="hasAnchor">
 <a href="#application" class="anchor"></a>Application</h3>
-<p>The input to <code>dreval</code> is a <a href="https://bioconductor.org/packages/SingleCellExperiment/"><code>SingleCellExperiment</code></a> object, containing one or more assays and one or more reduced dimension representation. By default, the <code>logcounts</code> assay will be used as the reference representation, against which each of the provided reduced dimension representations will be evaluated. However, any other assay or reduced dimension representation can be used as the reference data, by setting the arguments to the <code><a href="reference/dreval.html">dreval()</a></code> function accordingly.</p>
+<p>The input to <code>dreval</code> is a <a href="https://bioconductor.org/packages/SingleCellExperiment/" class="external-link"><code>SingleCellExperiment</code></a> object, containing one or more assays and one or more reduced dimension representation. By default, the <code>logcounts</code> assay will be used as the reference representation, against which each of the provided reduced dimension representations will be evaluated. However, any other assay or reduced dimension representation can be used as the reference data, by setting the arguments to the <code><a href="reference/dreval.html">dreval()</a></code> function accordingly.</p>
 <p>The package contains a small example single-cell RNA-seq data set with measurements for approximately 1,800 highly variable genes across 2,700 PBMCs. The object contains eight reduced dimension representations: 25-dimensional PCA, 2-dimensional PCA, and 2-dimensional t-SNE and 2-dimensional UMAP representations generated with different values of the perplexity/number of nearest neighbors. We use the <code><a href="reference/dreval.html">dreval()</a></code> function to evaluate how well each of these retain the structure of the cells based on the <code>logcounts</code> assay.</p>
-<pre><code><a href="https://rdrr.io/r/utils/data.html">data(pbmc3ksub)
+<pre><code><a href="https://rdrr.io/r/utils/data.html" class="external-link">data(pbmc3ksub)
 dre &lt;- dreval(sce = pbmc3ksub, refType = "assay", 
               refAssay = "logcounts", nSamples = 1000, kTM = 50)</a></code></pre>
 <p>For detailed information about the arguments to <code><a href="reference/dreval.html">dreval()</a></code> we refer to the help page of the function:</p>
@@ -118,9 +118,9 @@ dre &lt;- dreval(sce = pbmc3ksub, refType = "assay",
 <h3 class="hasAnchor">
 <a href="#related-material" class="anchor"></a>Related material</h3>
 <ul>
-<li>A python framework for reduced dimension representation evaluation was proposed by <a href="https://www.biorxiv.org/content/10.1101/684340v1.abstract">Heiser and Lau (2019)</a>. Code is available on <a href="https://github.com/KenLauLab/DR-structure-preservation">GitHub</a>. This study proposed to use the Mantel correlation between distance matrices, the Earth Mover’s Distance between distance distributions, and the percentage of total binary elements of the KNN matrix that are conserved as evaluation metrics.</li>
-<li>The <a href="https://cran.r-project.org/web/packages/dimRed/index.html">dimRed</a> R package implements a collection of quality scores for reduced dimension representations, including Q_local, Q_global (based on the co-ranking matrix) and various correlation measures.</li>
-<li>The <a href="https://github.com/jlmelville/quadra">quadra</a> R package implements quality scores for reduced dimension representations based on preservation of neighborhoods and agreement with known labels.</li>
+<li>A python framework for reduced dimension representation evaluation was proposed by <a href="https://www.biorxiv.org/content/10.1101/684340v1.abstract" class="external-link">Heiser and Lau (2019)</a>. Code is available on <a href="https://github.com/KenLauLab/DR-structure-preservation" class="external-link">GitHub</a>. This study proposed to use the Mantel correlation between distance matrices, the Earth Mover’s Distance between distance distributions, and the percentage of total binary elements of the KNN matrix that are conserved as evaluation metrics.</li>
+<li>The <a href="https://cran.r-project.org/web/packages/dimRed/index.html" class="external-link">dimRed</a> R package implements a collection of quality scores for reduced dimension representations, including Q_local, Q_global (based on the co-ranking matrix) and various correlation measures.</li>
+<li>The <a href="https://github.com/jlmelville/quadra" class="external-link">quadra</a> R package implements quality scores for reduced dimension representations based on preservation of neighborhoods and agreement with known labels.</li>
 </ul>
 </div>
 </div>
@@ -128,7 +128,7 @@ dre &lt;- dreval(sce = pbmc3ksub, refType = "assay",
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <div class="links">
-<h2>Links</h2>
+<h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
 <li>Browse source code at <br><a href="https://github.com/csoneson/dreval/">https://​github.com/​csoneson/​dreval/​</a>
 </li>
@@ -138,7 +138,7 @@ dre &lt;- dreval(sce = pbmc3ksub, refType = "assay",
 </div>
 
 <div class="license">
-<h2>License</h2>
+<h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">
 <li><a href="LICENSE.html">Full license</a></li>
 <li><small><a href="https://opensource.org/licenses/mit-license.php">MIT</a> + file <a href="LICENSE-text.html">LICENSE</a></small></li>
@@ -147,7 +147,7 @@ dre &lt;- dreval(sce = pbmc3ksub, refType = "assay",
 
 
 <div class="developers">
-<h2>Developers</h2>
+<h2 data-toc-skip>Developers</h2>
 <ul class="list-unstyled">
 <li>
 <a href="https://csoneson.github.io">Charlotte Soneson</a> <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0003-3833-2169" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
@@ -155,10 +155,10 @@ dre &lt;- dreval(sce = pbmc3ksub, refType = "assay",
 </div>
 
 <div class="dev-status">
-<h2>Dev status</h2>
+<h2 data-toc-skip>Dev status</h2>
 <ul class="list-unstyled">
-<li><a href="https://codecov.io/github/csoneson/dreval"><img src="https://codecov.io/github/csoneson/dreval/coverage.svg?branch=master" alt="Codecov.io coverage status"></a></li>
-<li><a href="https://github.com/csoneson/dreval"><img src="https://github.com/csoneson/dreval/workflows/R-CMD-check/badge.svg" alt="R build status"></a></li>
+<li><a href="https://codecov.io/github/csoneson/dreval" class="external-link"><img src="https://codecov.io/github/csoneson/dreval/coverage.svg?branch=master" alt="Codecov.io coverage status"></a></li>
+<li><a href="https://github.com/csoneson/dreval" class="external-link"><img src="https://github.com/csoneson/dreval/workflows/R-CMD-check/badge.svg" alt="R build status"></a></li>
 </ul>
 </div>
 
