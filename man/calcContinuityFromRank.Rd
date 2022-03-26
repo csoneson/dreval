@@ -10,16 +10,15 @@ calcContinuityFromRank(rankReference, rankLowDim, kTM)
 \item{rankReference}{N x N matrix, each row/column corresponding to one
 sample. The value of entry (i, j) represents the position of sample i in
 the ranking of all samples with respect to their distance from sample j,
-based on the reference (high-dimensional) observed values. The most similar
-sample (i.e., sample j itself) has position 1.}
+based on the reference (high-dimensional) observed values. The sample
+itself has rank 0.}
 
 \item{rankLowDim}{N x N matrix, each row/column corresponding to one sample.
 The value of entry (i, j) represents the position of sample i in the
 ranking of all samples with respect to their distance from sample j, based
-on the low-dimensional representation. The most similar sample (i.e.,
-sample j itself) has position 1.}
+on the low-dimensional representation. The sample itself has rank 0.}
 
-\item{kTM}{The number of nearest neighbors}
+\item{kTM}{The number of nearest neighbors.}
 }
 \value{
 The continuity value.

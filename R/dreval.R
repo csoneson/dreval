@@ -290,9 +290,11 @@ dreval <- function(
     ## column, the row with the value 1 corresponds to the nearest neighbor,
     ## the one with the value 2 to the second nearest neighbor, etc.
     if (verbose) message("Getting ranks in high-dimensional space...")
-    rankReference <- apply(
-        as.matrix(distReference), 2, function(w) order(order(w))
-    )
+    drm <- as.matrix(distReference)
+    diag(drm) <- NA
+    rankReference <- apply(drm, 2, function(w) order(order(w)))
+    diag(rankReference) <- 0
+    rownames(rankReference) <- rownames(distReference)
 
     ## Define normalization constant for distances
     if (distNorm == "l2") {
@@ -330,9 +332,11 @@ dreval <- function(
         ## column, the row with the value 1 corresponds to the nearest neighbor,
         ## the one with the value 2 to the second nearest neighbor, etc.
         if (verbose) message("  Getting ranks in low-dimensional space...")
-        rankLowDim <- apply(
-            as.matrix(distLowDim), 2, function(w) order(order(w))
-        )
+        dlm <- as.matrix(distLowDim)
+        diag(dlm) <- NA
+        rankLowDim <- apply(dlm, 2, function(w) order(order(w)))
+        diag(rankLowDim) <- 0
+        rownames(rankLowDim) <- rownames(distLowDim)
 
         if (distNorm == "l2") {
             distNormLowDim <- sqrt(sum(distLowDim^2))

@@ -81,31 +81,43 @@ test_that("scores are calculated correctly", {
         dres$scores$Trustworthiness_k5,
         1 - 2/(N * k * (2 * N - 3 * k - 1)) *
             sum(sapply(1:ncol(ranks_orig), function(i) {
-                (ranks_orig[, i] - k) * (ranks_lowdim[, i] <= k) *
-                    (ranks_orig[, i] > k)
+                ((ranks_orig[, i] - 1) - k) * ((ranks_lowdim[, i] - 1) <= k) *
+                    ((ranks_orig[, i] - 1) > k)
             }))
     )
     expect_equal(
         dres$scores$Trustworthiness_k5,
         calcTrustworthinessFromDist(dists_orig, dists_lowdim, kTM = k)
     )
+    ## Compare to score obtained by https://github.com/ms609/TreeDist
+    expect_equal(dres$scores$Trustworthiness_k5, 0.9670435, tolerance = 1e-7)
+    expect_equal(calcTrustworthinessFromDist(dists_orig, dists_orig, kTM = 5), 1)
+    expect_equal(calcTrustworthinessFromDist(dists_orig, dists_lowdim, kTM = 75),
+                 0.9204667, tolerance = 1e-7)
     expect_equal(
         dres$scores$Continuity_k5,
         1 - 2/(N * k * (2 * N - 3 * k - 1)) *
             sum(sapply(1:ncol(ranks_lowdim), function(i) {
-                (ranks_lowdim[, i] - k) * (ranks_orig[, i] <= k) *
-                    (ranks_lowdim[, i] > k)
+                ((ranks_lowdim[, i] - 1) - k) * ((ranks_orig[, i] - 1) <= k) *
+                    ((ranks_lowdim[, i] - 1) > k)
             }))
     )
     expect_equal(
         dres$scores$Continuity_k5,
         calcContinuityFromDist(dists_orig, dists_lowdim, kTM = k)
     )
+    ## Compare to score obtained by https://github.com/ms609/TreeDist
+    expect_equal(dres$scores$Continuity_k5, 0.9683043, tolerance = 1e-7)
+    expect_equal(calcContinuityFromDist(dists_orig, dists_orig, kTM = 5), 1)
+    expect_equal(calcContinuityFromDist(dists_orig, dists_lowdim, kTM = 75),
+                 0.9272000, tolerance = 1e-7)
     expect_equal(
         dres$scores$MeanJaccard_k5,
         mean(sapply(1:ncol(ranks_orig), function(i) {
-            length(intersect(which(ranks_orig[, i] <= k), which(ranks_lowdim[, i] <= k))) /
-                length(union(which(ranks_orig[, i] <= k), which(ranks_lowdim[, i] <= k)))
+            length(intersect(which((ranks_orig[, i] - 1) <= k),
+                             which((ranks_lowdim[, i] - 1) <= k))) /
+                length(union(which((ranks_orig[, i] - 1) <= k),
+                             which((ranks_lowdim[, i] - 1) <= k)))
         }))
     )
 

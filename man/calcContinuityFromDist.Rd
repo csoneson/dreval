@@ -8,12 +8,14 @@ calcContinuityFromDist(distReference, distLowDim, kTM)
 }
 \arguments{
 \item{distReference}{N x N matrix or dist object, representing pairwise
-sample distances based on the reference (high-dimensional) observed values.}
+sample distances based on the reference (high-dimensional) observed values.
+For each column, samples (rows) will be ranked by the provided distances.}
 
-\item{kTM}{The number of nearest neighbors}
+\item{kTM}{The number of nearest neighbors (excluding the sample itself).}
 
 \item{rankLowDim}{N x N matrix or dist object, representing pairwise sample
-distances based on the low-dimensional representation.}
+distances based on the low-dimensional representation.
+For each column, samples (rows) will be ranked by the provided distances.}
 }
 \value{
 The continuity value.

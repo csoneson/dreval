@@ -23,21 +23,35 @@
 #'
 #' @param distReference N x N matrix or dist object, representing pairwise
 #'   sample distances based on the reference (high-dimensional) observed values.
+#'   For each column, samples (rows) will be ranked by the provided distances.
 #' @param rankLowDim N x N matrix or dist object, representing pairwise sample
 #'   distances based on the low-dimensional representation.
-#' @param kTM The number of nearest neighbors
+#'   For each column, samples (rows) will be ranked by the provided distances.
+#' @param kTM The number of nearest neighbors (excluding the sample itself).
 #'
 calcTrustworthinessFromDist <- function(distReference, distLowDim, kTM) {
     distReference <- as.matrix(distReference)
     distLowDim <- as.matrix(distLowDim)
 
+    ## Check that matrices have the same dimensions, and that the
+    ## observations are ordered in the same way
     stopifnot(ncol(distReference) == ncol(distLowDim))
     stopifnot(nrow(distReference) == nrow(distLowDim))
+    stopifnot(rownames(distReference) == colnames(distReference))
+    stopifnot(rownames(distReference) == rownames(distLowDim))
+    stopifnot(rownames(distLowDim) == colnames(distLowDim))
 
-    rankReference <- apply(as.matrix(distReference), 2,
-                          function(w) order(order(w)))
-    rankLowDim <- apply(as.matrix(distLowDim), 2,
-                        function(w) order(order(w)))
+    diag(distReference) <- NA
+    diag(distLowDim) <- NA
+
+    rankReference <- apply(distReference, 2, function(w) order(order(w)))
+    rankLowDim <- apply(distLowDim, 2, function(w) order(order(w)))
+
+    diag(rankReference) <- 0
+    diag(rankLowDim) <- 0
+
+    rownames(rankReference) <- rownames(distReference)
+    rownames(rankLowDim) <- rownames(distLowDim)
 
     calcTrustworthinessFromRank(rankReference = rankReference,
                                 rankLowDim = rankLowDim, kTM = kTM)
@@ -69,22 +83,31 @@ calcTrustworthinessFromDist <- function(distReference, distLowDim, kTM) {
 #' @param rankReference N x N matrix, each row/column corresponding to one
 #'   sample. The value of entry (i, j) represents the position of sample i in
 #'   the ranking of all samples with respect to their distance from sample j,
-#'   based on the reference (high-dimensional) observed values. The most similar
-#'   sample (i.e., sample j itself) has position 1.
+#'   based on the reference (high-dimensional) observed values. The sample
+#'   itself has rank 0.
 #' @param rankLowDim N x N matrix, each row/column corresponding to one sample.
 #'   The value of entry (i, j) represents the position of sample i in the
 #'   ranking of all samples with respect to their distance from sample j, based
-#'   on the low-dimensional representation. The most similar sample (i.e.,
-#'   sample j itself) has position 1.
-#' @param kTM The number of nearest neighbors
+#'   on the low-dimensional representation. The sample
+#'   itself has rank 0.
+#' @param kTM The number of nearest neighbors.
 #'
 calcTrustworthinessFromRank <- function(rankReference, rankLowDim, kTM) {
     stopifnot(ncol(rankReference) == ncol(rankLowDim))
     stopifnot(nrow(rankReference) == nrow(rankLowDim))
+    stopifnot(rownames(rankReference) == colnames(rankReference))
+    stopifnot(rownames(rankReference) == rownames(rankLowDim))
+    stopifnot(rownames(rankLowDim) == colnames(rankLowDim))
 
     N <- ncol(rankReference)
 
-    1 - 2/(N * kTM * (2 * N - 3 * kTM - 1)) *
+    if (kTM < N/2) {
+        normConst <- N * kTM * (2 * N - 3 * kTM - 1)
+    } else {
+        normConst <- N * (N - kTM) * (N - kTM - 1)
+    }
+
+    1 - 2/(normConst) *
         sum(vapply(seq_len(ncol(rankLowDim)), function(i) {
             sum((rankReference[, i] - kTM) * (rankLowDim[, i] <= kTM) *
                     (rankReference[, i] > kTM))
