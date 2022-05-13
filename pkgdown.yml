@@ -1,7 +1,7 @@
 pandoc: 2.7.3
-pkgdown: 1.6.1.9000
-pkgdown_sha: d49c3e8f3e9a244f25a22effa453b842640ef65c
+pkgdown: 2.0.3.9000
+pkgdown_sha: 9dee019f9983b86585a77a3b1a1459b9f0390fe6
 articles:
   dreval: dreval.html
-last_built: 2021-02-18T06:30Z
+last_built: 2022-05-13T11:43Z
 
