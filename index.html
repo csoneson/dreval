@@ -97,22 +97,22 @@
 <h3 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h3>
 <p>To install <code>dreval</code>, you need the <code>remotes</code> (or <code>devtools</code>) R package, which can be installed from CRAN. The following commands installs first <code>remotes</code>, then <code>dreval</code>.</p>
-<pre><code><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"remotes"</span><span class="op">)</span>
-<span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"csoneson/dreval"</span><span class="op">)</span></code></pre>
+<pre><code><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"remotes"</span><span class="op">)</span></span>
+<span><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"csoneson/dreval"</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="application">Application<a class="anchor" aria-label="anchor" href="#application"></a>
 </h3>
 <p>The input to <code>dreval</code> is a <a href="https://bioconductor.org/packages/SingleCellExperiment/" class="external-link"><code>SingleCellExperiment</code></a> object, containing one or more assays and one or more reduced dimension representation. By default, the <code>logcounts</code> assay will be used as the reference representation, against which each of the provided reduced dimension representations will be evaluated. However, any other assay or reduced dimension representation can be used as the reference data, by setting the arguments to the <code><a href="reference/dreval.html">dreval()</a></code> function accordingly.</p>
 <p>The package contains a small example single-cell RNA-seq data set with measurements for approximately 1,800 highly variable genes across 2,700 PBMCs. The object contains eight reduced dimension representations: 25-dimensional PCA, 2-dimensional PCA, and 2-dimensional t-SNE and 2-dimensional UMAP representations generated with different values of the perplexity/number of nearest neighbors. We use the <code><a href="reference/dreval.html">dreval()</a></code> function to evaluate how well each of these retain the structure of the cells based on the <code>logcounts</code> assay.</p>
-<pre><code><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">pbmc3ksub</span><span class="op">)</span>
-<span class="va">dre</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/dreval.html">dreval</a></span><span class="op">(</span>sce <span class="op">=</span> <span class="va">pbmc3ksub</span>, refType <span class="op">=</span> <span class="st">"assay"</span>, 
-              refAssay <span class="op">=</span> <span class="st">"logcounts"</span>, nSamples <span class="op">=</span> <span class="fl">1000</span>, kTM <span class="op">=</span> <span class="fl">50</span><span class="op">)</span></code></pre>
+<pre><code><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">pbmc3ksub</span><span class="op">)</span></span>
+<span><span class="va">dre</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/dreval.html">dreval</a></span><span class="op">(</span>sce <span class="op">=</span> <span class="va">pbmc3ksub</span>, refType <span class="op">=</span> <span class="st">"assay"</span>, </span>
+<span>              refAssay <span class="op">=</span> <span class="st">"logcounts"</span>, nSamples <span class="op">=</span> <span class="fl">1000</span>, kTM <span class="op">=</span> <span class="fl">50</span><span class="op">)</span></span></code></pre>
 <p>For detailed information about the arguments to <code><a href="reference/dreval.html">dreval()</a></code> we refer to the help page of the function:</p>
-<pre><code><span class="op">?</span><span class="va">dreval</span></code></pre>
+<pre><code><span><span class="op">?</span><span class="va">dreval</span></span></code></pre>
 <p>The output of <code><a href="reference/dreval.html">dreval()</a></code> is a list with two elements, named <code>scores</code> and <code>plots</code>. The <code>scores</code> element is a data.frame with all the calculated evaluation scores for each of the reduced dimension representations, while the <code>plots</code> element is a list of diagnostic plots.</p>
 <p>The <code><a href="reference/plotRankSummary.html">plotRankSummary()</a></code> function can be used to aggregate the information across all evaluation metrics. Each reduced dimension representation will be assigned a rank for each metric, and the sum of these ranks across all metrics, as well as the contribution from each metric, is visualized by the function. Metrics aimed at evaluating the preservation of global structure are colored blue, while those aimed at evaluating the preservation of local structure are colored red.</p>
-<pre><code><span class="fu"><a href="reference/plotRankSummary.html">plotRankSummary</a></span><span class="op">(</span><span class="va">dre</span><span class="op">$</span><span class="va">scores</span><span class="op">)</span></code></pre>
+<pre><code><span><span class="fu"><a href="reference/plotRankSummary.html">plotRankSummary</a></span><span class="op">(</span><span class="va">dre</span><span class="op">$</span><span class="va">scores</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="related-material">Related material<a class="anchor" aria-label="anchor" href="#related-material"></a>
@@ -178,7 +178,7 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.9000.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.9000.</p>
 </div>
 
       </footer>

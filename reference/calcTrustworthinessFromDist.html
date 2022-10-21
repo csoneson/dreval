@@ -86,7 +86,7 @@ parameter defines the size of the neighborhoods to consider.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">calcTrustworthinessFromDist</span><span class="op">(</span><span class="va">distReference</span>, <span class="va">distLowDim</span>, <span class="va">kTM</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">calcTrustworthinessFromDist</span><span class="op">(</span><span class="va">distReference</span>, <span class="va">distLowDim</span>, <span class="va">kTM</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -95,16 +95,23 @@ parameter defines the size of the neighborhoods to consider.</p>
 <dd><p>N x N matrix or dist object, representing pairwise
 sample distances based on the reference (high-dimensional) observed values.
 For each column, samples (rows) will be ranked by the provided distances.</p></dd>
+
+
 <dt>kTM</dt>
 <dd><p>The number of nearest neighbors (excluding the sample itself).</p></dd>
+
+
 <dt>rankLowDim</dt>
 <dd><p>N x N matrix or dist object, representing pairwise sample
 distances based on the low-dimensional representation.
 For each column, samples (rows) will be ranked by the provided distances.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>The trustworthiness value.</p>
+    
+
+<p>The trustworthiness value.</p>
     </div>
     <div id="references">
     <h2>References</h2>
@@ -130,7 +137,7 @@ For each column, samples (rows) will be ranked by the provided distances.</p></d
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.9000.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.9000.</p>
 </div>
 
       </footer></div>

@@ -78,13 +78,13 @@ respectively.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">plotRankSummary</span><span class="op">(</span>
-  <span class="va">dreSummary</span>,
-  metrics <span class="op">=</span> <span class="cn">NULL</span>,
-  sortBars <span class="op">=</span> <span class="st">"decreasing"</span>,
-  scoreType <span class="op">=</span> <span class="st">"rank"</span>,
-  tiesMethod <span class="op">=</span> <span class="st">"average"</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">plotRankSummary</span><span class="op">(</span></span>
+<span>  <span class="va">dreSummary</span>,</span>
+<span>  metrics <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  sortBars <span class="op">=</span> <span class="st">"decreasing"</span>,</span>
+<span>  scoreType <span class="op">=</span> <span class="st">"rank"</span>,</span>
+<span>  tiesMethod <span class="op">=</span> <span class="st">"average"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -93,15 +93,21 @@ respectively.</p>
 <dd><p>A <code>data.frame</code> with the values of the evaluation
 metrics, typically the <code>"scores"</code> element of the output of
 <code><a href="dreval.html">dreval()</a></code>.</p></dd>
+
+
 <dt>metrics</dt>
 <dd><p>A character vector with the metrics to include in the summary.
 Must be a subset of the column names of <code>dreSummary</code>. If <code>NULL</code>,
 all metrics will be used. It can also be "global" or "local", in which case
 all the global or local metrics, respectively, will be used.</p></dd>
+
+
 <dt>sortBars</dt>
 <dd><p>A character scalar indicating whether/how to sort the bars in
 the output. Either "decreasing", "increasing" or "none" (in which case the
 input order will be used).</p></dd>
+
+
 <dt>scoreType</dt>
 <dd><p>A character scalar indicating what type of values to show in
 the plot. Either "rank" or "rescale". If set to "rank", the representations
@@ -116,14 +122,19 @@ as setting <code>scoreType</code> to "rank". However, if some of the scores are
 very similar to each other, the "rescale" approach allows them to get a
 similar rank score rather than forcing a uniform difference between
 successive scores.</p></dd>
+
+
 <dt>tiesMethod</dt>
 <dd><p>A character scalar indicating how ties are handled if
 <code>scoreType</code> is "rank". Should be one of the values accepted by
 <code><a href="https://rdrr.io/r/base/rank.html" class="external-link">base::rank</a></code> ("average", "first", "last", "random", "max", "min").</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>Nothing is returned, but a plot is generated.</p>
+    
+
+<p>Nothing is returned, but a plot is generated.</p>
     </div>
     <div id="author">
     <h2>Author</h2>
@@ -132,11 +143,11 @@ successive scores.</p></dd>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">pbmc3ksub</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">dre</span> <span class="op">&lt;-</span> <span class="fu"><a href="dreval.html">dreval</a></span><span class="op">(</span>sce <span class="op">=</span> <span class="va">pbmc3ksub</span>, nSamples <span class="op">=</span> <span class="fl">150</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">plotRankSummary</span><span class="op">(</span><span class="va">dre</span><span class="op">$</span><span class="va">scores</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">pbmc3ksub</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">dre</span> <span class="op">&lt;-</span> <span class="fu"><a href="dreval.html">dreval</a></span><span class="op">(</span>sce <span class="op">=</span> <span class="va">pbmc3ksub</span>, nSamples <span class="op">=</span> <span class="fl">150</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">plotRankSummary</span><span class="op">(</span><span class="va">dre</span><span class="op">$</span><span class="va">scores</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="plotRankSummary-1.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -151,7 +162,7 @@ successive scores.</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.9000.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.9000.</p>
 </div>
 
       </footer></div>

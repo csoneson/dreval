@@ -98,49 +98,63 @@ results.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">dreval</span><span class="op">(</span>
-  <span class="va">sce</span>,
-  dimReds <span class="op">=</span> <span class="cn">NULL</span>,
-  refType <span class="op">=</span> <span class="st">"assay"</span>,
-  refAssay <span class="op">=</span> <span class="st">"logcounts"</span>,
-  refDimRed <span class="op">=</span> <span class="cn">NULL</span>,
-  features <span class="op">=</span> <span class="cn">NULL</span>,
-  nSamples <span class="op">=</span> <span class="cn">NULL</span>,
-  distNorm <span class="op">=</span> <span class="st">"none"</span>,
-  refDistMethod <span class="op">=</span> <span class="st">"euclidean"</span>,
-  kTM <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">100</span><span class="op">)</span>,
-  labelColumn <span class="op">=</span> <span class="cn">NULL</span>,
-  verbose <span class="op">=</span> <span class="cn">FALSE</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">dreval</span><span class="op">(</span></span>
+<span>  <span class="va">sce</span>,</span>
+<span>  dimReds <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  refType <span class="op">=</span> <span class="st">"assay"</span>,</span>
+<span>  refAssay <span class="op">=</span> <span class="st">"logcounts"</span>,</span>
+<span>  refDimRed <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  features <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  nSamples <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  distNorm <span class="op">=</span> <span class="st">"none"</span>,</span>
+<span>  refDistMethod <span class="op">=</span> <span class="st">"euclidean"</span>,</span>
+<span>  kTM <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">100</span><span class="op">)</span>,</span>
+<span>  labelColumn <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  verbose <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>sce</dt>
 <dd><p>A <code>SingleCellExperiment</code> object.</p></dd>
+
+
 <dt>dimReds</dt>
 <dd><p>A character vector with the names of the reduced dimension
 representations from <code>sce</code> to include in the evaluation. If
 <code>NULL</code>, all reduced dimension representations are included.</p></dd>
+
+
 <dt>refType</dt>
 <dd><p>A character scalar, either "assay" or "dimred", specifying
 whether to use an assay or a reduced dimension representation of <code>sce</code>
 as the reference data source.</p></dd>
+
+
 <dt>refAssay</dt>
 <dd><p>A character scalar giving the name of the assay from
 <code>sce</code> to use as the basis for the distance calculations in the
 reference space, if <code>refType</code> if <code>"assay"</code>.</p></dd>
+
+
 <dt>refDimRed</dt>
 <dd><p>A character scalar specifying the reduced dimension
 representation to use as the reference data representation if
 <code>refType</code> is <code>"dimred"</code>.</p></dd>
+
+
 <dt>features</dt>
 <dd><p>A character vector giving the IDs of the features to use for
 distance calculations from the chosen assay. Will be matched to the row
 names of <code>sce</code>.</p></dd>
+
+
 <dt>nSamples</dt>
 <dd><p>A numeric scalar, giving the number of columns to subsample
 (randomly) from <code>sce</code>.</p></dd>
+
+
 <dt>distNorm</dt>
 <dd><p>A character scalar, indicating how the distance vectors in
 the reference and low-dimensional spaces should be normalized before they
@@ -149,25 +163,36 @@ are compared. If set to "l2", the vectors are L2 normalized, if set to
 their length, and if set to any other value they are divided by the square
 root of their length, to avoid metrics scaling with the number of retained
 samples.</p></dd>
+
+
 <dt>refDistMethod</dt>
 <dd><p>A character scalar defining the distance measure to use
 in the reference space. Must be one of "euclidean", "manhattan", "maximum",
 "canberra" or "cosine". The distance in the low-dimensional representation
 will always be Euclidean.</p></dd>
+
+
 <dt>kTM</dt>
 <dd><p>An integer vector giving the number of neighbors to use for
 trustworthiness, continuity and Jaccard index calculations.</p></dd>
+
+
 <dt>labelColumn</dt>
 <dd><p>A character scalar defining a column of
 <code>colData(sce)</code> to use as the group assignments in the silhouette width
 calculations. If not provided, the silhouette widths are not calculated.</p></dd>
+
+
 <dt>verbose</dt>
 <dd><p>A logical scalar, indicating whether to print out progress
 messages.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A list with two elements:</p><ul><li><p>scores - A <code>data.frame</code> with values of all evaluation metrics,
+    
+
+<p>A list with two elements:</p><ul><li><p>scores - A <code>data.frame</code> with values of all evaluation metrics,
 across the dimension reduction methods. In addition to the metrics, it
 contains the dimensionality of the respective reduced dimension
 representations, and the value of K giving the highest value of LCMC (used
@@ -249,9 +274,9 @@ Verleysen 2009, Chen and Buja 2009).</p></li>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">pbmc3ksub</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">dre</span> <span class="op">&lt;-</span> <span class="fu">dreval</span><span class="op">(</span>sce <span class="op">=</span> <span class="va">pbmc3ksub</span>, nSamples <span class="op">=</span> <span class="fl">150</span><span class="op">)</span></span>
-<span class="r-in"></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">pbmc3ksub</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">dre</span> <span class="op">&lt;-</span> <span class="fu">dreval</span><span class="op">(</span>sce <span class="op">=</span> <span class="va">pbmc3ksub</span>, nSamples <span class="op">=</span> <span class="fl">150</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -266,7 +291,7 @@ Verleysen 2009, Chen and Buja 2009).</p></li>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.9000.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.9000.</p>
 </div>
 
       </footer></div>
