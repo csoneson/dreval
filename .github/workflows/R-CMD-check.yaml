@@ -23,6 +23,7 @@ jobs:
         - { os: macOS-latest, bioc: 'release', curlConfigPath: '/usr/bin/'}
         - { os: ubuntu-latest, bioc: 'release', cran: "https://demo.rstudiopm.com/all/__linux__/xenial/latest"}
         - { os: ubuntu-latest, image: 'bioconductor/bioconductor_docker:devel'}
+        - { os: ubuntu-latest, image: 'bioconductor/bioconductor_docker:RELEASE_3_18'}
 
     env:
       R_REMOTES_NO_ERRORS_FROM_WARNINGS: true
