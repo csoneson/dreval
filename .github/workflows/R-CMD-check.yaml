@@ -71,6 +71,7 @@ jobs:
         uses: r-lib/actions/setup-r-dependencies@v2
         with:
           extra-packages: any::rcmdcheck
+          pak-version: devel
 
       - name: Install system dependencies (macOS)
         if: runner.os == 'macOS'
