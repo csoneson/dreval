@@ -1,3 +1,7 @@
+# dreval 0.1.6
+
+* Fix documentation
+
 # dreval 0.1.5
 
 * Fix bug in trustworthiness and continuity calculations (the sample itself should not be considered among the k nearest neighbors). Thanks to @ms609 for reporting.
