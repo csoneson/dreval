@@ -24,7 +24,7 @@ Imports:
     grDevices,
     tidyr,
     magrittr
-RoxygenNote: 7.3.0
+RoxygenNote: 7.3.2
 Suggests: 
     knitr,
     rmarkdown,
