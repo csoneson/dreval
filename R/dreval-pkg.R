@@ -4,9 +4,8 @@
 #' representations, based on how well they retain structure from
 #' the original data set.
 #'
-#' @name dreval-pkg
-#' @docType package
-NULL
+#' @keywords internal
+"_PACKAGE"
 
 globalVariables(c(
     "reference", "lowdim", "stat", "density",
