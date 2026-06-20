@@ -20,5 +20,10 @@ Useful links:
 \author{
 \strong{Maintainer}: Charlotte Soneson \email{charlottesoneson@gmail.com} (\href{https://orcid.org/0000-0003-3833-2169}{ORCID})
 
+Authors:
+\itemize{
+  \item Charlotte Soneson \email{charlottesoneson@gmail.com} (\href{https://orcid.org/0000-0003-3833-2169}{ORCID})
+}
+
 }
 \keyword{internal}

@@ -24,7 +24,6 @@ Imports:
     grDevices,
     tidyr,
     magrittr
-RoxygenNote: 7.3.2
 Suggests: 
     knitr,
     rmarkdown,
@@ -36,3 +35,4 @@ VignetteBuilder: knitr
 URL: https://github.com/csoneson/dreval
 BugReports: https://github.com/csoneson/dreval/issues
 biocViews: DimensionReduction, PrincipalComponent, Visualization
+Config/roxygen2/version: 8.0.0
