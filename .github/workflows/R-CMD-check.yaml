@@ -29,7 +29,7 @@ jobs:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       CURL_CONFIG: ${{ matrix.config.curlConfigPath }}curl-config
-      cache-version: v1
+      cache-version: v2
 
     steps:
       - name: Check out repo
@@ -126,8 +126,10 @@ jobs:
         if: matrix.config.os == 'macOS-latest'
         run: |
           install.packages("covr")
-          covr::codecov(token = "${{secrets.CODECOV_TOKEN}}")
+          covr::codecov(quiet = FALSE)
         shell: Rscript {0}
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 
       - name: Deploy
         if: github.event_name == 'push' && github.ref == 'refs/heads/master' && matrix.config.os == 'macOS-latest'
